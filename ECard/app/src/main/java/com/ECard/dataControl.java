@@ -9,13 +9,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.StaticLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -30,6 +32,7 @@ public class  dataControl extends ActionBarActivity {
     EditText addressTextbox;
     EditText emailTextbox;
     EditText phoneNumberTextbox;
+    Spinner layoutSpinner;
 
     String address = null;
     private ProgressDialog progress;
@@ -57,9 +60,28 @@ public class  dataControl extends ActionBarActivity {
         emailTextbox = (EditText) findViewById(R.id.emailText);
         phoneNumberTextbox = (EditText) findViewById(R.id.phoneNumberText);
         btnSend = (Button)findViewById(R.id.sendBtn);
+        layoutSpinner = (Spinner)findViewById(R.id.layoutSpinner);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.layouts, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        layoutSpinner.setAdapter(adapter);
+        
+        layoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(dataControl.this, "Selected : " + adapter.getItem(i), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         new ConnectBT().execute();
 
@@ -82,6 +104,8 @@ public class  dataControl extends ActionBarActivity {
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -94,6 +118,7 @@ public class  dataControl extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void Disconnect()
     {

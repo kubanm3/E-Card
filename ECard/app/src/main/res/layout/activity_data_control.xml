@@ -9,6 +9,13 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <Spinner
+        android:id="@+id/layoutSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nameText"
+        android:layout_marginBottom="15dp"
+        android:spinnerMode="dropdown" />
 
     <EditText
         android:id="@+id/nameText"
@@ -63,4 +70,6 @@
         android:layout_marginBottom="369dp"
         android:hint="@string/companyHint"
         android:inputType="text" />
+
+
 </RelativeLayout>

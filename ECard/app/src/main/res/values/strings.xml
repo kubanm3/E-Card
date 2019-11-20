@@ -11,4 +11,12 @@
     <string name="about">Info</string>
     <string name="title_activity_led_control">E-Card</string>
     <string name="disconnectMenu">Disconnect</string>
+
+    <string-array name="layouts">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+    </string-array>
 </resources>
