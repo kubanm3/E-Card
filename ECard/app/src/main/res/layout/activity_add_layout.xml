@@ -1,17 +1,201 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.ECard.AddLayout">
 
-    <Button
-        android:id="@+id/save_list"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <EditText
+        android:id="@+id/layoutName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="34dp"
+        android:hint="@string/nameLayout"
+        android:inputType="text" />
 
-    <Button
-        android:id="@+id/bt_go_back"
+    <EditText
+        android:id="@+id/layoutOrient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
-</LinearLayout>
+        android:layout_below="@+id/layoutName"
+        android:layout_marginTop="13dp"
+        android:hint="@string/orientationLayout"
+        android:inputType="number" />
+
+
+    <EditText
+        android:id="@+id/layoutNameX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutOrient"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
+        android:hint="@string/nameXLayout"
+        android:inputType="number"
+        android:layout_marginStart="0dp" />
+
+    <EditText
+        android:id="@+id/layoutNameY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutOrient"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="end"
+        android:layout_marginRight="0dp"
+        android:hint="@string/nameYLayout"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/layoutCompanyX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutNameX"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
+        android:hint="@string/companyXLayout"
+        android:inputType="number"
+        android:layout_marginStart="0dp" />
+
+    <EditText
+        android:id="@+id/layoutCompanyY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutNameY"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:gravity="end"
+        android:hint="@string/companyYLayout"
+        android:inputType="number"
+        tools:ignore="TextFields" />
+
+
+    <EditText
+        android:id="@+id/layoutAddressX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutCompanyX"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
+        android:hint="@string/addressXLayout"
+        android:inputType="number"
+        android:layout_marginStart="0dp" />
+
+    <EditText
+        android:id="@+id/layoutAddressY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutCompanyY"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="0dp"
+        android:gravity="end"
+        android:hint="@string/addressYLayout"
+        android:inputType="number"
+        tools:ignore="TextFields"
+        android:layout_marginEnd="0dp" />
+
+    <EditText
+        android:id="@+id/layoutEmailX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutAddressX"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
+        android:hint="@string/emailXLayout"
+        android:inputType="number"
+        tools:ignore="TextFields"
+        android:layout_marginStart="0dp" />
+
+    <EditText
+        android:id="@+id/layoutEmailY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutAddressY"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:gravity="end"
+        android:hint="@string/emailYLayout"
+        android:inputType="number"
+        tools:ignore="TextFields" />
+
+    <EditText
+        android:id="@+id/layoutPhoneX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutEmailX"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
+        android:hint="@string/phoneXLayout"
+        android:inputType="number"
+        tools:ignore="TextFields"
+        android:layout_marginStart="0dp" />
+
+    <EditText
+        android:id="@+id/layoutPhoneY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutEmailY"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="0dp"
+        android:gravity="end"
+        android:hint="@string/phoneYLayout"
+        android:inputType="number"
+        tools:ignore="TextFields"
+        android:layout_marginEnd="0dp" />
+
+    <EditText
+        android:id="@+id/layoutID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutPhoneX"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
+        android:hint="@string/idLayout"
+        android:inputType="number"
+        tools:ignore="TextFields" />
+
+    <Button
+        android:id="@+id/saveLayoutBT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutPhoneY"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="0dp"
+        android:text="@string/saveBtn" />
+</RelativeLayout>

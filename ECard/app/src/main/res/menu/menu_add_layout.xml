@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.ECard.AddLayout">
+
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="100"
+        android:title="@string/about"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/editFromList"
+        android:orderInCategory="100"
+        android:title="@string/update_layout"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/deleteFromList"
+        android:orderInCategory="100"
+        android:title="@string/delete_layout"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/showFromList"
+        android:orderInCategory="100"
+        android:title="@string/view_all_layouts"
+        app:showAsAction="never" />
+</menu>

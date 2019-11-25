@@ -12,6 +12,23 @@
     <string name="title_activity_led_control">E-Card</string>
     <string name="disconnectMenu">Disconnect</string>
     <string name="layoutList">Add Layout</string>
+    <string name="saveBtn">Save</string>
+    <string name="nameLayout">Enter name of layout</string>
+    <string name="orientationLayout">Enter layout orientation</string>
+    <string name="nameXLayout">Enter X of name</string>
+    <string name="nameYLayout">Enter Y of name</string>
+    <string name="companyXLayout">Enter X of company</string>
+    <string name="companyYLayout">Enter Y of company</string>
+    <string name="addressXLayout">Enter X of address</string>
+    <string name="addressYLayout">Enter Y of address</string>
+    <string name="emailXLayout">Enter X of email</string>
+    <string name="emailYLayout">Enter Y of email</string>
+    <string name="phoneXLayout">Enter X of phone</string>
+    <string name="phoneYLayout">Enter Y of phone</string>
+    <string name="idLayout">ID</string>
+    <string name="update_layout">Update Layout</string>
+    <string name="delete_layout">Delete Layout</string>
+    <string name="view_all_layouts">View All Layouts</string>
 
     <string-array name="layouts">
         <item>Mercury</item>
