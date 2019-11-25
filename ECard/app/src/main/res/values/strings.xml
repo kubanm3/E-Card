@@ -11,6 +11,7 @@
     <string name="about">Info</string>
     <string name="title_activity_led_control">E-Card</string>
     <string name="disconnectMenu">Disconnect</string>
+    <string name="layoutList">Add Layout</string>
 
     <string-array name="layouts">
         <item>Mercury</item>

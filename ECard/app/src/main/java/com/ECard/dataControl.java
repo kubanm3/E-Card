@@ -115,6 +115,9 @@ public class  dataControl extends ActionBarActivity {
             case R.id.disconnect:
                 Disconnect();
                 return true;
+            case R.id.layoutList:
+                Intent intent = new Intent(this, AddLayout.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
