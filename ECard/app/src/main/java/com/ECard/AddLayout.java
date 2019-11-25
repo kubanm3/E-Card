@@ -1,9 +1,9 @@
 package com.ECard;
 
+
 import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class AddLayout extends ActionBarActivity {
+
+public class AddLayout extends BaseActivity {
 
     DatabaseHelper myDb;
     EditText editName, editOrientation, editNameX, editNameY, editCompanyX, editCompanyY,
@@ -41,6 +42,7 @@ public class AddLayout extends ActionBarActivity {
         editPhoneY = (EditText) findViewById(R.id.layoutPhoneY);
         editId = (EditText) findViewById(R.id.layoutID);
         btnAddData = (Button) findViewById(R.id.saveLayoutBT);
+
 
         AddData();
 
@@ -97,7 +99,6 @@ public class AddLayout extends ActionBarActivity {
         else
             Toast.makeText(AddLayout.this, "Data not updated", Toast.LENGTH_LONG).show();
     }
-
     public void AddData() {
         btnAddData.setOnClickListener(
                 new View.OnClickListener() {
@@ -110,9 +111,10 @@ public class AddLayout extends ActionBarActivity {
                                 editAddressX.getText().toString(), editAddressY.getText().toString(),
                                 editEmailX.getText().toString(), editEmailY.getText().toString(),
                                 editPhoneX.getText().toString(), editPhoneY.getText().toString());
-                        if (isInserted)
+                        if (isInserted) {
                             Toast.makeText(AddLayout.this, "Data inserted", Toast.LENGTH_LONG).show();
-                        else
+                            loadSpinnerData();
+                        } else
                             Toast.makeText(AddLayout.this, "Data not inserted", Toast.LENGTH_LONG).show();
                     }
                 }

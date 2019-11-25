@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "ECard.db";
     public static final String TABLE_NAME = "layouts";
@@ -66,6 +69,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
         return res;
     }
+
+    public List<String> getAllLabels(){
+        List<String> labels = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT LAYOUT_NAME FROM layouts", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+
+        return labels;
+    }
+
 
     public boolean updateData(String id, String layout_name, String orientation, String name_pos_x, String name_pos_y, String company_pos_x, String company_pos_y, String address_pos_x, String address_pos_y, String email_pos_x, String email_pos_y, String phone_pos_x, String phone_pos_y) {
         SQLiteDatabase db = this.getWritableDatabase();
