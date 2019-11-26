@@ -4,9 +4,15 @@
 #include <string.h>
 
 #include <GxEPD.h>
+
 #include <GxGDEH029A1/GxGDEH029A1.h>
+
+#include <Fonts/FreeMono9pt7b.h>
+#include <Fonts/FreeMono12pt7b.h>
+
 #include <GxIO/GxIO_SPI/GxIO_SPI.h>
 #include <GxIO/GxIO.h>
+
 
 GxIO_Class io(SPI, SS, 22, 21);
 GxEPD_Class display(io, 16, 4);
@@ -26,15 +32,13 @@ void setup()
   display.init();
   display.setRotation(1);
   display.setTextColor(GxEPD_BLACK);
-  delay(6000);
-
-  
+  delay(6000);  
 }
 
 void loop()
 {
   char input[INPUT_SIZE + 1];
-    char ch_arr[15][21]; 
+    char ch_arr[16][21]; 
     int i = 0;
   if (SerialBT.available())
   {
@@ -59,18 +63,27 @@ void loop()
       i++;
     }
     display.fillScreen(GxEPD_WHITE);
+    
+    display.setRotation(atoi(ch_arr[0]));
+    showFont("FreeMono12pt7b", &FreeMono12pt7b);
     display.setCursor(atoi(ch_arr[1]), atoi(ch_arr[2]));
-    display.println(ch_arr[0]);
-    display.setCursor(atoi(ch_arr[4]), atoi(ch_arr[5]));
     display.println(ch_arr[3]);
-    display.setCursor(atoi(ch_arr[7]), atoi(ch_arr[8]));
+    display.setCursor(atoi(ch_arr[4]), atoi(ch_arr[5]));
+    showFont("FreeMono9pt7b", &FreeMono9pt7b);
     display.println(ch_arr[6]);
-    display.setCursor(atoi(ch_arr[10]), atoi(ch_arr[11]));
+    display.setCursor(atoi(ch_arr[7]), atoi(ch_arr[8]));
     display.println(ch_arr[9]);
-    display.setCursor(atoi(ch_arr[13]), atoi(ch_arr[14]));
+    display.setCursor(atoi(ch_arr[10]), atoi(ch_arr[11]));
     display.println(ch_arr[12]);
+    display.setCursor(atoi(ch_arr[13]), atoi(ch_arr[14]));
+    display.println(ch_arr[15]);
     display.update();
     
   }
   delay(20);
+}
+
+void showFont(const char name[], const GFXfont* f)
+{
+  display.setFont(f);
 }
