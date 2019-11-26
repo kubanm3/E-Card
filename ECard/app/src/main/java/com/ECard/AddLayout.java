@@ -1,8 +1,7 @@
 package com.ECard;
 
-
 import android.app.AlertDialog;
-import android.database.Cursor;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 
 
 public class AddLayout extends BaseActivity {
@@ -67,7 +65,8 @@ public class AddLayout extends BaseActivity {
                 UpdateData();
                 return true;
             case R.id.deleteFromList:
-                DeleteData();
+                AlertDialog diaBox = AskOption();
+                diaBox.show();
                 return true;
             case R.id.showFromList:
                 viewAll();
@@ -99,6 +98,29 @@ public class AddLayout extends BaseActivity {
         else
             Toast.makeText(AddLayout.this, "Data not updated", Toast.LENGTH_LONG).show();
     }
+
+    private AlertDialog AskOption() {
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
+                // set message, title, and icon
+                .setTitle("Delete?")
+                .setMessage("Are you sure you want to delete this layout?")
+                .setPositiveButton("delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        DeleteData();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+
+        return myQuittingDialogBox;
+    }
+
     public void AddData() {
         btnAddData.setOnClickListener(
                 new View.OnClickListener() {
@@ -120,33 +142,4 @@ public class AddLayout extends BaseActivity {
                 }
         );
     }
-
-    public void viewAll() {
-        Cursor res = myDb.getAllData();
-        if (res.getCount() == 0) {
-            // show message
-            showMessage("Error", "Nothing found");
-            return;
-        }
-
-        StringBuffer buffer = new StringBuffer();
-        while (res.moveToNext()) {
-            buffer.append("Id :" + res.getString(0) + "\n");
-            buffer.append("Name :" + res.getString(1) + "\n");
-            buffer.append("Surname :" + res.getString(2) + "\n");
-            buffer.append("Marks :" + res.getString(3) + "\n\n");
-        }
-
-        // Show all data
-        showMessage("Data", buffer.toString());
-    }
-
-    public void showMessage(String title, String Message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
-
 }

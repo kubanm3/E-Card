@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class DeviceList extends ActionBarActivity
+public class DeviceList extends BaseActivity
 {
     Button btnPaired;
     ListView devicelist;
@@ -46,7 +45,7 @@ public class DeviceList extends ActionBarActivity
         if(myBluetooth == null)
         {
             //pokaz wiadomosci o niedostepnosci urzadzen bt
-            Toast.makeText(getApplicationContext(), "Urządzenia niedostępne.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Devices unavailable", Toast.LENGTH_LONG).show();
 
             //finish apk
             finish();
@@ -80,7 +79,15 @@ public class DeviceList extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.about:
-                Toast.makeText(this, "Autor: Jakub Legutko", Toast.LENGTH_SHORT).show();
+                String author = getString(R.string.author);
+                Toast.makeText(this, author, Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.layoutList:
+                Intent intent = new Intent(this, AddLayout.class);
+                startActivity(intent);
+                return true;
+            case R.id.showFromList:
+                viewAll();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -100,13 +107,12 @@ public class DeviceList extends ActionBarActivity
         }
         else
         {
-            Toast.makeText(getApplicationContext(), "Nie znaleziono połączonych urządzeń.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Didn't find connected devices", Toast.LENGTH_LONG).show();
         }
 
         final ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, list);
         devicelist.setAdapter(adapter);
         devicelist.setOnItemClickListener(myListClickListener);
-
     }
 
     private AdapterView.OnItemClickListener myListClickListener = new AdapterView.OnItemClickListener()

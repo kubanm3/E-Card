@@ -11,7 +11,7 @@
     <string name="about">Info</string>
     <string name="title_activity_led_control">E-Card</string>
     <string name="disconnectMenu">Disconnect</string>
-    <string name="layoutList">Add Layout</string>
+    <string name="layoutList">Layouts</string>
     <string name="saveBtn">Save</string>
     <string name="nameLayout">Enter name of layout</string>
     <string name="orientationLayout">Enter layout orientation</string>
@@ -29,6 +29,8 @@
     <string name="update_layout">Update Layout</string>
     <string name="delete_layout">Delete Layout</string>
     <string name="view_all_layouts">View All Layouts</string>
+    <string name="author">Author: Jakub Legutko</string>
+    <string name="devices">Devices</string>
 
 
 </resources>

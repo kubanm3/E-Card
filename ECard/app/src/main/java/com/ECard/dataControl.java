@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -31,6 +33,7 @@ public class dataControl extends BaseActivity {
     EditText emailTextbox;
     EditText phoneNumberTextbox;
     Spinner layoutSpinner;
+    Integer layoutId = 0;
 
     String address = null;
     private ProgressDialog progress;
@@ -62,12 +65,14 @@ public class dataControl extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        loadSpinnerData();
+        final List<String> ids = loadSpinnerData();
 
         layoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
+//                layoutId = i;
+                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i), Toast.LENGTH_LONG).show();
+                layoutId = Integer.valueOf(ids.get(i));
             }
 
             @Override
@@ -107,6 +112,10 @@ public class dataControl extends BaseActivity {
             case R.id.layoutList:
                 Intent intent = new Intent(this, AddLayout.class);
                 startActivity(intent);
+                return true;
+            case R.id.showFromList:
+                viewAll();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -128,43 +137,39 @@ public class dataControl extends BaseActivity {
     private void sendData() {
         if (btSocket != null) {
             try {
+                Cursor res = myDb.getLayoutData(layoutId);
+                if (res.getCount() == 0) {
+                    // show message
+                    msg("Error: Nothing found");
+                    return;
+                }
+
                 String name = nameTextbox.getText().toString();
                 String company = companyTextbox.getText().toString();
                 String address = addressTextbox.getText().toString();
                 String email = emailTextbox.getText().toString();
                 String phone = phoneNumberTextbox.getText().toString();
-                String msg = "";
-                msg += (name.equals("")) ? " " : name;
-                msg += ";";
-                msg += "20";
-                msg += ";";
-                msg += "20";
-                msg += ";";
-                msg += (company.equals("")) ? " " : company;
-                msg += ";";
-                msg += "20";
-                msg += ";";
-                msg += "30";
-                msg += ";";
-                msg += (address.equals("")) ? " " : address;
-                msg += ";";
-                msg += "20";
-                msg += ";";
-                msg += "80";
-                msg += ";";
-                msg += (email.equals("")) ? " " : email;
-                msg += ";";
-                msg += "140";
-                msg += ";";
-                msg += "80";
-                msg += ";";
-                msg += (phone.equals("")) ? " " : phone;
-                msg += ";";
-                msg += "140";
-                msg += ";";
-                msg += "90";
-                Log.d("msg", msg);
-                btSocket.getOutputStream().write(msg.getBytes());
+
+                StringBuffer buffer = new StringBuffer();
+                res.moveToFirst();
+                buffer.append(res.getInt(2)).append(";"); //orientation
+                buffer.append(res.getInt(3)).append(";"); //pos x name
+                buffer.append(res.getInt(4)).append(";"); // pos y name
+                buffer.append((name.equals("")) ? " ;" : (name + ";")); //name
+                buffer.append(res.getInt(5)).append(";"); //pos x company
+                buffer.append(res.getInt(6)).append(";"); //pos y company
+                buffer.append((company.equals("")) ? " ;" : (company + ";")); //company
+                buffer.append(res.getInt(7)).append(";"); //pos x address
+                buffer.append(res.getInt(8)).append(";"); //pos y address
+                buffer.append((address.equals("")) ? " ;" : (address + ";")); //address
+                buffer.append(res.getInt(9)).append(";"); //pos x email
+                buffer.append(res.getInt(10)).append(";"); //pos y email
+                buffer.append((email.equals("")) ? " ;" : (email + ";")); //email
+                buffer.append(res.getInt(11)).append(";"); //pos x phone
+                buffer.append(res.getInt(12)).append(";"); //pos y phone
+                buffer.append((phone.equals("")) ? " ;" : (phone + ";")); //phone
+
+                btSocket.getOutputStream().write(String.valueOf(buffer).getBytes());
             } catch (IOException e) {
                 msg("Error");
             }

@@ -70,38 +70,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public List<String> getAllLabels(){
+    public Cursor getLayoutData(Integer id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME + " WHERE ID = " + id, null);
+        return res;
+    }
+
+    public Cursor getAllLabels() {
         List<String> labels = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT LAYOUT_NAME FROM layouts", null);
+        Cursor cursor = db.rawQuery("SELECT ID ,LAYOUT_NAME FROM layouts", null);
 
         if (cursor.moveToFirst()) {
             do {
                 labels.add(cursor.getString(0));
+                labels.add(cursor.getString(1));
             } while (cursor.moveToNext());
         }
 
-
-        return labels;
+        return cursor;
     }
-
 
     public boolean updateData(String id, String layout_name, String orientation, String name_pos_x, String name_pos_y, String company_pos_x, String company_pos_y, String address_pos_x, String address_pos_y, String email_pos_x, String email_pos_y, String phone_pos_x, String phone_pos_y) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1, id);
-        contentValues.put(COL_2, layout_name);
-        contentValues.put(COL_3, orientation);
-        contentValues.put(COL_4, name_pos_x);
-        contentValues.put(COL_5, name_pos_y);
-        contentValues.put(COL_6, company_pos_x);
-        contentValues.put(COL_7, company_pos_y);
-        contentValues.put(COL_8, address_pos_x);
-        contentValues.put(COL_9, address_pos_y);
-        contentValues.put(COL_10, email_pos_x);
-        contentValues.put(COL_11, email_pos_y);
-        contentValues.put(COL_12, phone_pos_x);
-        contentValues.put(COL_13, phone_pos_y);
+        if (!id.equals(""))
+            contentValues.put(COL_1, id);
+        else
+            return false;
+        if (!layout_name.equals("")) contentValues.put(COL_2, layout_name);
+        if (!orientation.equals("")) contentValues.put(COL_3, orientation);
+        if (!name_pos_x.equals("")) contentValues.put(COL_4, name_pos_x);
+        if (!name_pos_y.equals("")) contentValues.put(COL_5, name_pos_y);
+        if (!company_pos_x.equals("")) contentValues.put(COL_6, company_pos_x);
+        if (!company_pos_y.equals("")) contentValues.put(COL_7, company_pos_y);
+        if (!address_pos_x.equals("")) contentValues.put(COL_8, address_pos_x);
+        if (!address_pos_y.equals("")) contentValues.put(COL_9, address_pos_y);
+        if (!email_pos_x.equals("")) contentValues.put(COL_10, email_pos_x);
+        if (!email_pos_y.equals("")) contentValues.put(COL_11, email_pos_y);
+        if (!phone_pos_x.equals("")) contentValues.put(COL_12, phone_pos_x);
+        if (!phone_pos_y.equals("")) contentValues.put(COL_13, phone_pos_y);
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
         return true;
     }
