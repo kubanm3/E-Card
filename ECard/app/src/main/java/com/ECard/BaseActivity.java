@@ -9,12 +9,11 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class BaseActivity extends ActionBarActivity {
+    ArrayAdapter<String> dataAdapter;
 
     DatabaseHelper myDb;
     Spinner layoutSpinner;
-
 
     public List<String> loadSpinnerData() {
         // database handler
@@ -32,17 +31,13 @@ public class BaseActivity extends ActionBarActivity {
             } while (cursor.moveToNext());
         }
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+        dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, labels);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // attaching data adapter to spinner
-        layoutSpinner.setAdapter(dataAdapter);
-
         return ids;
-
     }
 
     public void viewAll() {

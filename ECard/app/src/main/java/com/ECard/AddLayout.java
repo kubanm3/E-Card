@@ -11,13 +11,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 public class AddLayout extends BaseActivity {
 
     DatabaseHelper myDb;
     EditText editName, editOrientation, editNameX, editNameY, editCompanyX, editCompanyY,
-            editAddressX,
-            editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY, editId;
+            editAddressX, editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY, editId;
     Button btnAddData;
 
     @Override
@@ -40,7 +38,6 @@ public class AddLayout extends BaseActivity {
         editPhoneY = (EditText) findViewById(R.id.layoutPhoneY);
         editId = (EditText) findViewById(R.id.layoutID);
         btnAddData = (Button) findViewById(R.id.saveLayoutBT);
-
 
         AddData();
 
@@ -126,7 +123,7 @@ public class AddLayout extends BaseActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDb.insertData(editName.getText().toString(),
+                        boolean isInserted = myDb.insertDataLayout(editName.getText().toString(),
                                 editOrientation.getText().toString(),
                                 editNameX.getText().toString(), editNameY.getText().toString(),
                                 editCompanyX.getText().toString(), editCompanyY.getText().toString(),
@@ -136,6 +133,7 @@ public class AddLayout extends BaseActivity {
                         if (isInserted) {
                             Toast.makeText(AddLayout.this, "Data inserted", Toast.LENGTH_LONG).show();
                             loadSpinnerData();
+                            dataAdapter.notifyDataSetChanged();
                         } else
                             Toast.makeText(AddLayout.this, "Data not inserted", Toast.LENGTH_LONG).show();
                     }

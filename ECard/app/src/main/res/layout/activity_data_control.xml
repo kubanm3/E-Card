@@ -65,6 +65,15 @@
         android:layout_alignParentBottom="true"
         android:text="@string/btnSend" />
 
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/save_data" />
+
     <EditText
         android:id="@+id/companyText"
         android:layout_width="match_parent"

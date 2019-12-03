@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,15 +22,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-
 public class dataControl extends BaseActivity {
-
-    Button btnSend;
-    EditText nameTextbox;
-    EditText companyTextbox;
-    EditText addressTextbox;
-    EditText emailTextbox;
-    EditText phoneNumberTextbox;
+    Button btnSend, btnSave;
+    EditText nameTextbox, companyTextbox, addressTextbox, emailTextbox, phoneNumberTextbox;
     Spinner layoutSpinner;
     Integer layoutId = 0;
 
@@ -60,12 +53,56 @@ public class dataControl extends BaseActivity {
         emailTextbox = (EditText) findViewById(R.id.emailText);
         phoneNumberTextbox = (EditText) findViewById(R.id.phoneNumberText);
         btnSend = (Button) findViewById(R.id.sendBtn);
+        btnSave = (Button) findViewById(R.id.saveBtn);
         layoutSpinner = (Spinner) findViewById(R.id.layoutSpinner);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final List<String> ids = loadSpinnerData();
+
+        layoutSpinner.setAdapter(dataAdapter);
+        layoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i), Toast.LENGTH_LONG).show();
+                layoutId = Integer.valueOf(ids.get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        new ConnectBT().execute();
+
+        //commands to be sent to bluetooth
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendData();      //method to turn on
+            }
+        });
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isInserted =
+                        myDb.insertDataData(nameTextbox.getText().toString(), companyTextbox.getText().toString(),
+                                addressTextbox.getText().toString(), emailTextbox.getText().toString(), phoneNumberTextbox.getText().toString());
+                if (isInserted) {
+                    Toast.makeText(dataControl.this, "Data inserted", Toast.LENGTH_LONG).show();
+                    loadSpinnerData();
+                } else
+                    Toast.makeText(dataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final List<String> ids = loadSpinnerData();
+        layoutSpinner.setAdapter(dataAdapter);
 
         layoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -77,17 +114,6 @@ public class dataControl extends BaseActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        new ConnectBT().execute();
-
-        //commands to be sent to bluetooth
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendData();      //method to turn on
             }
         });
     }
@@ -120,7 +146,6 @@ public class dataControl extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     private void Disconnect() {
         if (btSocket != null) //If the btSocket is busy
         {
@@ -131,7 +156,6 @@ public class dataControl extends BaseActivity {
             }
         }
         finish(); //return to the first layout
-
     }
 
     private void sendData() {
@@ -215,7 +239,6 @@ public class dataControl extends BaseActivity {
         protected void onPostExecute(Void result) //after the doInBackground, it checks if everything went fine
         {
             super.onPostExecute(result);
-
             if (!ConnectSuccess) {
                 msg("Połączenie nieudane.");
                 finish();
