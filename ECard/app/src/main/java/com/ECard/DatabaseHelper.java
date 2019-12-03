@@ -54,6 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_LAYOUTS);
         db.execSQL(CREATE_TABLE_DATA);
+
+        putDefaultValueLayouts(db);
     }
 
     @Override
@@ -155,5 +157,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Integer deleteData(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME_LAYOUTS, "ID = ?", new String[]{id});
+    }
+
+    private void putDefaultValueLayouts(SQLiteDatabase db) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(LAYOUTS_NAME, "Default");
+        contentValues.put(LAYOUTS_ORIENTATION, "1");
+        contentValues.put(LAYOUTS_NAME_POS_X, "5");
+        contentValues.put(LAYOUTS_NAME_POS_Y, "20");
+        contentValues.put(LAYOUTS_COMPANY_POS_X, "5");
+        contentValues.put(LAYOUTS_COMPANY_POS_Y, "40");
+        contentValues.put(LAYOUTS_ADDRESS_POS_X, "5");
+        contentValues.put(LAYOUTS_ADDRESS_POS_Y, "60");
+        contentValues.put(LAYOUTS_EMAIL_POS_X, "5");
+        contentValues.put(LAYOUTS_EMAIL_POS_Y, "90");
+        contentValues.put(LAYOUTS_PHONE_POS_X, "5");
+        contentValues.put(LAYOUTS_PHONE_POS_Y, "110");
+        db.insert(TABLE_NAME_LAYOUTS, null, contentValues);
+
+        contentValues.put(LAYOUTS_NAME, "Default 2");
+        contentValues.put(LAYOUTS_ORIENTATION, "1");
+        contentValues.put(LAYOUTS_NAME_POS_X, "20");
+        contentValues.put(LAYOUTS_NAME_POS_Y, "20");
+        contentValues.put(LAYOUTS_COMPANY_POS_X, "20");
+        contentValues.put(LAYOUTS_COMPANY_POS_Y, "40");
+        contentValues.put(LAYOUTS_ADDRESS_POS_X, "20");
+        contentValues.put(LAYOUTS_ADDRESS_POS_Y, "60");
+        contentValues.put(LAYOUTS_EMAIL_POS_X, "100");
+        contentValues.put(LAYOUTS_EMAIL_POS_Y, "100");
+        contentValues.put(LAYOUTS_PHONE_POS_X, "100");
+        contentValues.put(LAYOUTS_PHONE_POS_Y, "120");
+        db.insert(TABLE_NAME_LAYOUTS, null, contentValues);
+
+        contentValues.put(LAYOUTS_NAME, "Default 3");
+        contentValues.put(LAYOUTS_ORIENTATION, "1");
+        contentValues.put(LAYOUTS_NAME_POS_X, "20");
+        contentValues.put(LAYOUTS_NAME_POS_Y, "20");
+        contentValues.put(LAYOUTS_COMPANY_POS_X, "20");
+        contentValues.put(LAYOUTS_COMPANY_POS_Y, "40");
+        contentValues.put(LAYOUTS_ADDRESS_POS_X, "110");
+        contentValues.put(LAYOUTS_ADDRESS_POS_Y, "60");
+        contentValues.put(LAYOUTS_EMAIL_POS_X, "110");
+        contentValues.put(LAYOUTS_EMAIL_POS_Y, "80");
+        contentValues.put(LAYOUTS_PHONE_POS_X, "110");
+        contentValues.put(LAYOUTS_PHONE_POS_Y, "100");
+        db.insert(TABLE_NAME_LAYOUTS, null, contentValues);
     }
 }
