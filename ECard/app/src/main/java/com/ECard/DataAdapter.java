@@ -20,15 +20,12 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder>  {
     public class DataViewHolder extends RecyclerView.ViewHolder {
         public TextView nameText;
         public TextView companyText;
-        public TextView addressText;
-        public TextView emailText;
-        public TextView phoneText;
 
         public DataViewHolder(View itemView) {
             super(itemView);
 
-            nameText = (TextView) itemView.findViewById(R.id.textview_name_item);
-            companyText = (TextView) itemView.findViewById(R.id.textview_company_item);
+            nameText = itemView.findViewById(R.id.textview_name_item);
+            companyText = itemView.findViewById(R.id.textview_company_item);
         }
     }
 

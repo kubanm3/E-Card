@@ -3,7 +3,7 @@ package com.ECard;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -11,8 +11,8 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseActivity extends ActionBarActivity {
-    ArrayAdapter<String> dataAdapter;
+public class BaseActivity extends AppCompatActivity {
+    ArrayAdapter dataAdapter;
 
     DatabaseHelper myDb;
     Spinner layoutSpinner;
@@ -22,7 +22,7 @@ public class BaseActivity extends ActionBarActivity {
     public List<String> loadSpinnerData() {
         // database handler
         myDb = new DatabaseHelper(this);
-        layoutSpinner = (Spinner) findViewById(R.id.layoutSpinner);
+        layoutSpinner = findViewById(R.id.layoutSpinner);
 
         // Spinner Drop down elements
         List<String> labels = new ArrayList<>();
