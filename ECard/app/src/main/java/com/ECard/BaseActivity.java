@@ -1,8 +1,10 @@
 package com.ECard;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -14,6 +16,8 @@ public class BaseActivity extends ActionBarActivity {
 
     DatabaseHelper myDb;
     Spinner layoutSpinner;
+    RecyclerView dataList;
+    DataAdapter mAdapter;
 
     public List<String> loadSpinnerData() {
         // database handler
@@ -26,8 +30,8 @@ public class BaseActivity extends ActionBarActivity {
         Cursor cursor = myDb.getAllLabels();
         if (cursor.moveToFirst()) {
             do {
-                labels.add(cursor.getString(1));
                 ids.add(cursor.getString(0));
+                labels.add(cursor.getString(1));
             } while (cursor.moveToNext());
         }
         // Creating adapter for spinner
@@ -38,6 +42,13 @@ public class BaseActivity extends ActionBarActivity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         return ids;
+    }
+
+    public DataAdapter getAllItemsData() {
+        myDb = new DatabaseHelper(this);
+        Cursor res = myDb.getAllItems();
+        mAdapter = new DataAdapter(this, res);
+        return mAdapter;
     }
 
     public void viewAll() {
@@ -75,6 +86,13 @@ public class BaseActivity extends ActionBarActivity {
         builder.setCancelable(true);
         builder.setTitle(title);
         builder.setMessage(Message);
-        builder.show();
+        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
     }
 }

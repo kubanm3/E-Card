@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +29,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String LAYOUTS_PHONE_POS_Y = "PHONE_POS_Y";
 
     //table for data
-    private static final String TABLE_NAME_DATA = "data";
-    private static final String DATA_ID = "ID";
-    private static final String DATA_NAME = "NAME";
-    private static final String DATA_COMPANY_NAME = "COMPANY_NAME";
-    private static final String DATA_ADDRESS = "ADDRESS";
-    private static final String DATA_EMAIL = "EMAIL";
-    private static final String DATA_PHONE = "PHONE";
+    public static final class DataEntry implements BaseColumns {
+        public static final String TABLE_NAME_DATA = "data";
+        public static final String DATA_ID = "ID";
+        public static final String DATA_NAME = "NAME";
+        public static final String DATA_COMPANY_NAME = "COMPANY_NAME";
+        public static final String DATA_ADDRESS = "ADDRESS";
+        public static final String DATA_EMAIL = "EMAIL";
+        public static final String DATA_PHONE = "PHONE";
+    }
 
     private static final String CREATE_TABLE_LAYOUTS =
             "CREATE TABLE " + TABLE_NAME_LAYOUTS + " (" + LAYOUTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + LAYOUTS_NAME
@@ -43,8 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + " INTEGER, " + LAYOUTS_PHONE_POS_Y + " INTEGER)";
 
     private static final String CREATE_TABLE_DATA =
-            "CREATE TABLE " + TABLE_NAME_DATA + " (" + DATA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DATA_NAME
-                    + " TEXT, " + DATA_COMPANY_NAME + " TEXT, " + DATA_ADDRESS + " TEXT, " + DATA_EMAIL + " TEXT, " + DATA_PHONE + " INTEGER)";
+            "CREATE TABLE " + DataEntry.TABLE_NAME_DATA + " (" + DataEntry.DATA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DataEntry.DATA_NAME
+                    + " TEXT, " + DataEntry.DATA_COMPANY_NAME + " TEXT, " + DataEntry.DATA_ADDRESS + " TEXT, " + DataEntry.DATA_EMAIL + " TEXT, " + DataEntry.DATA_PHONE + " INTEGER)";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -61,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_LAYOUTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_DATA);
+        db.execSQL("DROP TABLE IF EXISTS " + DataEntry.TABLE_NAME_DATA);
         onCreate(db);
     }
 
@@ -92,12 +95,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertDataData(String data_name, String data_company_name, String data_address, String data_email, String data_phone) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DATA_NAME, data_name);
-        contentValues.put(DATA_COMPANY_NAME, data_company_name);
-        contentValues.put(DATA_ADDRESS, data_address);
-        contentValues.put(DATA_EMAIL, data_email);
-        contentValues.put(DATA_PHONE, data_phone);
-        long result = db.insert(TABLE_NAME_DATA, null, contentValues);
+        contentValues.put(DataEntry.DATA_NAME, data_name);
+        contentValues.put(DataEntry.DATA_COMPANY_NAME, data_company_name);
+        contentValues.put(DataEntry.DATA_ADDRESS, data_address);
+        contentValues.put(DataEntry.DATA_EMAIL, data_email);
+        contentValues.put(DataEntry.DATA_PHONE, data_phone);
+        long result = db.insert(DataEntry.TABLE_NAME_DATA, null, contentValues);
         if (result == -1)
             return false;
         else
@@ -108,6 +111,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME_LAYOUTS, null);
         return res;
+    }
+
+    public Cursor getAllItems() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.query(
+                DataEntry.TABLE_NAME_DATA,
+                null,
+                null,
+                null,
+                null,
+                null,
+                DataEntry.DATA_ID + " DESC"
+        );
     }
 
     public Cursor getLayoutData(Integer id) {

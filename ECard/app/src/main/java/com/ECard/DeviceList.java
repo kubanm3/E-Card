@@ -1,8 +1,10 @@
 package com.ECard;
 
+import android.app.ActivityOptions;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -84,10 +86,22 @@ public class DeviceList extends BaseActivity
                 return true;
             case R.id.layoutList:
                 Intent intent = new Intent(this, AddLayout.class);
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intent);
+                }
                 return true;
             case R.id.showFromList:
                 viewAll();
+                return true;
+            case R.id.showDataList:
+                Intent intentData = new Intent(this, dataList.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentData, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentData);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

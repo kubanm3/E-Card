@@ -32,6 +32,8 @@
     <string name="author">Author: Jakub Legutko</string>
     <string name="devices">Devices</string>
     <string name="save_data">Save data</string>
+    <string name="data_list">Data list</string>
+    <string name="empty">Empty</string>
 
 
 </resources>

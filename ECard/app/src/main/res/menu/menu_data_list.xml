@@ -1,24 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.ECard.DeviceList">
+    tools:context="com.ECard.dataList">
 
     <item
         android:id="@+id/showFromList"
         android:orderInCategory="100"
         android:title="@string/view_all_layouts"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/layoutList"
-        android:orderInCategory="100"
-        android:title="@string/layoutList"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/showDataList"
-        android:orderInCategory="100"
-        android:title="@string/data_list"
         app:showAsAction="never" />
 
     <item

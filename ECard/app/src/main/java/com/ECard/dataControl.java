@@ -1,5 +1,6 @@
 package com.ECard;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -7,6 +8,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -137,7 +139,11 @@ public class dataControl extends BaseActivity {
                 return true;
             case R.id.layoutList:
                 Intent intent = new Intent(this, AddLayout.class);
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intent);
+                }
                 return true;
             case R.id.showFromList:
                 viewAll();
