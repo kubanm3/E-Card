@@ -148,6 +148,14 @@ public class dataControl extends BaseActivity {
             case R.id.showFromList:
                 viewAll();
                 return true;
+            case R.id.showDataList:
+                Intent intentData = new Intent(this, dataList.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentData, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentData);
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

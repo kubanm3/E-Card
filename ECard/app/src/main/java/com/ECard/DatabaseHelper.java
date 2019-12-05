@@ -122,9 +122,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                DataEntry.DATA_ID + " DESC"
+                DataEntry.DATA_ID + " ASC"
         );
     }
+
 
     public Cursor getLayoutData(Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -170,9 +171,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Integer deleteData(String id) {
+    public Integer deleteDataLayout(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME_LAYOUTS, "ID = ?", new String[]{id});
+    }
+
+    public Integer deleteDataData(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(DataEntry.TABLE_NAME_DATA, "ID = ?", new String[]{id});
     }
 
     private void putDefaultValueLayouts(SQLiteDatabase db) {

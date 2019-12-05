@@ -1,7 +1,10 @@
 package com.ECard;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -24,24 +27,24 @@ public class AddLayout extends BaseActivity {
         setContentView(R.layout.activity_add_layout);
         myDb = new DatabaseHelper(this);
 
-        editName = (EditText) findViewById(R.id.layoutName);
-        editOrientation = (EditText) findViewById(R.id.layoutOrient);
-        editNameX = (EditText) findViewById(R.id.layoutNameX);
-        editNameY = (EditText) findViewById(R.id.layoutNameY);
-        editCompanyX = (EditText) findViewById(R.id.layoutCompanyX);
-        editCompanyY = (EditText) findViewById(R.id.layoutCompanyY);
-        editAddressX = (EditText) findViewById(R.id.layoutAddressX);
-        editAddressY = (EditText) findViewById(R.id.layoutAddressY);
-        editEmailX = (EditText) findViewById(R.id.layoutEmailX);
-        editEmailY = (EditText) findViewById(R.id.layoutEmailY);
-        editPhoneX = (EditText) findViewById(R.id.layoutPhoneX);
-        editPhoneY = (EditText) findViewById(R.id.layoutPhoneY);
-        editId = (EditText) findViewById(R.id.layoutID);
-        btnAddData = (Button) findViewById(R.id.saveLayoutBT);
+        editName = findViewById(R.id.layoutName);
+        editOrientation = findViewById(R.id.layoutOrient);
+        editNameX = findViewById(R.id.layoutNameX);
+        editNameY = findViewById(R.id.layoutNameY);
+        editCompanyX = findViewById(R.id.layoutCompanyX);
+        editCompanyY = findViewById(R.id.layoutCompanyY);
+        editAddressX = findViewById(R.id.layoutAddressX);
+        editAddressY = findViewById(R.id.layoutAddressY);
+        editEmailX = findViewById(R.id.layoutEmailX);
+        editEmailY = findViewById(R.id.layoutEmailY);
+        editPhoneX = findViewById(R.id.layoutPhoneX);
+        editPhoneY = findViewById(R.id.layoutPhoneY);
+        editId = findViewById(R.id.layoutID);
+        btnAddData = findViewById(R.id.saveLayoutBT);
 
         AddData();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -68,12 +71,20 @@ public class AddLayout extends BaseActivity {
             case R.id.showFromList:
                 viewAll();
                 return true;
+            case R.id.showDataList:
+                Intent intentData = new Intent(this, dataList.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentData, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentData);
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void DeleteData() {
-        Integer deletedRows = myDb.deleteData(editId.getText().toString());
+        Integer deletedRows = myDb.deleteDataLayout(editId.getText().toString());
         if (deletedRows > 0)
             Toast.makeText(AddLayout.this, "Data deleted", Toast.LENGTH_LONG).show();
         else
@@ -97,7 +108,8 @@ public class AddLayout extends BaseActivity {
     }
 
     private AlertDialog AskOption() {
-        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
+
+        return new AlertDialog.Builder(this)
                 // set message, title, and icon
                 .setTitle("Delete?")
                 .setMessage("Are you sure you want to delete this layout?")
@@ -114,8 +126,6 @@ public class AddLayout extends BaseActivity {
                     }
                 })
                 .create();
-
-        return myQuittingDialogBox;
     }
 
     public void AddData() {

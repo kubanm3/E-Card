@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder>  {
-    private Context mContext;
+    public static Context mContext;
     private Cursor mCursor;
 
     public DataAdapter(Context context, Cursor cursor) {
@@ -35,6 +35,7 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder>  {
         View view = inflater.inflate(R.layout.data_item, parent, false);
         return new DataViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(DataViewHolder holder, int position) {
         if (!mCursor.moveToPosition(position)) {
@@ -43,9 +44,11 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder>  {
 
         String name = mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.DataEntry.DATA_NAME));
         String company = mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.DataEntry.DATA_COMPANY_NAME));
+        String id = mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.DataEntry.DATA_ID));
 
         holder.nameText.setText(name);
         holder.companyText.setText(company);
+        holder.itemView.setTag(id);
     }
 
     @Override
