@@ -11,7 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class AddLayout extends BaseActivity {
@@ -20,6 +23,9 @@ public class AddLayout extends BaseActivity {
     EditText editName, editOrientation, editNameX, editNameY, editCompanyX, editCompanyY,
             editAddressX, editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY, editId;
     Button btnAddData;
+    RadioGroup radioGroup;
+
+    Integer orientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,7 @@ public class AddLayout extends BaseActivity {
         myDb = new DatabaseHelper(this);
 
         editName = findViewById(R.id.layoutName);
-        editOrientation = findViewById(R.id.layoutOrient);
+        radioGroup = findViewById(R.id.layoutOrientRadio);
         editNameX = findViewById(R.id.layoutNameX);
         editNameY = findViewById(R.id.layoutNameY);
         editCompanyX = findViewById(R.id.layoutCompanyX);
@@ -41,6 +47,22 @@ public class AddLayout extends BaseActivity {
         editPhoneY = findViewById(R.id.layoutPhoneY);
         editId = findViewById(R.id.layoutID);
         btnAddData = findViewById(R.id.saveLayoutBT);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if (checkedId == R.id.vertical) {
+                    orientation = 0;
+                    Toast.makeText(getApplicationContext(), "Vertical orientation",
+                            Toast.LENGTH_SHORT).show();
+                } else if (checkedId == R.id.horizontal) {
+                    orientation = 1;
+                    Toast.makeText(getApplicationContext(), "Horizontal orientation",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         AddData();
 
@@ -96,7 +118,7 @@ public class AddLayout extends BaseActivity {
     public void UpdateData() {
         boolean isUpdate =
                 myDb.updateData(editId.getText().toString(), editName.getText().toString(),
-                        editOrientation.getText().toString(),
+                        orientation.toString(),
                         editNameX.getText().toString(), editNameY.getText().toString(),
                         editCompanyX.getText().toString(), editCompanyY.getText().toString(),
                         editAddressX.getText().toString(), editAddressY.getText().toString(),
@@ -135,7 +157,7 @@ public class AddLayout extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         boolean isInserted = myDb.insertDataLayout(editName.getText().toString(),
-                                editOrientation.getText().toString(),
+                                orientation.toString(),
                                 editNameX.getText().toString(), editNameY.getText().toString(),
                                 editCompanyX.getText().toString(), editCompanyY.getText().toString(),
                                 editAddressX.getText().toString(), editAddressY.getText().toString(),
