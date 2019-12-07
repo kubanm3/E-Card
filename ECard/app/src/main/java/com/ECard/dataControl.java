@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,16 +50,16 @@ public class dataControl extends BaseActivity {
         //view of datacontrol
         setContentView(R.layout.activity_data_control);
 
-        nameTextbox = (EditText) findViewById(R.id.nameText);
-        companyTextbox = (EditText) findViewById(R.id.companyText);
-        addressTextbox = (EditText) findViewById(R.id.addressText);
-        emailTextbox = (EditText) findViewById(R.id.emailText);
-        phoneNumberTextbox = (EditText) findViewById(R.id.phoneNumberText);
-        btnSend = (Button) findViewById(R.id.sendBtn);
-        btnSave = (Button) findViewById(R.id.saveBtn);
-        layoutSpinner = (Spinner) findViewById(R.id.layoutSpinner);
+        nameTextbox = findViewById(R.id.nameText);
+        companyTextbox = findViewById(R.id.companyText);
+        addressTextbox = findViewById(R.id.addressText);
+        emailTextbox = findViewById(R.id.emailText);
+        phoneNumberTextbox = findViewById(R.id.phoneNumberText);
+        btnSend = findViewById(R.id.sendBtn);
+        btnSave = findViewById(R.id.saveBtn);
+        layoutSpinner = findViewById(R.id.layoutSpinner);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final List<String> ids = loadSpinnerData();
@@ -67,8 +68,8 @@ public class dataControl extends BaseActivity {
         layoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i), Toast.LENGTH_LONG).show();
                 layoutId = Integer.valueOf(ids.get(i));
+                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -82,22 +83,18 @@ public class dataControl extends BaseActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendData();      //method to turn on
+                sendData();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isInserted =
-                        myDb.insertDataData(nameTextbox.getText().toString(), companyTextbox.getText().toString(),
-                                addressTextbox.getText().toString(), emailTextbox.getText().toString(), phoneNumberTextbox.getText().toString());
-                if (isInserted) {
-                    Toast.makeText(dataControl.this, "Data inserted", Toast.LENGTH_LONG).show();
-                    loadSpinnerData();
-                } else
-                    Toast.makeText(dataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
+
+//                Log.d( "layoutId",String.valueOf(layoutId) );
+                saveData();
             }
         });
+
     }
 
     @Override
@@ -212,6 +209,25 @@ public class dataControl extends BaseActivity {
                 msg("Error");
             }
         }
+    }
+
+    private void saveData() {
+        if (layoutId != 0) {
+            boolean isInserted =
+                    myDb.insertDataData(
+                            nameTextbox.getText().toString(),
+                            companyTextbox.getText().toString(),
+                            addressTextbox.getText().toString(),
+                            emailTextbox.getText().toString(),
+                            phoneNumberTextbox.getText().toString(),
+                            layoutId);
+            if (isInserted) {
+                Toast.makeText(dataControl.this, "Data inserted", Toast.LENGTH_LONG).show();
+                loadSpinnerData();
+            } else
+                Toast.makeText(dataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(dataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
     }
 
     // fast way to call Toast

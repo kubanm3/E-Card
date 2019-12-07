@@ -84,11 +84,12 @@ public class AddLayout extends BaseActivity {
     }
 
     public void DeleteData() {
-        Integer deletedRows = myDb.deleteDataLayout(editId.getText().toString());
-        if (deletedRows > 0)
-            Toast.makeText(AddLayout.this, "Data deleted", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(AddLayout.this, "Data not deleted", Toast.LENGTH_LONG).show();
+        try {
+            myDb.deleteDataLayout(editId.getText().toString());
+            Toast.makeText(AddLayout.this, "Layout deleted", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(AddLayout.this, "Layout not deleted, there is saved data using this layout!", Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -102,9 +103,9 @@ public class AddLayout extends BaseActivity {
                         editEmailX.getText().toString(), editEmailY.getText().toString(),
                         editPhoneX.getText().toString(), editPhoneY.getText().toString());
         if (isUpdate)
-            Toast.makeText(AddLayout.this, "Data updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddLayout.this, "Layout updated", Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(AddLayout.this, "Data not updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddLayout.this, "Layout not updated", Toast.LENGTH_LONG).show();
     }
 
     private AlertDialog AskOption() {

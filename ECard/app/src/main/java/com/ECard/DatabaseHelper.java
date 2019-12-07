@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
@@ -37,17 +38,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public static final String DATA_ADDRESS = "ADDRESS";
         public static final String DATA_EMAIL = "EMAIL";
         public static final String DATA_PHONE = "PHONE";
+        public static final String DATA_LAYOUT_ID = "LAYOUT_ID";
     }
 
     private static final String CREATE_TABLE_LAYOUTS =
-            "CREATE TABLE " + TABLE_NAME_LAYOUTS + " (" + LAYOUTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + LAYOUTS_NAME
-                    + " TEXT, " + LAYOUTS_ORIENTATION + " INTEGER," + LAYOUTS_NAME_POS_X + " INTEGER, " + LAYOUTS_NAME_POS_Y + " INTEGER, " + LAYOUTS_COMPANY_POS_X + " INTEGER, "
-                    + LAYOUTS_COMPANY_POS_Y + " INTEGER, " + LAYOUTS_ADDRESS_POS_X + " INTEGER, " + LAYOUTS_ADDRESS_POS_Y + " INTEGER, " + LAYOUTS_EMAIL_POS_X + " INTEGER, " + LAYOUTS_EMAIL_POS_Y + " INTEGER, " + LAYOUTS_PHONE_POS_X
-                    + " INTEGER, " + LAYOUTS_PHONE_POS_Y + " INTEGER)";
+            "CREATE TABLE "
+                    + TABLE_NAME_LAYOUTS + " ("
+                    + LAYOUTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + LAYOUTS_NAME + " TEXT, "
+                    + LAYOUTS_ORIENTATION + " INTEGER,"
+                    + LAYOUTS_NAME_POS_X + " INTEGER, "
+                    + LAYOUTS_NAME_POS_Y + " INTEGER, "
+                    + LAYOUTS_COMPANY_POS_X + " INTEGER, "
+                    + LAYOUTS_COMPANY_POS_Y + " INTEGER, "
+                    + LAYOUTS_ADDRESS_POS_X + " INTEGER, "
+                    + LAYOUTS_ADDRESS_POS_Y + " INTEGER, "
+                    + LAYOUTS_EMAIL_POS_X + " INTEGER, "
+                    + LAYOUTS_EMAIL_POS_Y + " INTEGER, "
+                    + LAYOUTS_PHONE_POS_X + " INTEGER, "
+                    + LAYOUTS_PHONE_POS_Y + " INTEGER)";
 
     private static final String CREATE_TABLE_DATA =
-            "CREATE TABLE " + DataEntry.TABLE_NAME_DATA + " (" + DataEntry.DATA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DataEntry.DATA_NAME
-                    + " TEXT, " + DataEntry.DATA_COMPANY_NAME + " TEXT, " + DataEntry.DATA_ADDRESS + " TEXT, " + DataEntry.DATA_EMAIL + " TEXT, " + DataEntry.DATA_PHONE + " INTEGER)";
+            "CREATE TABLE "
+                    + DataEntry.TABLE_NAME_DATA + " ("
+                    + DataEntry.DATA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + DataEntry.DATA_NAME + " TEXT, "
+                    + DataEntry.DATA_COMPANY_NAME + " TEXT, "
+                    + DataEntry.DATA_ADDRESS + " TEXT, "
+                    + DataEntry.DATA_EMAIL + " TEXT, "
+                    + DataEntry.DATA_PHONE + " INTEGER, "
+                    + DataEntry.DATA_LAYOUT_ID + " INTEGER, " +
+                    "FOREIGN KEY(" + DataEntry.DATA_LAYOUT_ID + ") REFERENCES " + TABLE_NAME_LAYOUTS + "(" + LAYOUTS_ID + "))";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -57,7 +78,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_LAYOUTS);
         db.execSQL(CREATE_TABLE_DATA);
-
         putDefaultValueLayouts(db);
     }
 
@@ -66,6 +86,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_LAYOUTS);
         db.execSQL("DROP TABLE IF EXISTS " + DataEntry.TABLE_NAME_DATA);
         onCreate(db);
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            db.setForeignKeyConstraintsEnabled(true);
+        } else {
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
     }
 
     public boolean insertDataLayout(String layout_name, String orientation, String name_pos_x, String name_pos_y,
@@ -92,7 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean insertDataData(String data_name, String data_company_name, String data_address, String data_email, String data_phone) {
+    public boolean insertDataData(String data_name, String data_company_name, String data_address, String data_email, String data_phone, Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DataEntry.DATA_NAME, data_name);
@@ -100,6 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(DataEntry.DATA_ADDRESS, data_address);
         contentValues.put(DataEntry.DATA_EMAIL, data_email);
         contentValues.put(DataEntry.DATA_PHONE, data_phone);
+        contentValues.put(DataEntry.DATA_LAYOUT_ID, id);
         long result = db.insert(DataEntry.TABLE_NAME_DATA, null, contentValues);
         if (result == -1)
             return false;
