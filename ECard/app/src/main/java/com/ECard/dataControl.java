@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,8 +29,9 @@ public class dataControl extends BaseActivity {
     EditText nameTextbox, companyTextbox, addressTextbox, emailTextbox, phoneNumberTextbox;
     Spinner layoutSpinner;
     Integer layoutId = 0;
+    int spinnerPosition = 0;
 
-    String address = null;
+    String address;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
     BluetoothSocket btSocket = null;
@@ -77,20 +77,24 @@ public class dataControl extends BaseActivity {
             }
         });
 
-        new ConnectBT().execute();
-
+        if (!isBtConnected) {
+            new ConnectBT().execute();
+        }
         //commands to be sent to bluetooth
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendData();
+                String name = nameTextbox.getText().toString();
+                String company = companyTextbox.getText().toString();
+                String address = addressTextbox.getText().toString();
+                String email = emailTextbox.getText().toString();
+                String phone = phoneNumberTextbox.getText().toString();
+                sendData(getDataToSend(name, company, address, email, phone,layoutId));
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Log.d( "layoutId",String.valueOf(layoutId) );
                 saveData();
             }
         });
@@ -102,12 +106,11 @@ public class dataControl extends BaseActivity {
         super.onResume();
         final List<String> ids = loadSpinnerData();
         layoutSpinner.setAdapter(dataAdapter);
+        layoutSpinner.setSelection(spinnerPosition);
 
         layoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                layoutId = i;
-                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i), Toast.LENGTH_LONG).show();
                 layoutId = Integer.valueOf(ids.get(i));
             }
 
@@ -115,6 +118,34 @@ public class dataControl extends BaseActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            String name = data.getStringExtra(EXTRA_NAME);
+            nameTextbox.setText(name);
+            String companyName = data.getStringExtra(EXTRA_COMPANY_NAME);
+            companyTextbox.setText(companyName);
+            String address_data = data.getStringExtra(EXTRA_ADDRESS);
+            addressTextbox.setText(address_data);
+            String email = data.getStringExtra(EXTRA_EMAIL);
+            emailTextbox.setText(email);
+            String phone = data.getStringExtra(EXTRA_PHONE);
+            phoneNumberTextbox.setText(phone);
+
+            int layout_id = data.getIntExtra(EXTRA_LAYOUT_ID, 1);
+            String layoutName = data.getStringExtra(EXTRA_LAYOUT_NAME);
+            if (layoutName != null) {
+                spinnerPosition = dataAdapter.getPosition(layoutName);
+                layoutSpinner.setSelection(spinnerPosition);
+            }
+
+            if (data.getBooleanExtra(EXTRA_BOOL,false)) {
+                sendData(getDataToSend(name, companyName, address_data, email, phone, layout_id));
+            }
+        }
+
     }
 
     @Override
@@ -147,11 +178,7 @@ public class dataControl extends BaseActivity {
                 return true;
             case R.id.showDataList:
                 Intent intentData = new Intent(this, dataList.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intentData, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-                } else {
-                    startActivity(intentData);
-                }
+                startActivityForResult(intentData, 2);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -169,46 +196,44 @@ public class dataControl extends BaseActivity {
         finish(); //return to the first layout
     }
 
-    private void sendData() {
+    private void sendData(StringBuffer buffer) {
         if (btSocket != null) {
             try {
-                Cursor res = myDb.getLayoutData(layoutId);
-                if (res.getCount() == 0) {
-                    // show message
-                    msg("Error: Nothing found");
-                    return;
-                }
-
-                String name = nameTextbox.getText().toString();
-                String company = companyTextbox.getText().toString();
-                String address = addressTextbox.getText().toString();
-                String email = emailTextbox.getText().toString();
-                String phone = phoneNumberTextbox.getText().toString();
-
-                StringBuffer buffer = new StringBuffer();
-                res.moveToFirst();
-                buffer.append(res.getInt(2)).append(";"); //orientation
-                buffer.append(res.getInt(3)).append(";"); //pos x name
-                buffer.append(res.getInt(4)).append(";"); // pos y name
-                buffer.append((name.equals("")) ? " ;" : (name + ";")); //name
-                buffer.append(res.getInt(5)).append(";"); //pos x company
-                buffer.append(res.getInt(6)).append(";"); //pos y company
-                buffer.append((company.equals("")) ? " ;" : (company + ";")); //company
-                buffer.append(res.getInt(7)).append(";"); //pos x address
-                buffer.append(res.getInt(8)).append(";"); //pos y address
-                buffer.append((address.equals("")) ? " ;" : (address + ";")); //address
-                buffer.append(res.getInt(9)).append(";"); //pos x email
-                buffer.append(res.getInt(10)).append(";"); //pos y email
-                buffer.append((email.equals("")) ? " ;" : (email + ";")); //email
-                buffer.append(res.getInt(11)).append(";"); //pos x phone
-                buffer.append(res.getInt(12)).append(";"); //pos y phone
-                buffer.append((phone.equals("")) ? " ;" : (phone + ";")); //phone
-
                 btSocket.getOutputStream().write(String.valueOf(buffer).getBytes());
             } catch (IOException e) {
                 msg("Error");
             }
         }
+    }
+
+    private StringBuffer getDataToSend(String name, String company, String address, String email, String phone, int layout_id) {
+        Cursor res = myDb.getLayoutData(layout_id);
+        if (res.getCount() == 0) {
+            // show message
+            msg("Error: Nothing found");
+            return null;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        res.moveToFirst();
+        buffer.append(res.getInt(2)).append(";"); //orientation
+        buffer.append(res.getInt(3)).append(";"); //pos x name
+        buffer.append(res.getInt(4)).append(";"); // pos y name
+        buffer.append((name.equals("")) ? " ;" : (name + ";")); //name
+        buffer.append(res.getInt(5)).append(";"); //pos x company
+        buffer.append(res.getInt(6)).append(";"); //pos y company
+        buffer.append((company.equals("")) ? " ;" : (company + ";")); //company
+        buffer.append(res.getInt(7)).append(";"); //pos x address
+        buffer.append(res.getInt(8)).append(";"); //pos y address
+        buffer.append((address.equals("")) ? " ;" : (address + ";")); //address
+        buffer.append(res.getInt(9)).append(";"); //pos x email
+        buffer.append(res.getInt(10)).append(";"); //pos y email
+        buffer.append((email.equals("")) ? " ;" : (email + ";")); //email
+        buffer.append(res.getInt(11)).append(";"); //pos x phone
+        buffer.append(res.getInt(12)).append(";"); //pos y phone
+        buffer.append((phone.equals("")) ? " ;" : (phone + ";")); //phone
+
+        return buffer;
     }
 
     private void saveData() {

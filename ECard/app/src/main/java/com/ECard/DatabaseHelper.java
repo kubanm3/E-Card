@@ -89,7 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onConfigure(SQLiteDatabase db){
+    public void onConfigure(SQLiteDatabase db) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             db.setForeignKeyConstraintsEnabled(true);
         } else {
@@ -209,6 +209,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Integer deleteDataData(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(DataEntry.TABLE_NAME_DATA, "ID = ?", new String[]{id});
+    }
+
+    public Cursor getDataData(Integer id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =
+                db.rawQuery("select D.NAME, D.COMPANY_NAME, D.ADDRESS, D.EMAIL, D.PHONE, L.LAYOUT_NAME, L.ID FROM " + DataEntry.TABLE_NAME_DATA + " D LEFT JOIN " + TABLE_NAME_LAYOUTS + " L ON D.LAYOUT_ID = L.ID WHERE D.ID = " + id, null);
+        return res;
     }
 
     private void putDefaultValueLayouts(SQLiteDatabase db) {

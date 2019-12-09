@@ -2,23 +2,31 @@ package com.ECard;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class BaseActivity extends AppCompatActivity {
     ArrayAdapter dataAdapter;
 
     DatabaseHelper myDb;
     Spinner layoutSpinner;
-    RecyclerView dataList;
     DataAdapter mAdapter;
+
+    public static String EXTRA_NAME = "com.ECard.EXTRA_NAME";
+    public static String EXTRA_COMPANY_NAME = "com.ECard.EXTRA_COMPANY_NAME";
+    public static String EXTRA_ADDRESS = "com.ECard.EXTRA_ADDRESS";
+    public static String EXTRA_EMAIL = "com.ECard.EXTRA_EMAIL";
+    public static String EXTRA_PHONE = "com.ECard.EXTRA_PHONE";
+    public static String EXTRA_LAYOUT_NAME = "com.ECard.EXTRA_LAYOUT_NAME";
+    public static String EXTRA_BOOL = "com.ECard.EXTRA_BOOL";
+    public static String EXTRA_LAYOUT_ID = "com.ECard.EXTRA_LAYOUT_ID";
 
     public List<String> loadSpinnerData() {
         // database handler
@@ -47,10 +55,44 @@ public class BaseActivity extends AppCompatActivity {
 
     public DataAdapter getAllItemsData() {
         myDb = new DatabaseHelper(this);
-        Cursor res = myDb.getAllItems();
-        mAdapter = new DataAdapter(this, res);
+        final Cursor res = myDb.getAllItems();
+        mAdapter = new DataAdapter(this, res, new DataAdapter.OnDataListener() {
+            @Override
+            public void onDataClick(int position) {
+                res.moveToPosition(position);
+                int id = res.getInt(0);
+                Cursor res = myDb.getDataData(id);
+
+                if (res.getCount() == 0) {
+                    return;
+                }
+
+                res.moveToFirst();
+                String name = res.getString(0);
+                String companyName = res.getString(1);
+                String address = res.getString(2);
+                String email = res.getString(3);
+                String phone = res.getString(4);
+                String layoutName = res.getString(5);
+                int layoutId = res.getInt(6);
+
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_NAME, name);
+                intent.putExtra(EXTRA_COMPANY_NAME, companyName);
+                intent.putExtra(EXTRA_ADDRESS, address);
+                intent.putExtra(EXTRA_EMAIL, email);
+                intent.putExtra(EXTRA_PHONE, phone);
+                intent.putExtra(EXTRA_LAYOUT_NAME, layoutName);
+                intent.putExtra(EXTRA_LAYOUT_ID, layoutId);
+                intent.putExtra(EXTRA_BOOL, true);
+
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
         return mAdapter;
     }
+
 
     public void viewAll() {
         myDb = new DatabaseHelper(this);
@@ -96,4 +138,5 @@ public class BaseActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
+
 }

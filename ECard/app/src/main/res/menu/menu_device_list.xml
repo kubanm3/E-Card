@@ -4,12 +4,6 @@
     tools:context="com.ECard.DeviceList">
 
     <item
-        android:id="@+id/showDataList"
-        android:orderInCategory="100"
-        android:title="@string/data_list"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/showFromList"
         android:orderInCategory="100"
         android:title="@string/view_all_layouts"
@@ -20,7 +14,6 @@
         android:orderInCategory="100"
         android:title="@string/layoutList"
         app:showAsAction="never" />
-
 
 
     <item

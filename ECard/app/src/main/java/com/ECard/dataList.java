@@ -1,5 +1,7 @@
 package com.ECard;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,11 +21,20 @@ import android.widget.Toast;
 import static android.widget.LinearLayout.VERTICAL;
 
 public class dataList extends BaseActivity {
+    public static String EXTRA_NAME = "com.ECard.EXTRA_NAME";
+    public static String EXTRA_COMPANY_NAME = "com.ECard.EXTRA_COMPANY_NAME";
+    public static String EXTRA_ADDRESS = "com.ECard.EXTRA_ADDRESS";
+    public static String EXTRA_EMAIL = "com.ECard.EXTRA_EMAIL";
+    public static String EXTRA_PHONE = "com.ECard.EXTRA_PHONE";
+    public static String EXTRA_LAYOUT_NAME = "com.ECard.EXTRA_LAYOUT_NAME";
 
     RecyclerView dataList;
     DataAdapter mAdapter;
-    private Drawable icon;
-    private ColorDrawable background;
+    private Drawable iconDelete;
+    private ColorDrawable backgroundDelete;
+
+    private Drawable iconEdit;
+    private ColorDrawable backgroundEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +43,13 @@ public class dataList extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        icon = ContextCompat.getDrawable(this,
+        iconDelete = ContextCompat.getDrawable(this,
                 R.drawable.ic_delete_sweep_white_36dp);
-        background = new ColorDrawable(Color.RED);
+        backgroundDelete = new ColorDrawable(Color.RED);
+
+        iconEdit = ContextCompat.getDrawable(this,
+                R.drawable.ic_edit_white_36dp);
+        backgroundEdit = new ColorDrawable(Color.GREEN);
 
         dataList = findViewById(R.id.dataListView);
         dataList.setLayoutManager(new LinearLayoutManager(this));
@@ -53,6 +68,7 @@ public class dataList extends BaseActivity {
                 return false;
             }
 
+
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 myDb.deleteDataData((String) viewHolder.itemView.getTag());
@@ -65,26 +81,67 @@ public class dataList extends BaseActivity {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 
                 View itemView = viewHolder.itemView;
-                int backgroundCornerOffset = 20; //so background is behind the rounded corners of itemView
 
-                int iconMargin = (itemView.getHeight() - icon.getIntrinsicHeight()) / 2;
-                int iconTop = itemView.getTop() + (itemView.getHeight() - icon.getIntrinsicHeight()) / 2;
-                int iconBottom = iconTop + icon.getIntrinsicHeight();
+                int iconMargin = (itemView.getHeight() - iconDelete.getIntrinsicHeight()) / 2;
+                int iconTop =
+                        itemView.getTop() + (itemView.getHeight() - iconDelete.getIntrinsicHeight()) / 2 - 10;
+                int iconBottom = iconTop + iconDelete.getIntrinsicHeight();
 
                 if (dX < 0) { // Swiping to the left
-                    int iconLeft = itemView.getRight() - iconMargin - icon.getIntrinsicWidth();
-                    int iconRight = itemView.getRight() - iconMargin;
-                    icon.setBounds(iconLeft, iconTop, iconRight, iconBottom);
+                    int iconLeft =
+                            itemView.getRight() - iconMargin - iconDelete.getIntrinsicWidth();
+                    int iconRight = itemView.getRight() - iconMargin - 10;
+                    iconDelete.setBounds(iconLeft, iconTop, iconRight, iconBottom);
 
-                    background.setBounds(itemView.getRight() + ((int) dX) - backgroundCornerOffset,
-                            itemView.getTop(), itemView.getRight(), itemView.getBottom());
+                    backgroundDelete.setBounds(itemView.getRight() + ((int) dX),itemView.getTop() - 36,
+                            itemView.getRight(), itemView.getBottom());
                 } else { // view is unSwiped
-                    icon.setBounds(0, 0, 0, 0);
-                    background.setBounds(0, 0, 0, 0);
+                    iconDelete.setBounds(0, 0, 0, 0);
+                    backgroundDelete.setBounds(0, 0, 0, 0);
                 }
 
-                background.draw(c);
-                icon.draw(c);
+                backgroundDelete.draw(c);
+                iconDelete.draw(c);
+            }
+        }).attachToRecyclerView(dataList);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                openDataControlActivityToEdit(viewHolder.itemView.getTag().toString());
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+                View itemView = viewHolder.itemView;
+
+                int iconMargin = (itemView.getHeight() - iconEdit.getIntrinsicHeight()) / 2;
+                int iconTop = itemView.getTop() + (itemView.getHeight() - iconEdit.getIntrinsicHeight()) / 2 - 10;
+                int iconBottom = iconTop + iconEdit.getIntrinsicHeight();
+
+                if (dX > 0) { // Swiping to the right
+                    int iconLeft = itemView.getLeft() + iconMargin;
+                    int iconRight = itemView.getLeft() + iconMargin + iconEdit.getIntrinsicWidth();
+                    iconEdit.setBounds(iconLeft, iconTop, iconRight, iconBottom);
+
+                    backgroundEdit.setBounds(itemView.getLeft() - 24, itemView.getTop() - 36,
+                            itemView.getLeft() + ((int) dX), itemView.getBottom());
+                } else { // view is unSwiped
+                    iconEdit.setBounds(0, 0, 0, 0);
+                    backgroundEdit.setBounds(0, 0, 0, 0);
+                }
+
+                backgroundEdit.draw(c);
+                iconEdit.draw(c);
             }
         }).attachToRecyclerView(dataList);
     }
@@ -110,4 +167,33 @@ public class dataList extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_data_list, menu);
         return true;
     }
+
+    public void openDataControlActivityToEdit(String id) {
+        Cursor res = myDb.getDataData(Integer.valueOf(id));
+
+        if (res.getCount() == 0) {
+            return;
+        }
+
+        res.moveToFirst();
+        String name = res.getString(0);
+        String companyName = res.getString(1);
+        String address = res.getString(2);
+        String email = res.getString(3);
+        String phone = res.getString(4);
+        String layoutName = res.getString(5);
+
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_NAME, name);
+        intent.putExtra(EXTRA_COMPANY_NAME, companyName);
+        intent.putExtra(EXTRA_ADDRESS, address);
+        intent.putExtra(EXTRA_EMAIL, email);
+        intent.putExtra(EXTRA_PHONE, phone);
+        intent.putExtra(EXTRA_LAYOUT_NAME, layoutName);
+
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+
 }
