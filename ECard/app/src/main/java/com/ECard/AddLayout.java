@@ -2,6 +2,8 @@ package com.ECard;
 
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -11,21 +13,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddLayout extends BaseActivity {
 
     DatabaseHelper myDb;
-    EditText editName, editOrientation, editNameX, editNameY, editCompanyX, editCompanyY,
+    EditText editName, editNameX, editNameY, editCompanyX, editCompanyY,
             editAddressX, editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY, editId;
     Button btnAddData;
     RadioGroup radioGroup;
 
     Integer orientation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,8 @@ public class AddLayout extends BaseActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
     }
 
     @Override
@@ -101,8 +106,34 @@ public class AddLayout extends BaseActivity {
                     startActivity(intentData);
                 }
                 return true;
+            case R.id.buttonShowHelpDialog:
+                showHelpDialog();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showHelpDialog() {
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.help_dialog);
+        dialog.setTitle("Title...");
+
+        // set the custom dialog components - text, image and button
+        TextView text = dialog.findViewById(R.id.text);
+        text.setText("Android custom dialog example!");
+        ImageView image = dialog.findViewById(R.id.image);
+        image.setImageResource(R.drawable.ic_delete_sweep_white_36dp);
+
+        Button dialogButton = dialog.findViewById(R.id.dialogButtonOK);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     public void DeleteData() {
