@@ -1,26 +1,38 @@
 package com.ECard;
 
-
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
-import android.database.Cursor;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
-
-
 
 public class AddLayout extends BaseActivity {
 
     DatabaseHelper myDb;
-    EditText editName, editOrientation, editNameX, editNameY, editCompanyX, editCompanyY,
-            editAddressX,
-            editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY, editId;
+    EditText editName, editNameX, editNameY, editCompanyX, editCompanyY,
+            editAddressX, editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY, editId;
     Button btnAddData;
+    RadioGroup radioGroup;
+
+    Integer orientation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +40,43 @@ public class AddLayout extends BaseActivity {
         setContentView(R.layout.activity_add_layout);
         myDb = new DatabaseHelper(this);
 
-        editName = (EditText) findViewById(R.id.layoutName);
-        editOrientation = (EditText) findViewById(R.id.layoutOrient);
-        editNameX = (EditText) findViewById(R.id.layoutNameX);
-        editNameY = (EditText) findViewById(R.id.layoutNameY);
-        editCompanyX = (EditText) findViewById(R.id.layoutCompanyX);
-        editCompanyY = (EditText) findViewById(R.id.layoutCompanyY);
-        editAddressX = (EditText) findViewById(R.id.layoutAddressX);
-        editAddressY = (EditText) findViewById(R.id.layoutAddressY);
-        editEmailX = (EditText) findViewById(R.id.layoutEmailX);
-        editEmailY = (EditText) findViewById(R.id.layoutEmailY);
-        editPhoneX = (EditText) findViewById(R.id.layoutPhoneX);
-        editPhoneY = (EditText) findViewById(R.id.layoutPhoneY);
-        editId = (EditText) findViewById(R.id.layoutID);
-        btnAddData = (Button) findViewById(R.id.saveLayoutBT);
+        editName = findViewById(R.id.layoutName);
+        radioGroup = findViewById(R.id.layoutOrientRadio);
+        editNameX = findViewById(R.id.layoutNameX);
+        editNameY = findViewById(R.id.layoutNameY);
+        editCompanyX = findViewById(R.id.layoutCompanyX);
+        editCompanyY = findViewById(R.id.layoutCompanyY);
+        editAddressX = findViewById(R.id.layoutAddressX);
+        editAddressY = findViewById(R.id.layoutAddressY);
+        editEmailX = findViewById(R.id.layoutEmailX);
+        editEmailY = findViewById(R.id.layoutEmailY);
+        editPhoneX = findViewById(R.id.layoutPhoneX);
+        editPhoneY = findViewById(R.id.layoutPhoneY);
+        editId = findViewById(R.id.layoutID);
+        btnAddData = findViewById(R.id.saveLayoutBT);
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if (checkedId == R.id.vertical) {
+                    orientation = 0;
+                    Toast.makeText(getApplicationContext(), "Vertical orientation",
+                            Toast.LENGTH_SHORT).show();
+                } else if (checkedId == R.id.horizontal) {
+                    orientation = 1;
+                    Toast.makeText(getApplicationContext(), "Horizontal orientation",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         AddData();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
     }
 
     @Override
@@ -67,45 +96,104 @@ public class AddLayout extends BaseActivity {
                 UpdateData();
                 return true;
             case R.id.deleteFromList:
-                DeleteData();
+                AlertDialog diaBox = AskOption();
+                diaBox.show();
                 return true;
             case R.id.showFromList:
                 viewAll();
                 return true;
+            case R.id.showDataList:
+                Intent intentData = new Intent(this, dataList.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentData, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentData);
+                }
+                return true;
+            case R.id.buttonShowHelpDialog:
+                showHelpDialog();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void showHelpDialog() {
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.help_dialog);
+        dialog.setTitle("Title...");
+        dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 90), LinearLayout.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+
+        Button dialogButton = dialog.findViewById(R.id.dialogButtonOK);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public static int getWidth(Context context) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowmanager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
+    }
+
     public void DeleteData() {
-        Integer deletedRows = myDb.deleteData(editId.getText().toString());
-        if (deletedRows > 0)
-            Toast.makeText(AddLayout.this, "Data deleted", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(AddLayout.this, "Data not deleted", Toast.LENGTH_LONG).show();
+        try {
+            myDb.deleteDataLayout(editId.getText().toString());
+            Toast.makeText(AddLayout.this, "Layout deleted", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(AddLayout.this, "Layout not deleted, there is saved data using this layout!", Toast.LENGTH_LONG).show();
+        }
     }
 
 
     public void UpdateData() {
         boolean isUpdate =
                 myDb.updateData(editId.getText().toString(), editName.getText().toString(),
-                        editOrientation.getText().toString(),
+                        orientation.toString(),
                         editNameX.getText().toString(), editNameY.getText().toString(),
                         editCompanyX.getText().toString(), editCompanyY.getText().toString(),
                         editAddressX.getText().toString(), editAddressY.getText().toString(),
                         editEmailX.getText().toString(), editEmailY.getText().toString(),
                         editPhoneX.getText().toString(), editPhoneY.getText().toString());
         if (isUpdate)
-            Toast.makeText(AddLayout.this, "Data updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddLayout.this, "Layout updated", Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(AddLayout.this, "Data not updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddLayout.this, "Layout not updated", Toast.LENGTH_LONG).show();
     }
+
+    private AlertDialog AskOption() {
+
+        return new AlertDialog.Builder(this)
+                // set message, title, and icon
+                .setTitle("Delete?")
+                .setMessage("Are you sure you want to delete this layout?")
+                .setPositiveButton("delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        DeleteData();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+    }
+
     public void AddData() {
         btnAddData.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDb.insertData(editName.getText().toString(),
-                                editOrientation.getText().toString(),
+                        boolean isInserted = myDb.insertDataLayout(editName.getText().toString(),
+                                orientation.toString(),
                                 editNameX.getText().toString(), editNameY.getText().toString(),
                                 editCompanyX.getText().toString(), editCompanyY.getText().toString(),
                                 editAddressX.getText().toString(), editAddressY.getText().toString(),
@@ -114,39 +202,11 @@ public class AddLayout extends BaseActivity {
                         if (isInserted) {
                             Toast.makeText(AddLayout.this, "Data inserted", Toast.LENGTH_LONG).show();
                             loadSpinnerData();
+                            dataAdapter.notifyDataSetChanged();
                         } else
                             Toast.makeText(AddLayout.this, "Data not inserted", Toast.LENGTH_LONG).show();
                     }
                 }
         );
     }
-
-    public void viewAll() {
-        Cursor res = myDb.getAllData();
-        if (res.getCount() == 0) {
-            // show message
-            showMessage("Error", "Nothing found");
-            return;
-        }
-
-        StringBuffer buffer = new StringBuffer();
-        while (res.moveToNext()) {
-            buffer.append("Id :" + res.getString(0) + "\n");
-            buffer.append("Name :" + res.getString(1) + "\n");
-            buffer.append("Surname :" + res.getString(2) + "\n");
-            buffer.append("Marks :" + res.getString(3) + "\n\n");
-        }
-
-        // Show all data
-        showMessage("Data", buffer.toString());
-    }
-
-    public void showMessage(String title, String Message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
-
 }

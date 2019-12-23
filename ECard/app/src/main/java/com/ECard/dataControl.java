@@ -1,14 +1,16 @@
 package com.ECard;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,20 +21,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
-
 public class dataControl extends BaseActivity {
-
-    Button btnSend;
-    EditText nameTextbox;
-    EditText companyTextbox;
-    EditText addressTextbox;
-    EditText emailTextbox;
-    EditText phoneNumberTextbox;
+    Button btnSend, btnSave;
+    EditText nameTextbox, companyTextbox, addressTextbox, emailTextbox, phoneNumberTextbox;
     Spinner layoutSpinner;
+    Integer layoutId = 0;
+    int spinnerPosition = 0;
 
-    String address = null;
+    String address;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
     BluetoothSocket btSocket = null;
@@ -51,40 +50,102 @@ public class dataControl extends BaseActivity {
         //view of datacontrol
         setContentView(R.layout.activity_data_control);
 
-        nameTextbox = (EditText) findViewById(R.id.nameText);
-        companyTextbox = (EditText) findViewById(R.id.companyText);
-        addressTextbox = (EditText) findViewById(R.id.addressText);
-        emailTextbox = (EditText) findViewById(R.id.emailText);
-        phoneNumberTextbox = (EditText) findViewById(R.id.phoneNumberText);
-        btnSend = (Button) findViewById(R.id.sendBtn);
-        layoutSpinner = (Spinner) findViewById(R.id.layoutSpinner);
+        nameTextbox = findViewById(R.id.nameText);
+        companyTextbox = findViewById(R.id.companyText);
+        addressTextbox = findViewById(R.id.addressText);
+        emailTextbox = findViewById(R.id.emailText);
+        phoneNumberTextbox = findViewById(R.id.phoneNumberText);
+        btnSend = findViewById(R.id.sendBtn);
+        btnSave = findViewById(R.id.saveBtn);
+        layoutSpinner = findViewById(R.id.layoutSpinner);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        loadSpinnerData();
+        final List<String> ids = loadSpinnerData();
 
+        layoutSpinner.setAdapter(dataAdapter);
         layoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
+                layoutId = Integer.valueOf(ids.get(i));
+                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
-        new ConnectBT().execute();
-
+        if (!isBtConnected) {
+            new ConnectBT().execute();
+        }
         //commands to be sent to bluetooth
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendData();      //method to turn on
+                String name = nameTextbox.getText().toString();
+                String company = companyTextbox.getText().toString();
+                String address = addressTextbox.getText().toString();
+                String email = emailTextbox.getText().toString();
+                String phone = phoneNumberTextbox.getText().toString();
+                sendData(getDataToSend(name, company, address, email, phone,layoutId));
             }
         });
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveData();
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final List<String> ids = loadSpinnerData();
+        layoutSpinner.setAdapter(dataAdapter);
+        layoutSpinner.setSelection(spinnerPosition);
+
+        layoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                layoutId = Integer.valueOf(ids.get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            String name = data.getStringExtra(EXTRA_NAME);
+            nameTextbox.setText(name);
+            String companyName = data.getStringExtra(EXTRA_COMPANY_NAME);
+            companyTextbox.setText(companyName);
+            String address_data = data.getStringExtra(EXTRA_ADDRESS);
+            addressTextbox.setText(address_data);
+            String email = data.getStringExtra(EXTRA_EMAIL);
+            emailTextbox.setText(email);
+            String phone = data.getStringExtra(EXTRA_PHONE);
+            phoneNumberTextbox.setText(phone);
+
+            int layout_id = data.getIntExtra(EXTRA_LAYOUT_ID, 1);
+            String layoutName = data.getStringExtra(EXTRA_LAYOUT_NAME);
+            if (layoutName != null) {
+                spinnerPosition = dataAdapter.getPosition(layoutName);
+                layoutSpinner.setSelection(spinnerPosition);
+            }
+
+            if (data.getBooleanExtra(EXTRA_BOOL,false)) {
+                sendData(getDataToSend(name, companyName, address_data, email, phone, layout_id));
+            }
+        }
+
     }
 
     @Override
@@ -106,11 +167,22 @@ public class dataControl extends BaseActivity {
                 return true;
             case R.id.layoutList:
                 Intent intent = new Intent(this, AddLayout.class);
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intent);
+                }
+                return true;
+            case R.id.showFromList:
+                viewAll();
+                return true;
+            case R.id.showDataList:
+                Intent intentData = new Intent(this, dataList.class);
+                startActivityForResult(intentData, 2);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     private void Disconnect() {
         if (btSocket != null) //If the btSocket is busy
@@ -122,53 +194,65 @@ public class dataControl extends BaseActivity {
             }
         }
         finish(); //return to the first layout
-
     }
 
-    private void sendData() {
+    private void sendData(StringBuffer buffer) {
         if (btSocket != null) {
             try {
-                String name = nameTextbox.getText().toString();
-                String company = companyTextbox.getText().toString();
-                String address = addressTextbox.getText().toString();
-                String email = emailTextbox.getText().toString();
-                String phone = phoneNumberTextbox.getText().toString();
-                String msg = "";
-                msg += (name.equals("")) ? " " : name;
-                msg += ";";
-                msg += "20";
-                msg += ";";
-                msg += "20";
-                msg += ";";
-                msg += (company.equals("")) ? " " : company;
-                msg += ";";
-                msg += "20";
-                msg += ";";
-                msg += "30";
-                msg += ";";
-                msg += (address.equals("")) ? " " : address;
-                msg += ";";
-                msg += "20";
-                msg += ";";
-                msg += "80";
-                msg += ";";
-                msg += (email.equals("")) ? " " : email;
-                msg += ";";
-                msg += "140";
-                msg += ";";
-                msg += "80";
-                msg += ";";
-                msg += (phone.equals("")) ? " " : phone;
-                msg += ";";
-                msg += "140";
-                msg += ";";
-                msg += "90";
-                Log.d("msg", msg);
-                btSocket.getOutputStream().write(msg.getBytes());
+                btSocket.getOutputStream().write(String.valueOf(buffer).getBytes());
             } catch (IOException e) {
                 msg("Error");
             }
         }
+    }
+
+    private StringBuffer getDataToSend(String name, String company, String address, String email, String phone, int layout_id) {
+        Cursor res = myDb.getLayoutData(layout_id);
+        if (res.getCount() == 0) {
+            // show message
+            msg("Error: Nothing found");
+            return null;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        res.moveToFirst();
+        buffer.append(res.getInt(2)).append(";"); //orientation
+        buffer.append(res.getInt(3)).append(";"); //pos x name
+        buffer.append(res.getInt(4)).append(";"); // pos y name
+        buffer.append((name.equals("")) ? " ;" : (name + ";")); //name
+        buffer.append(res.getInt(5)).append(";"); //pos x company
+        buffer.append(res.getInt(6)).append(";"); //pos y company
+        buffer.append((company.equals("")) ? " ;" : (company + ";")); //company
+        buffer.append(res.getInt(7)).append(";"); //pos x address
+        buffer.append(res.getInt(8)).append(";"); //pos y address
+        buffer.append((address.equals("")) ? " ;" : (address + ";")); //address
+        buffer.append(res.getInt(9)).append(";"); //pos x email
+        buffer.append(res.getInt(10)).append(";"); //pos y email
+        buffer.append((email.equals("")) ? " ;" : (email + ";")); //email
+        buffer.append(res.getInt(11)).append(";"); //pos x phone
+        buffer.append(res.getInt(12)).append(";"); //pos y phone
+        buffer.append((phone.equals("")) ? " ;" : (phone + ";")); //phone
+
+        return buffer;
+    }
+
+    private void saveData() {
+        if (layoutId != 0) {
+            boolean isInserted =
+                    myDb.insertDataData(
+                            nameTextbox.getText().toString(),
+                            companyTextbox.getText().toString(),
+                            addressTextbox.getText().toString(),
+                            emailTextbox.getText().toString(),
+                            phoneNumberTextbox.getText().toString(),
+                            layoutId);
+            if (isInserted) {
+                Toast.makeText(dataControl.this, "Data inserted", Toast.LENGTH_LONG).show();
+                loadSpinnerData();
+            } else
+                Toast.makeText(dataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(dataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
     }
 
     // fast way to call Toast
@@ -210,7 +294,6 @@ public class dataControl extends BaseActivity {
         protected void onPostExecute(Void result) //after the doInBackground, it checks if everything went fine
         {
             super.onPostExecute(result);
-
             if (!ConnectSuccess) {
                 msg("Połączenie nieudane.");
                 finish();

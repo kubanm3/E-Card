@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.ECard.DynamicSquareLayout
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:background="#ADA1A1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:rotation="90"
+            android:text="Y: 0:128"
+            android:textColor="#000000"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="X: 0:296"
+            android:textColor="#000000"
+            android:textSize="13sp" />
+
+    </com.ECard.DynamicSquareLayout>
+
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="174dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="38dp"
+        android:text=" Ok " />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="Set coordinates for data input. X value is for horizontal value. Y value is for vertical value."
+        android:textColor="#000000"
+        android:textSize="13sp" />
+
+</RelativeLayout>
