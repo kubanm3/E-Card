@@ -1,0 +1,102 @@
+\documentclass[a4paper,12pt, twoside]{article}
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, bindingoffset=0.5cm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage{graphicx}
+\graphicspath{ {C:/Users/kuban/Desktop/Inzynierka/E-Card/Praca dyplomowa/images/} }
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{afterpage}
+\usepackage{subfig}
+\usepackage{hyperref}
+\usepackage{url}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+\frenchspacing
+\setlength{\parindent}{.5cm}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+\linespread{1.5}
+\begin{document}
+	\newpage
+	\thispagestyle{empty}
+	\begin{center}
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=5cm]{logo_polsl.jpg}
+			\vspace{.5cm}
+		\end{figure}
+		
+		{\fontsize{17}{17}\selectfont
+			\textsc{Politechnika Śląska \\[.3cm]
+				Wydział Automatyki, Elektroniki i Informatyki  \\[.3cm]
+				Kierunek Automatyka i Robotyka  \\[1.5cm]}
+			\textbf{Projekt inżynierski \\[0.7cm]}}
+		
+		\Large
+		{Elektroniczna plakietka konfigurowana z urządzenia mobilnego \\[4cm]}
+		\Large{\begin{flushleft}
+				Autor: Jakub Legutko\\
+				Kierujący pracą: dr inż. Grzegorz Dziwoki\\[0.3cm]
+		\end{flushleft}}
+		
+		\normalsize
+		\vfill Gliwice, styczeń 2019
+	\end{center}
+	\newpage
+	\newpage
+	\thispagestyle{empty}
+	\tableofcontents
+	\newpage
+	%\leavevmode\thispagestyle{empty}\newpage
+	\newpage
+	\clearpage
+	\setcounter{page}{1}
+	\section{Wstęp}
+	
+	\subsection{Wprowadzenie}
+	Zmiany klimatyczne są coraz bardziej widoczne na świecie. Wycinka drzew jest jednym z głównych powodów wzrostu emisji gazów cieplarnianych\cite{clima_causes}, ograniczenie jej wpłynie pozytywnie na poziom ${CO_{2}}$ w atmosferze, co przełoży się na polepszenie klimatu. 
+	
+	Druk wizytówek oraz identyfikatorów pochłania znaczące ilości papieru, oraz tuszu w skali globalnej ze względu na ich jednorazowe wykorzystanie w większości przypadków. Z tego powodu ważne jest znalezienie alternatywnej metody. 
+	
+	
+	\subsection{Cel projektu}
+	
+	
+	
+	\section{Podsumowanie}
+	
+	\newpage
+	\section{Bibliografia}
+	
+	\begingroup
+	\renewcommand{\section}[2]{}%
+	\begin{thebibliography}{}
+		
+		\bibitem{clima_causes}
+		https://ec.europa.eu/clima/change/causes\_pl\\
+		Dostęp: 23 grudnia 2019
+		
+		
+	\end{thebibliography}
+	\endgroup
+	
+	\newpage
+	\section{Spis rysunków}
+	\begingroup
+	\renewcommand{\section}[2]{}%
+	\listoffigures
+	\endgroup
+	
+\end{document}
+
