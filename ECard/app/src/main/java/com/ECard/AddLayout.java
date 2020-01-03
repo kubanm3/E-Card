@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -128,35 +129,44 @@ public class AddLayout extends BaseActivity {
 
     public static int getWidth(Context context) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowmanager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowmanager =
+                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
     }
 
     public void DeleteData() {
-        try {
-            myDb.deleteDataLayout(editId.getText().toString());
-            Toast.makeText(AddLayout.this, "Layout deleted", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(AddLayout.this, "Layout not deleted, there is saved data using this layout!", Toast.LENGTH_LONG).show();
-        }
+        String id = editId.getText().toString();
+        if (id != null && !id.trim().isEmpty()) {
+            try {
+                myDb.deleteDataLayout(id);
+                Toast.makeText(AddLayout.this, "Layout deleted", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(AddLayout.this, "Layout not deleted, there is saved data that uses this layout!", Toast.LENGTH_LONG).show();
+            }
+        } else
+            Toast.makeText(AddLayout.this, "If you wish to delete layout, enter its ID.", Toast.LENGTH_LONG).show();
     }
 
 
     public void UpdateData() {
-        boolean isUpdate =
-                myDb.updateData(editId.getText().toString(),
-                        editName.getText().toString(),
-                        orientation,
-                        editNameX.getText().toString(), editNameY.getText().toString(),
-                        editCompanyX.getText().toString(), editCompanyY.getText().toString(),
-                        editAddressX.getText().toString(), editAddressY.getText().toString(),
-                        editEmailX.getText().toString(), editEmailY.getText().toString(),
-                        editPhoneX.getText().toString(), editPhoneY.getText().toString());
-        if (isUpdate)
-            Toast.makeText(AddLayout.this, "Layout updated", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(AddLayout.this, "Layout not updated", Toast.LENGTH_LONG).show();
+        String id = editId.getText().toString();
+        if (id != null && !id.trim().isEmpty()) {
+            boolean isUpdate =
+                    myDb.updateData(id,
+                            editName.getText().toString(),
+                            orientation,
+                            editNameX.getText().toString(), editNameY.getText().toString(),
+                            editCompanyX.getText().toString(), editCompanyY.getText().toString(),
+                            editAddressX.getText().toString(), editAddressY.getText().toString(),
+                            editEmailX.getText().toString(), editEmailY.getText().toString(),
+                            editPhoneX.getText().toString(), editPhoneY.getText().toString());
+            if (isUpdate)
+                Toast.makeText(AddLayout.this, "Layout updated", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(AddLayout.this, "Layout not updated", Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(AddLayout.this, "If you wish to update layout, enter its ID.", Toast.LENGTH_LONG).show();
     }
 
     private AlertDialog AskOption() {
