@@ -102,14 +102,6 @@ public class AddLayout extends BaseActivity {
             case R.id.showFromList:
                 viewAll();
                 return true;
-            case R.id.showDataList:
-                Intent intentData = new Intent(this, dataList.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intentData, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-                } else {
-                    startActivity(intentData);
-                }
-                return true;
             case R.id.buttonShowHelpDialog:
                 showHelpDialog();
         }
@@ -120,7 +112,7 @@ public class AddLayout extends BaseActivity {
         // custom dialog
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.help_dialog);
-        dialog.setTitle("Title...");
+        dialog.setTitle("Help");
         dialog.getWindow().setLayout(((getWidth(getApplicationContext()) / 100) * 90), LinearLayout.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setGravity(Gravity.CENTER);
 
