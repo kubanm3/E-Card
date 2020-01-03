@@ -44,10 +44,11 @@ public class DeviceList extends BaseActivity {
 
         if (myBluetooth == null) {
             //pokaz wiadomosci o niedostepnosci urzadzen bt
-            Toast.makeText(getApplicationContext(), "Devices unavailable", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Bluetooth is not available on this device.", Toast.LENGTH_LONG).show();
 
+            btnPaired.setVisibility(View.GONE);
             //finish apk
-            finish();
+//            finish();
         } else if (!myBluetooth.isEnabled()) {
             //popros o wlaczenie bt
             Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
