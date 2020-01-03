@@ -31,7 +31,7 @@ public class AddLayout extends BaseActivity {
     Button btnAddData;
     RadioGroup radioGroup;
 
-    Integer orientation;
+    String orientation;
 
 
     @Override
@@ -60,11 +60,11 @@ public class AddLayout extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // find which radio button is selected
                 if (checkedId == R.id.vertical) {
-                    orientation = 0;
+                    orientation = "0";
                     Toast.makeText(getApplicationContext(), "Vertical orientation",
                             Toast.LENGTH_SHORT).show();
                 } else if (checkedId == R.id.horizontal) {
-                    orientation = 1;
+                    orientation = "1";
                     Toast.makeText(getApplicationContext(), "Horizontal orientation",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -145,8 +145,9 @@ public class AddLayout extends BaseActivity {
 
     public void UpdateData() {
         boolean isUpdate =
-                myDb.updateData(editId.getText().toString(), editName.getText().toString(),
-                        orientation.toString(),
+                myDb.updateData(editId.getText().toString(),
+                        editName.getText().toString(),
+                        orientation,
                         editNameX.getText().toString(), editNameY.getText().toString(),
                         editCompanyX.getText().toString(), editCompanyY.getText().toString(),
                         editAddressX.getText().toString(), editAddressY.getText().toString(),
@@ -161,17 +162,16 @@ public class AddLayout extends BaseActivity {
     private AlertDialog AskOption() {
 
         return new AlertDialog.Builder(this)
-                // set message, title, and icon
                 .setTitle("Delete?")
                 .setMessage("Are you sure you want to delete this layout?")
-                .setPositiveButton("delete", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         DeleteData();
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
@@ -184,8 +184,9 @@ public class AddLayout extends BaseActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         boolean isInserted = myDb.insertDataLayout(editName.getText().toString(),
-                                orientation.toString(),
+                                orientation,
                                 editNameX.getText().toString(), editNameY.getText().toString(),
                                 editCompanyX.getText().toString(), editCompanyY.getText().toString(),
                                 editAddressX.getText().toString(), editAddressY.getText().toString(),

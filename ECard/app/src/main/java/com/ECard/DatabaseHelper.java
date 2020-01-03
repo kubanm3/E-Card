@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.provider.BaseColumns;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,6 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         else
             return true;
+
     }
 
     public boolean insertDataData(String data_name, String data_company_name, String data_address, String data_email, String data_phone, Integer id) {
@@ -185,18 +188,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(LAYOUTS_ID, id);
         else
             return false;
-        if (!layout_name.equals("")) contentValues.put(LAYOUTS_NAME, layout_name);
-        if (!orientation.equals("")) contentValues.put(LAYOUTS_ORIENTATION, orientation);
-        if (!name_pos_x.equals("")) contentValues.put(LAYOUTS_NAME_POS_X, name_pos_x);
-        if (!name_pos_y.equals("")) contentValues.put(LAYOUTS_NAME_POS_Y, name_pos_y);
-        if (!company_pos_x.equals("")) contentValues.put(LAYOUTS_COMPANY_POS_X, company_pos_x);
-        if (!company_pos_y.equals("")) contentValues.put(LAYOUTS_COMPANY_POS_Y, company_pos_y);
-        if (!address_pos_x.equals("")) contentValues.put(LAYOUTS_ADDRESS_POS_X, address_pos_x);
-        if (!address_pos_y.equals("")) contentValues.put(LAYOUTS_ADDRESS_POS_Y, address_pos_y);
-        if (!email_pos_x.equals("")) contentValues.put(LAYOUTS_EMAIL_POS_X, email_pos_x);
-        if (!email_pos_y.equals("")) contentValues.put(LAYOUTS_EMAIL_POS_Y, email_pos_y);
-        if (!phone_pos_x.equals("")) contentValues.put(LAYOUTS_PHONE_POS_X, phone_pos_x);
-        if (!phone_pos_y.equals("")) contentValues.put(LAYOUTS_PHONE_POS_Y, phone_pos_y);
+        if (layout_name != null) contentValues.put(LAYOUTS_NAME, layout_name);
+        if (orientation != null) contentValues.put(LAYOUTS_ORIENTATION, orientation);
+        if (name_pos_x != null) contentValues.put(LAYOUTS_NAME_POS_X, name_pos_x);
+        if (name_pos_y != null) contentValues.put(LAYOUTS_NAME_POS_Y, name_pos_y);
+        if (company_pos_x != null) contentValues.put(LAYOUTS_COMPANY_POS_X, company_pos_x);
+        if (company_pos_y != null) contentValues.put(LAYOUTS_COMPANY_POS_Y, company_pos_y);
+        if (address_pos_x != null) contentValues.put(LAYOUTS_ADDRESS_POS_X, address_pos_x);
+        if (address_pos_y != null) contentValues.put(LAYOUTS_ADDRESS_POS_Y, address_pos_y);
+        if (email_pos_x != null) contentValues.put(LAYOUTS_EMAIL_POS_X, email_pos_x);
+        if (email_pos_y != null) contentValues.put(LAYOUTS_EMAIL_POS_Y, email_pos_y);
+        if (phone_pos_x != null) contentValues.put(LAYOUTS_PHONE_POS_X, phone_pos_x);
+        if (phone_pos_y != null) contentValues.put(LAYOUTS_PHONE_POS_Y, phone_pos_y);
         db.update(TABLE_NAME_LAYOUTS, contentValues, "ID = ?", new String[]{id});
         return true;
     }
