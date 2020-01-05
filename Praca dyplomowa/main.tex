@@ -334,7 +334,7 @@
     	
     	\vspace{1cm}
     
-        \textbf{Wyświetlacz papieru elektronicznego} jest 2.9-cio calowym ekranem firmy Waveshare. Przystosowany jest do pracy w dwóch napięciach roboczych 3.3V oraz 5V. Zasilany jest z ESP32, który działa w 3.3V więc jest również zasilany 3.3V. Jest w stanie wyświetlać dane w dwóch kolorach (białym i czarnym) z czasem potrzebnym do odświeżenia wyświetlacza równym w przybliżeniu 0.3s\cite{waveshare}.
+        \textbf{Wyświetlacz papieru elektronicznego} jest 2.9-cio calowym ekranem firmy Waveshare. Przystosowany jest do pracy w dwóch napięciach roboczych 3.3V oraz 5V. Zasilany jest z ESP32, który działa w 3.3V więc jest również zasilany 3.3V. Jest w stanie wyświetlać dane w dwóch kolorach (białym i czarnym) z czasem potrzebnym do odświeżenia wyświetlacza równym w przybliżeniu 2s\cite{waveshare}.
         
         Wykorzystane piny do połączenia wyświetlacza z mikrokontrolerem: 
         \begin{itemize}
@@ -397,7 +397,7 @@
     	\vspace{.5cm}
     	Aplikacja na urządzenie mobilne została zrobiona dla systemu mobilnego Android w środowisku Android Studio firmy Google, przystosowanej do budowy aplikacji na system Android. Aplikację napisano w języku Java. Minimalna wersja API to 15, która jest w systemie Android od wersji 4.0.3 \textit{Ice Cream Sandwich} z czerwca 2012 roku.
     	
-    	Program został zaprojektowany zgodnie ze wzorcem programowania obiektowego\cite{oop}, w którym kod został podzielony na części, które są łatwiejsze w utrzymaniu i do konserwacji. Każda część jest samodzielna w swojej funkcjonalności, zarazem możliwe jest wykorzystanie jej przez inne programy działające w aplikacji. Wszystkie części działając wspólnie tworzą całość aplikacji. Części te nazywane są obiektami. 
+    	Program został zaprojektowany zgodnie ze wzorcem programowania obiektowego \textit{(Object Oriented Programming)}\cite{oop}, w którym kod został podzielony na części, które są łatwiejsze w utrzymaniu i do konserwacji. Każda część jest samodzielna w swojej funkcjonalności, zarazem możliwe jest wykorzystanie jej przez inne programy działające w aplikacji. Wszystkie części działając wspólnie tworzą całość aplikacji. Części te nazywane są obiektami. 
     	
     	Aplikacja posiada cztery aktywności, odpowiadające za różne funkcjonalności. Do przechowywania danych użyto relacyjnej bazy danych SQLite. W aplikacji można przechowywać zapisane dane do wyświetlenia na wyświetlaczu jak również przygotowane i zapisane układy wyświetlania.
     	
@@ -574,13 +574,23 @@
     	
     	W trakcie testowania programu w emulatorze dostępnym w środowisku Android Studio, napotkano błąd dotyczący braku modułu Bluetooth w urządzeniu. We wszystkich urządzeniach emulowanych przez Android Studio nie jest emulowane wsparcie dla technologi bezprzewodowej łączności takich jak Bluetooth, Wi-Fi czy NFC \textit{(z ang. Near Field Communication)}. Przez brak obecności adaptera Bluetooth aplikacja zachowywała się w sposób niepożądany. Po wykryciu takiego zachowania wprowadzono zmiany w kodzie aplikacji stabilizujące działanie aplikacji oraz uniemożliwienie prób nawiązywania połączeń przez urządzenia nieposiadające modułu Bluetooth. Ograniczono również funkcjonalność aplikacji dla takich urządzeń do dodawania i przeglądania układów. Zablokowane jest przesyłania i zapisywanie danych.
     	
-    	Przesyłanie danych na wyświetlacz działa poprawnie. W trakcie przeprowadzonych testów nie zaobserwowano żadnych przekłamań znaków 
+    	W przesyłaniu danych na wyświetlacz nie stwierdzono żadnych problemów. Istnieje jednak możliwość zapchania potoku danych odbieranych przez mikrokontroler, jeżeli będziemy bardzo szybko naciskać przycisk w aplikacji odpowiadający za wysyłanie danych. W takim wypadku można przesłać do mikrokontrolera wiele zestawów znaków do wyświetlenia, których wyświetlacz nie zdąży wyświetlić przed nadejściem kolejnych danych do wyświetlenia. Może to spowodować odświeżanie się wyświetlacza i usuwanie widocznych znaków od razu po ich pojawieniu się. Taki przypadek może dać wrażenie zawieszenia się urządzenia. Rozwiązaniem tego problemu może być zablokowanie przycisku służącego do wysyłania danych po jego wciśnięciu na czas minimalnie większy od czasu potrzebnego do przesłania danych, ich obsługę w mikrokontrolerze i czasu potrzebnego dla wyświetlacza do odświeżenia i wyświetlenia nowo otrzymanych znaków. Ta ostatnia wartość zajmuje zdecydowanie najwięcej czasu. Z instrukcji obsługi modułu wynika, że czas pełnego odświeżenia wyświetlacza Waveshare 2.9 cala wynosi około dwóch sekund\cite{waveshare}. Przesłanie i obsługa danych w wyświetlaczu tak małej ilości danych jest czasem pomijalnym. Drugim możliwym rozwiązaniem mogłoby się okazać wprowadzenie przerwy w działaniu mikrokontrolera w wielkości większej niż dwie sekundy po zakończeniu rysowania danych na wyświetlaczu i wywołania funkcji odświeżenia ekranu. 
+    	
+        % Bląd zauważono również 
+    	
+    	
+    	
+    	
+    	W trakcie przeprowadzonych testów nie zaobserwowano żadnych przekłamań znaków, transmisja jest przeprowadzana poprawnie. Algorytm dostosowujący odebrane dane do wyświetlania również działa poprawnie i nie stwierdzono w nim żadnych sprzeczności z algorytmem.
+    	
+    	
     	
     	
     	
     	
     	
     	\section{Podsumowanie}
+    	
     	
     	\newpage
     	\section{Bibliografia}
