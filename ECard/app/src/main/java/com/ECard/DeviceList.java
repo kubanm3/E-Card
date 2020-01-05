@@ -119,9 +119,9 @@ public class DeviceList extends BaseActivity {
                     String address = info.substring(info.length() - 17);
 
 
-                    Intent i = new Intent(DeviceList.this, dataControl.class);
+                    Intent i = new Intent(DeviceList.this, DataControl.class);
 
-                    i.putExtra(EXTRA_ADDRESS, address); //this will be received at dataControl (class) Activity
+                    i.putExtra(EXTRA_ADDRESS, address); //this will be received at DataControl (class) Activity
                     startActivity(i);
                 }
             };

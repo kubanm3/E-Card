@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import static android.widget.LinearLayout.VERTICAL;
 
-public class dataList extends BaseActivity {
+public class DataList extends BaseActivity {
     public static String EXTRA_NAME = "com.ECard.EXTRA_NAME";
     public static String EXTRA_COMPANY_NAME = "com.ECard.EXTRA_COMPANY_NAME";
     public static String EXTRA_ADDRESS = "com.ECard.EXTRA_ADDRESS";

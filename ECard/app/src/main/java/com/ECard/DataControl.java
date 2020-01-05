@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-public class dataControl extends BaseActivity {
+public class DataControl extends BaseActivity {
     Button btnSend, btnSave;
     EditText nameTextbox, companyTextbox, addressTextbox, emailTextbox, phoneNumberTextbox;
     Spinner layoutSpinner;
@@ -69,7 +69,7 @@ public class dataControl extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 layoutId = Integer.valueOf(ids.get(i));
-                Toast.makeText(dataControl.this, "Selected : " + adapterView.getItemAtPosition(i), Toast.LENGTH_LONG).show();
+                Toast.makeText(DataControl.this, "Selected : " + adapterView.getItemAtPosition(i), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -177,7 +177,7 @@ public class dataControl extends BaseActivity {
                 viewAll();
                 return true;
             case R.id.showDataList:
-                Intent intentData = new Intent(this, dataList.class);
+                Intent intentData = new Intent(this, DataList.class);
                 startActivityForResult(intentData, 2);
                 return true;
         }
@@ -247,12 +247,12 @@ public class dataControl extends BaseActivity {
                             phoneNumberTextbox.getText().toString(),
                             layoutId);
             if (isInserted) {
-                Toast.makeText(dataControl.this, "Data inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(DataControl.this, "Data inserted", Toast.LENGTH_LONG).show();
                 loadSpinnerData();
             } else
-                Toast.makeText(dataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(DataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
         } else
-            Toast.makeText(dataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
+            Toast.makeText(DataControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
     }
 
     // fast way to call Toast
@@ -267,7 +267,7 @@ public class dataControl extends BaseActivity {
         @Override
         protected void onPreExecute() {
             progress =
-                    ProgressDialog.show(dataControl.this, "Łączenie...", "Proszę czekać!");  //show a progress dialog
+                    ProgressDialog.show(DataControl.this, "Łączenie...", "Proszę czekać!");  //show a progress dialog
         }
 
         @Override
