@@ -27,7 +27,8 @@
     
     %Code listing style named "mystyle"
     \lstdefinestyle{mystyle}{
-      backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+      backgroundcolor=\color{backcolour},
+      commentstyle=\color{codegreen},
       keywordstyle=\color{magenta},
       numberstyle=\tiny\color{codegray},
       stringstyle=\color{codepurple},
@@ -145,11 +146,12 @@
     	Android Studio jest oficjalnym zintegrowanym środowiskiem programistycznym \textit{z ang. integrated development environment}\cite{ide} do produkcji aplikacji na system Android, bazowanym na IntelliJ IDEA.
     	
     	\begin{figure}[H]
-    			\vspace{.5cm}
-    			\includegraphics[width=16cm]{images/rys4_android.png}
-    			\vspace{.5cm}
-    			\caption{Widok Android Studio}
-                \label{fig:androidstudio}
+    	    \centering
+    		\vspace{.5cm}
+    		\includegraphics[width=1\textwidth]{images/rys4_android.png}
+    		\vspace{.5cm}
+    		\caption{Widok Android Studio}
+            \label{fig:androidstudio}
     	\end{figure}
     	
     	\newpage
@@ -189,11 +191,12 @@
     	\vspace{.5cm}
     	GitKraken jest graficznym klientem Gita dla wielu platform zbudowanym przez AxoSoft w 2014 roku. GitKraken uproszcza skomplikowane komendy tekstowe wiersza poleceń\cite{cli} wykorzystywanego do obsługi GIT. Pozwala na korzystanie ze zdalnych repozytoriów poprzez integrację z takimi systemami jak np. GitHub, GitLab czy Bitbucket. W aplikacji wbudowane są narzędzia rozwiązywania konfliktów scalania, dostępny jest również edytor tekstowy. 
     	\begin{figure}[H]
-    			\vspace{1cm}
-    			\includegraphics[width=16cm]{images/rys2_gitkraken.png}
-    			\vspace{.5cm}
-    			\caption{Repozytorium przedstawione w GitKraken}
-                \label{fig:gitkraken}
+    	    \centering
+    		\vspace{1cm}
+    		\includegraphics[width=1\textwidth]{images/rys2_gitkraken.png}
+    		\vspace{.5cm}
+    		\caption{Repozytorium przedstawione w GitKraken}
+            \label{fig:gitkraken}
     	\end{figure}
     		
     	\vspace{.5cm}
@@ -207,7 +210,7 @@
     	
     	\begin{figure}[H]
     			\vspace{.5cm}
-    			\includegraphics[width=16cm]{images/rys3_arduino.png}
+    			\includegraphics[width=1\textwidth]{images/rys3_arduino.png}
     			\vspace{.5cm}
     			\caption{Widok Arduino IDE}
     			\vspace{1cm}
@@ -394,7 +397,7 @@
     	\vspace{.5cm}
     	Aplikacja na urządzenie mobilne została zrobiona dla systemu mobilnego Android w środowisku Android Studio firmy Google, przystosowanej do budowy aplikacji na system Android. Aplikację napisano w języku Java. Minimalna wersja API to 15, która jest w systemie Android od wersji 4.0.3 \textit{Ice Cream Sandwich} z czerwca 2012 roku.
     	
-    	Program został zaprojektowany zgodnie ze wzorcem programowania obiektowego\cite{oop}, w którym kod został podzielony na części, które są łatwiejsze w utrzymaniu i konserwacji. Każda część jest samodzielna w swojej funkcjonalności, zarazem możliwe jest wykorzystanie jej przez inne programy działające w aplikacji. Wszystkie części działając wspólnie tworzą całość aplikacji. Części te nazywane są obiektami. 
+    	Program został zaprojektowany zgodnie ze wzorcem programowania obiektowego\cite{oop}, w którym kod został podzielony na części, które są łatwiejsze w utrzymaniu i do konserwacji. Każda część jest samodzielna w swojej funkcjonalności, zarazem możliwe jest wykorzystanie jej przez inne programy działające w aplikacji. Wszystkie części działając wspólnie tworzą całość aplikacji. Części te nazywane są obiektami. 
     	
     	Aplikacja posiada cztery aktywności, odpowiadające za różne funkcjonalności. Do przechowywania danych użyto relacyjnej bazy danych SQLite. W aplikacji można przechowywać zapisane dane do wyświetlenia na wyświetlaczu jak również przygotowane i zapisane układy wyświetlania.
     	
@@ -556,17 +559,26 @@
     	
     	Na ekranie dodawania nowych układów stworzony został również dialog pomocniczy, informujący użytkownika o prawidłowym umiejscowieniu współrzędnych przesyłanych danych. Ma to na celu zapobiegnięcie tworzenia układów, w których tekst znajdzie się poza ekranem, będzie na siebie nachodził lub zacznie przechodzić do kolejnego wiersza.
     	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+
     	\section{Testy urządzenia}
+    	Zbudowany prototyp poddano praktycznym testom wszystkich funkcjonalności. W trakcie testów badano jak zachowuje się aplikacja w różnych wariantach działania i na kilku różnych urządzeniach. Sprawdzono również poprawność pracy i wyświetlania mikrokontrolera wraz z ekranem papieru elektronicznego.
+    	
+    	\begin{figure}[H]
+    	        \centering
+    	        \vspace{.5cm}
+    			\includegraphics[width=13cm]{images/rys21device.jpg}
+    			\vspace{.5cm}
+    		    \caption{Prototyp elektronicznej plakietki}
+                \label{fig:device}
+    	\end{figure}
+    	
+    	W trakcie testowania programu w emulatorze dostępnym w środowisku Android Studio, napotkano błąd dotyczący braku modułu Bluetooth w urządzeniu. We wszystkich urządzeniach emulowanych przez Android Studio nie jest emulowane wsparcie dla technologi bezprzewodowej łączności takich jak Bluetooth, Wi-Fi czy NFC \textit{(z ang. Near Field Communication)}. Przez brak obecności adaptera Bluetooth aplikacja zachowywała się w sposób niepożądany. Po wykryciu takiego zachowania wprowadzono zmiany w kodzie aplikacji stabilizujące działanie aplikacji oraz uniemożliwienie prób nawiązywania połączeń przez urządzenia nieposiadające modułu Bluetooth. Ograniczono również funkcjonalność aplikacji dla takich urządzeń do dodawania i przeglądania układów. Zablokowane jest przesyłania i zapisywanie danych.
+    	
+    	Przesyłanie danych na wyświetlacz działa poprawnie. W trakcie przeprowadzonych testów nie zaobserwowano żadnych przekłamań znaków 
+    	
+    	
+    	
+    	
     	
     	\section{Podsumowanie}
     	
@@ -621,9 +633,14 @@
     		\newline\url{https://en.wikipedia.org/wiki/Lint_(software)}, 
     		\newline Dostęp: 28 grudnia 2019
     		
+    		\newpage
     		\bibitem{git}
     		Git,
-    		\newline\url{https://git-scm.com/book/pl/v2/Pierwsze-kroki-Wprowadzenie-do-kontroli-wersji}, 
+    		\newline\href{https://git-scm.com/book/pl/v2/Pierwsze-kroki-Wprowadzenie-do-kontroli-wersji}
+    		 {\nolinkurl{https://git-scm.com/book/pl/v2/}
+                 \\
+                  \nolinkurl{Pierwsze-kroki-Wprowadzenie-do-kontroli-wersji,}
+                 }
     		\newline Dostęp: 28 grudnia 2019
     
     		\bibitem{cli}
@@ -643,7 +660,11 @@
     		
     		\bibitem{lifecycle}
     		A simplified illustration of the activity lifecycle,
-    		\newline\url{https://developer.android.com/guide/components/activities/activity-lifecycle}, 
+    		\newline\href{https://developer.android.com/guide/components/activities/activity-lifecycle}
+    		 {\nolinkurl{https://developer.android.com/guide/}
+                 \\
+                  \nolinkurl{components/activities/activity-lifecycle,}
+                 }
     		\newline Dostęp: 28 grudnia 2019
     		
     	    \bibitem{batterysave}
@@ -686,12 +707,20 @@
     		
     		\bibitem{ble}
     		Bluetooth Low Energy,
-    		\newline\url{https://web.archive.org/web/20170310111443/https://www.bluetooth.com/what-is-bluetooth-technology/how-it-works/low-energy}, 
+    		\newline\href{https://web.archive.org/web/20170310111443/https://www.bluetooth.com/what-is-bluetooth-technology/how-it-works/low-energy}
+    		 {\nolinkurl{https://web.archive.org/web/20170310111443/https://www.bluetooth.com/}
+                 \\
+                  \nolinkurl{what-is-bluetooth-technology/how-it-works/low-energy,}
+                 }
     		\newline Dostęp: 10 marca 2017
     		
     		\bibitem{edr}
     		Bluetooth: Bluetooth BR/EDR,
-    		\newline\url{https://eu.industrial.panasonic.com/products/wireless-connectivity/bluetooth/bluetooth-bredr}, 
+    		\newline\href{https://eu.industrial.panasonic.com/products/wireless-connectivity/bluetooth/bluetooth-bredr}
+    		 {\nolinkurl{https://eu.industrial.panasonic.com/products/}
+                 \\
+                  \nolinkurl{wireless-connectivity/bluetooth/bluetooth-bredr,}
+                 }
     		\newline Dostęp: 3 stycznia 2020
     
             \bibitem{gxepd}
@@ -709,9 +738,12 @@
     		\newline\url{https://developer.android.com/about/versions/android-4.0-highlights}, 
     		\newline Dostęp: 3 stycznia 2020
     		
-    		\bibitem{devkit}
-    		ESP32-DevKitC V4 with ESP32-WROOM-32 module soldered,
-    		\newline\url{https://docs.espressif.com/projects/esp-idf/en/latest/hw-reference/get-started-devkitc.html}, 
+    		\bibitem{devkit} ESP32-DevKitC V4 with ESP32-WROOM-32 module soldered,
+    		\newline\href{https://docs.espressif.com/projects/esp-idf/en/latest/hw-reference/get-started-devkitc.html}
+    		 {\nolinkurl{https://docs.espressif.com/projects/esp-idf/}
+                 \\
+                  \nolinkurl{en/latest/hw-reference/get-started-devkitc.html,}
+                 }
     		\newline Dostęp: 3 stycznia 2020
     		
     		\bibitem{flash}
@@ -721,12 +753,20 @@
     		
     		\bibitem{waveshare}
     		2.9inch e-Paper Module User Manual,
-    		\newline\url{https://www.waveshare.com/w/upload/9/98/2.9inch-e-paper-module-user-manual-en.pdf}, 
+    		\newline\href{https://www.waveshare.com/w/upload/9/98/2.9inch-e-paper-module-user-manual-en.pdf}
+    		 {\nolinkurl{https://www.waveshare.com/w/upload/9/98/}
+                 \\
+                  \nolinkurl{2.9inch-e-paper-module-user-manual-en.pdf,}
+                 }
     		\newline Dostęp: 3 stycznia 2020
     		
     		\bibitem{baud}
     		What is Baud Rate \& Why is it important?,
-    		\newline\url{https://www.setra.com/blog/what-is-baud-rate-and-what-cable-length-is-required-1}, 
+    		\newline\href{https://www.setra.com/blog/what-is-baud-rate-and-what-cable-length-is-required-1}
+    		 {\nolinkurl{https://www.setra.com/blog/}
+                 \\
+                  \nolinkurl{what-is-baud-rate-and-what-cable-length-is-required-1,}
+                 }
     		\newline Dostęp: 4 stycznia 2020
     		
     		\bibitem{strtok}
@@ -755,12 +795,20 @@
     		
     		\bibitem{android.bluetooth}
     		android.bluetooth,
-    		\newline\url{https://developer.android.com/reference/android/bluetooth/package-summary}, 
+    		\newline\href{https://developer.android.com/reference/android/bluetooth/}
+    		 {\nolinkurl{https://developer.android.com/reference/android/}
+                 \\
+                  \nolinkurl{bluetooth/package-summary,}
+                 }
     		\newline Dostęp: 5 stycznia 2020
     		
     		\bibitem{bonded}
     		getBondedDevices,
-    		\newline\url{https://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html#getBondedDevices()}, 
+    		\newline\href{https://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html\#getBondedDevices()}
+    		 {\nolinkurl{https://developer.android.com/reference/android/}
+                 \\
+                  \nolinkurl{bluetooth/BluetoothAdapter.html\#getBondedDevices(),}
+                 }
     		\newline Dostęp: 5 stycznia 2020
     		
     		\bibitem{rfcomm}
@@ -770,7 +818,11 @@
     		
     		\bibitem{outputstream}
     		getOutputStream,
-    		\newline\url{https://developer.android.com/reference/android/bluetooth/BluetoothSocket.html#getOutputStream()}, 
+    		\newline\href{https://developer.android.com/reference/android/bluetooth/BluetoothSocket.html\#getOutputStream()}
+    		 {\nolinkurl{https://developer.android.com/reference/android/}
+                 \\
+                  \nolinkurl{bluetooth/BluetoothSocket.html\#getOutputStream(),}
+                 }
     		\newline Dostęp: 5 stycznia 2020
     		
     	\end{thebibliography}
