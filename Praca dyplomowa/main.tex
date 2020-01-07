@@ -18,7 +18,6 @@
     \usepackage{url}
     \usepackage{listings}
     \usepackage{xcolor}
-    
     %New colors defined below
     \definecolor{codegreen}{rgb}{0,0.6,0}
     \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -86,11 +85,12 @@
     		\vfill Gliwice, styczeń 2020
     	\end{center}
     	\newpage
+    	\leavevmode\thispagestyle{empty}\newpage
     	\newpage
     	\thispagestyle{empty}
     	\tableofcontents
     	\newpage
-    	%\leavevmode\thispagestyle{empty}\newpage
+    	\leavevmode\thispagestyle{empty}\newpage
     	\newpage
     	\clearpage
     	\setcounter{page}{1}
@@ -98,18 +98,20 @@
     	\section{Wstęp}
     	
     	\subsection{Wprowadzenie}
-    	Zmiany klimatyczne są coraz bardziej widoczne na świecie. Wycinka drzew jest jednym z głównych powodów wzrostu emisji gazów cieplarnianych\cite{clima_causes}, ograniczenie jej wpłynie pozytywnie na poziom ${CO_{2}}$ w atmosferze, co przełoży się na polepszenie klimatu. 
+    	Zmiany klimatyczne są coraz bardziej widoczne na świecie. Wycinka drzew jest jednym z głównych powodów wzrostu emisji gazów cieplarnianych\cite{clima_causes}, ograniczenie jej wpłynie pozytywnie na poziom dwutlenku węgla w atmosferze, co przełoży się na polepszenie klimatu. 
     	
-    	Druk wizytówek oraz identyfikatorów pochłania znaczące ilości papieru, oraz tuszu w skali globalnej ze względu na ich jednorazowe wykorzystanie w większości przypadków. Z tego powodu ważne jest znalezienie alternatywnej metody. Gdyby zamiast papieru wykorzystać urządzenie, z którego można korzystać wielokrotnie poprzez zmianę wyświetlanych danych, zmniejszylibyśmy zapotrzebowanie na papier, zmniejszając jednocześnie emisję dwutlenku węgla. Oprócz papieru potrzebnego do wytworzenia plakietek nie będziemy również marnować toneru, którego produkcja pochłania około 3.2 kilograma gazów cieplarnianych\cite{cartidge_production} na kartridż zawierający 200 gramów toneru. Kolejną rzeczą jest recykling, któremu trzeba poddać niepotrzebne już identyfikatory oraz zużyte do produkcji ich kartridże.
+    	Druk wizytówek oraz identyfikatorów pochłania znaczące ilości papieru, jak również tuszu w skali globalnej ze względu na ich jednorazowe wykorzystanie w większości przypadków. Z tego powodu ważne jest znalezienie alternatywnej metody. Gdyby zamiast papieru wykorzystać urządzenie, z którego można korzystać wielokrotnie poprzez zmianę wyświetlanych danych, zmniejszylibyśmy zapotrzebowanie na papier, zmniejszając jednocześnie emisję dwutlenku węgla. Oprócz papieru potrzebnego do wytworzenia plakietek nie będziemy również marnować toneru, którego produkcja pochłania około 3.2 kilograma gazów cieplarnianych\cite{cartidge_production} na kartridż zawierający 200 gramów toneru. Kolejną rzeczą jest recykling, któremu trzeba poddać niepotrzebne już identyfikatory oraz zużyte do ich produkcji kartridże.
     	
-    	Idealnym rozwiązaniem takiego problemu wydaje się papier elektroniczny (ang. \textit{e-paper}). Wyświetlane na nim dane można modyfikować dowolną ilość razy, dzięki czemu może być wykorzystywany wielokrotnie, nie powodując zużycia dodatkowych surowców. Po wyświetleniu dostarczonych danych nie jest już zużywana energia. Przez co może być używany bez dodatkowych baterii lub innego dodatkowego źródła zasilania.
-    	\newpage
+    	Idealnym rozwiązaniem takiego problemu wydaje się papier elektroniczny (ang. \textit{e-paper}). Wyświetlane na nim dane można modyfikować dowolną ilość razy, dzięki czemu może być wykorzystywany wielokrotnie, nie powodując zużycia dodatkowych surowców po każdym wyprodukowaniu nowym użyciu. Po wyświetleniu dostarczonych danych wyświetlacz nie pobiera żadnej energii, dzięki takiemu rozwiązaniu może być używany bez dodatkowych baterii lub innych alternatywnych źródeł dostarczanej energii.
+    	
+    % 	\newpage
     	
     	
     	\subsection{Cel projektu}
-    	Celem projektu inżynierskiego jest zaprojektowanie elektronicznej plakietki identyfikującej mogącej zastąpić identyfikatory lub wizytówki z wykorzystaniem wyświetlacza typu e-papier. Prezentowane dane są przygotowywane i przesyłane przy pomocy urządzenia mobilnego za pomocą napisanej aplikacji.
+    	Celem projektu inżynierskiego jest zaprojektowanie elektronicznej plakietki identyfikującej, mogącej zastąpić identyfikatory lub wizytówki z wykorzystaniem wyświetlacza typu e-papier. Prezentowane dane są przygotowywane i przesyłane przy pomocy urządzenia mobilnego za pomocą napisanej aplikacji.
     
     	\subsection{Założenia projektowe}
+    	Przed przystąpieniem do wykonania projektu przyjęto podane niżej założenia projektowe:
     	\begin{itemize}
     		\item użycie wyświetlacza wykonanego w technologii papieru elektronicznego
     		\item mobilność działania plakietki 
@@ -119,14 +121,14 @@
     		\item wyświetlanie danych w różnych miejscach na ekranie 
     		\item przechowywanie układów wyświetlania danych w pamięci urządzenia
     	\end{itemize}
-    	\newpage
+    % 	\newpage
     	
     	\subsection{Opis projektu}
-    	Do realizacji projektu wykonano prototyp urządzenia składający się z mikrokontrolera oraz ekranu w technologii papieru elektronicznego. Dla urządzenia wysyłającego dane wykonano aplikację mobilną, posiadającą funkcję wysyłania oraz przechowywania danych. 
+    	Do realizacji projektu wykonano prototyp urządzenia, składający się z mikrokontrolera oraz ekranu w technologii papieru elektronicznego. Dla urządzenia przesyłającego dane wykonano aplikację mobilną, posiadającą funkcję wysyłania oraz przechowywania danych. 
     	
-    	Wybór jednostki sterującej wybrano głównie dla prostoty wykonania prototypu. Zdecydowano się na mikrokontroler zawierający zintegrowaną technologie do połączeń bezprzewodowych tj. \textit{Bluetooth}\cite{bluetooth} lub \textit{Wi-Fi}\cite{wifi}. 
+    	Wybór jednostki sterującej wybrano głównie dla prostoty i krótkiego czasu wykonania prototypu. Jedną z ważniejszych rzeczy, którą powinien posiadać mikrokontroler była wbudowana technologia łączności bezprzewodowej  jaką są np. \textit{Bluetooth}\cite{bluetooth} lub \textit{Wi-Fi}\cite{wifi}. 
     	
-    	Ostatecznie zdecydowano o wykorzystaniu protokołu \textit{Bluetooth} do bezprzewodowej transmisji danych z urządzenia mobilnego do mikrokontrolera. Głównym powodem dla wyboru \textit{Bluetootha} jest występowanie tej technologii w zdecydowanej większości urządzeń mobilnych dostępnych na rynku, dzięki czemu wykonany projekt będzie mógł być wykorzystany przez szeroki zakres urządzeń.
+    	Ostatecznie zdecydowano o wykorzystaniu w projekcie protokołu \textit{Bluetooth} do bezprzewodowej transmisji danych z urządzenia mobilnego do mikrokontrolera. Głównym powodem dla wyboru \textit{Bluetootha} jest występowanie tej technologii w zdecydowanej większości urządzeń mobilnych dostępnych na rynku, dzięki czemu wykonany projekt będzie mógł być użyty przez szeroką gamę urządzeń.
     	
     	\begin{flushleft}
     	Wykonanie projektu przebiegło w kilku etapach:
@@ -137,365 +139,311 @@
     	    \item przeprowadzenie testów urządzeń i aplikacji
     	\end{itemize}
     	\end{flushleft}
-    	\newpage
+    	
+    % 	\newpage
     	\section{Realizacja projektu}
-    	Do wykonania projektu użyto następujących technologii oraz narzędzi.
+    	Do wykonania projektu użyto następujących technologii oraz narzędzi. Wykorzystane przy projektowaniu i programowaniu narzędzia są udostępniane w ramach licencji zezwalających na korzystanie z nich bez opłat w projektach komercyjnych.
     	
     	\subsection{Narzędzia programistyczne}
     	\subsubsection{Android Studio}
-    	Android Studio jest oficjalnym zintegrowanym środowiskiem programistycznym \textit{z ang. integrated development environment}\cite{ide} do produkcji aplikacji na system Android, bazowanym na IntelliJ IDEA.
+    	Android Studio jest oficjalnym zintegrowanym środowiskiem programistycznym \textit{(ang. integrated development environment)}\cite{ide} do produkcji aplikacji na system Android, bazowanym na IntelliJ IDEA.
     	
     	\begin{figure}[H]
     	    \centering
-    		\vspace{.5cm}
     		\includegraphics[width=1\textwidth]{images/rys4_android.png}
-    		\vspace{.5cm}
     		\caption{Widok Android Studio}
             \label{fig:androidstudio}
     	\end{figure}
     	
-    	\newpage
     	\begin{flushleft}
     	Oprócz posiadanie czołowych możliwości edycji kodu i wbudowanych zaawansowanych narzędzi programistycznych cechuje się również:
     	\begin{itemize}
     	    \item elastycznym narzędziem służącym do budowania projektów opartym na Gradle\cite{gradle}
-    	    \item szybkim i bogatym w funkcje emulatorem
-    	    \item zunifikowanym środowiskiem do produkcji aplikacji na wszystkie urządzenia z systemem android
+    	    \item szybkim i bogatym w funkcje emulatorem, mogącym zastąpić do testowania większość urządzeń dostępnych z systemem Android
+    	    \item zunifikowanym środowiskiem do produkcji aplikacji na wszystkie urządzenia z systemem Android
     	    \item szablonami kodu i integracją z GitHub
     	    \item obszernymi narzędziami do testowania kodu i aplikacji
     	    \item narzędziami do wykrywania błędów składni \textit{Lint}\cite{lint}, niezgodności wersji i innych błędów
     	    \item wsparciem \textit{Native Development Kit}\cite{ndk}
     	\end{itemize}
     	\end{flushleft}
-    	\newpage
+    	
     	\subsubsection{Git}
-    	\vspace{.5cm}
-    	Git jest to rozproszony system kontroli wersji stworzony przez Linusa Torvaldsa. Jest to wolne oprogramowanie opublikowane na licencji GNU GPL v2.0.
+    	Git jest to rozproszony system kontroli wersji stworzony przez Linusa Torvaldsa. Jest wolnym oprogramowaniem opublikowanym na licencji GNU GPL v2.0, z pierwszą wersją wydaną w roku 2005.
     	
-    	Git śledzi wszelkie różnice dokonane w plikach, pozwala wrócić do dowolnej wcześniejszej wersji. Daje możliwość podglądu wszystkich zmian, które były wykonane w pliku z dokładnością to zmian w każdej linii kodu. Jest zbudowany do pracy w wiele osób, widzimy zmiany wprowadzone przez innych.
+    	Git śledzi wszelkie różnice dokonane w plikach, pozwala wrócić do dowolnej wcześniejszej wersji. Daje możliwość podglądu wszystkich zmian, które były wykonane w pliku z dokładnością do zmian wykonanych w każdej linii kodu. Jest przystosowany do pracy w zespołach składających się z wielu osób. Każda osoba będąca w projekcie ma możliwość zobaczenia zmian wprowadzanych przez inne osoby.
     	
-    	Jedną z najbardziej przydatnych funkcji są gałęzie. Dzięki nim wiele osób może pracować nad różnymi funkcjonalnościami aplikacji bez przeszkadzania sobie, a następnie w prosty i szybki sposób zmiany te można dołożyć do głównej gałęzi projektu.
+    	Jedną z najbardziej przydatnych funkcji Gita, jest system zarządzania gałęziami. Dzięki niemu wiele osób może pracować nad różnymi funkcjonalnościami aplikacji jednocześnie. Bez przeszkadzania sobie. Następnie możliwe jest proste i szybkie dołączanie wykonanych zmian do głównej gałęzi projektu.
+    	
     		\begin{figure}[H]
     			\centering
-    			\vspace{.5cm}
-    			\includegraphics[width=11cm]{images/rys1_branches.png}
-    			\vspace{.5cm}
+    			\includegraphics[width=8cm]{images/rys1_branches.png}
     			\caption{Schemat wykorzystania gałęzi}
                 \label{fig:branching}
     		\end{figure}
     
-    	Uzyskujemy dzięki temu kontrole nad projektem, która przekłada się na mniejszą ilość błędów większą ilość czasu, którą można przeznaczyć na tworzenie nowych funkcjonalności niż na ręczne składanie kodu wielu osób.\cite{git}
+    	Uzyskujemy dzięki temu większą kontrolę nad projektem, która przekłada się na mniejszą ilość błędów i większą ilość czasu, którą można przeznaczyć na tworzenie nowych funkcjonalności niż na ręczne składanie kodu w wiele osób.\cite{git}
     	
-    	\newpage
     	\subsubsection{GitKraken}
-    	\vspace{.5cm}
-    	GitKraken jest graficznym klientem Gita dla wielu platform zbudowanym przez AxoSoft w 2014 roku. GitKraken uproszcza skomplikowane komendy tekstowe wiersza poleceń\cite{cli} wykorzystywanego do obsługi GIT. Pozwala na korzystanie ze zdalnych repozytoriów poprzez integrację z takimi systemami jak np. GitHub, GitLab czy Bitbucket. W aplikacji wbudowane są narzędzia rozwiązywania konfliktów scalania, dostępny jest również edytor tekstowy. 
+    	GitKraken jest graficznym klientem Gita dostępnym na wiele platform. Zbudowany został przez AxoSoft w 2014 roku. GitKraken upraszcza używanie skomplikowanych komend tekstowych wiersza poleceń\cite{cli} wykorzystywanego do obsługi Git. Pozwala na korzystanie ze zdalnych repozytoriów poprzez integrację z takimi systemami jak np. GitHub, GitLab czy Bitbucket. W aplikacji wbudowane są narzędzia rozwiązywania konfliktów scalania, dostępny jest również edytor tekstowy.
     	\begin{figure}[H]
     	    \centering
-    		\vspace{1cm}
     		\includegraphics[width=1\textwidth]{images/rys2_gitkraken.png}
-    		\vspace{.5cm}
     		\caption{Repozytorium przedstawione w GitKraken}
             \label{fig:gitkraken}
     	\end{figure}
     		
-    	\vspace{.5cm}
-    	W projektach, gdzie pracuje jednocześnie wiele osób graficzna wizualizacja ułatwia kontrole nad wieloma gałęziami i zapanowanie nad projektem.   
+    	W projektach, gdzie pracuje jednocześnie wiele osób, graficzna wizualizacja ułatwia kontrole nad wieloma gałęziami i zapanowanie nad projektem. Wykorzystana w projekcie wersja Pro GitKrakena dostępna jest w ramach GitHub Student Developer Pack\cite{githubpack}.
     	
-    	\newpage
     	\subsubsection{Arduino IDE}
-    	Arduino IDE jest wieloplatformowym zintegrowanym środowiskiem deweloperskim napisanym w języku C oraz C++. Oparty jest na wolnej licencji GNU GPL v2.0. Używane jest do pisania oraz wgrywania programów do kompatybilnych płytek Arduino. Możliwe jest również wykorzystanie go do wgrywania na płytki firm trzecich za pomocą dołączonych do nich sterowników. 
+    	Arduino IDE jest wieloplatformowym zintegrowanym środowiskiem deweloperskim napisanym w języku C oraz C++. Oparty jest na wolnej licencji GNU GPL v2.0. Wykorzystywane jest do pisania oraz wgrywania programów do kompatybilnych płytek Arduino. Możliwe jest również wykorzystanie go w celu wgrywania przygotowanego oprogramowania na płytki firm trzecich za pomocą dołączonych sterowników. 
     	
-    	Programy pisane są w językach C oraz C++ używając specjalnych struktur kodowania. Udostępnionych jest na nie wiele bibliotek obsługujących szeroką gamę czujników, serw czy wyświetlaczy.
+    	Programy pisane są w językach C oraz C++ używając specjalnych struktur kodowania. Udostępnionych do wykorzystania  jest wiele bibliotek obsługujących szeroką gamę czujników, serw czy wyświetlaczy.
     	
     	\begin{figure}[H]
-    			\vspace{.5cm}
     			\includegraphics[width=1\textwidth]{images/rys3_arduino.png}
-    			\vspace{.5cm}
     			\caption{Widok Arduino IDE}
-    			\vspace{1cm}
                 \label{fig:arduinoide}
     	\end{figure}
     
-    	Napisany przez użytkownika kod do działania potrzebuje tylko dwie podstawowe funkcje. Są nimi setup() do rozpoczęcia działania i ustawienia początkowych parametrów oraz loop(), która jest pętlą główną programu.
+    	Napisany przez użytkownika kod do działania potrzebuje tylko dwie podstawowe funkcje. Są nimi \textit{setup()} do rozpoczęcia działania i ustawienia początkowych parametrów oraz \textit{loop()}, która jest pętlą główną programu.
     	
-    	\newpage
+    % 	\newpage
     	Środowisko zawiera trzy najważniejsze podprogramy, którymi są:
     	\begin{itemize}
-    	\item Edytor kodu źródłowego - piszemy w nim nasz program. Zawiera takie funkcje jak sprawdzanie składni czy auto-formatowanie kodu.
-    	\item Kompilator - wykonuje konwersje kodu wykonywalnego w plik tekstowy z szesnastkowym kodowaniem zrozumiałym przez mikrokontroler.
-    	\item Loader - przesyła odpowiedni plik do Arduino.
+    	\item Edytor kodu źródłowego — piszemy w nim nasz program. Zawiera takie funkcje jak sprawdzanie składni czy auto-formatowanie kodu.
+    	\item Kompilator — wykonuje konwersje kodu wykonywalnego w plik tekstowy z szesnastkowym kodowaniem zrozumiałym przez mikrokontroler.
+    	\item Loader — przesyła odpowiedni plik do Arduino.
     	\end{itemize}
     	
-    	\newpage
     	\subsection{Wykorzystane technologie}
     	\subsubsection{Java}
-    	Java jest opartym na klasach obiektowym językiem programowania. W programowaniu dla Androida wykorzystuje się przygotowane dla niego SDK\textit{ z ang. Software development kit}\cite{sdk}.
+    	Java jest opartym na klasach, obiektowym językiem programowania. W programowaniu dla Androida wykorzystuje się przygotowane dla niego SDK\textit{ (z ang. Software development kit)}\cite{sdk}.
     	
-    	W systemie Android cykl życia aplikacji wygląda inaczej niż w aplikacjach kontrolowanych przez \textit{Java Virtual Machine}\cite{jvm}. Nie występuje tutaj klasyczna metoda jaką jest \textit{public static main(String[] args) {...}} a mamy za to nowe metody w klasie aktywności jakimi są onCreate, onPause, onDestroy, onRestart i inne. Metody te wykorzystywane są w różnych momentach działania aktywności co możemy zobaczyć na rysunku \ref{fig:lifecycle}.
+    	W systemie Android cykl życia aplikacji wygląda inaczej niż w aplikacjach kontrolowanych przez JVM \textit{(ang. Java Virtual Machine)}\cite{jvm}. Nie występuje tutaj klasyczna metoda, jaką jest \textit{main(String[] args)}, mamy za to nowe metody w klasie aktywności, jakimi są onCreate, onPause, onDestroy, onRestart i inne. Metody te wykorzystywane są w różnych momentach działania aktywności, co możemy zobaczyć na rysunku numer \ref{fig:lifecycle}.
     
-    	
     	\begin{figure}[H]
     	        \centering
-    			\vspace{.5cm}
-    			\includegraphics[width=10cm]{images/rys6_androidlifecycle.png}
-    			\vspace{.5cm}
+    			\includegraphics[width=7cm]{images/rys6_androidlifecycle.png}
     			\caption{Uproszczony ilustracja cyklu życia aktywności\cite{lifecycle}}
                 \label{fig:lifecycle}
     	\end{figure}
     	
-    	Metoda onCreate jest metodą uruchamianą jako pierwszą. Tutaj ustawiamy widok aktywności. W niej także przypisujemy elementy do kodu, który chcemy aby się wykonywał po interakcji z określoną kontrolką.
-    		
-    	Widoki aplikacji są budowane w wielu różnych plikach XML oraz w klasach activity, gdzie można również tworzyć elementy programowo.
+    	Metoda onCreate jest metodą uruchamianą jako pierwsza. W niej ustawiamy widok aktywności. Tutaj także przypisujemy kod do elementu, który chcemy, aby wykonywały się po interakcji z określoną kontrolką.
     	
-    	W przeciwieństwie do \textit{JVM} gdzie mamy pełną kontrolę nad cyklem życia procesu. W Androidzie aktywności są ciągle aktywne w tle po zamknięciu aplikacji przez użytkownika. To system steruje, kiedy aktywności zostają całkowicie wyłączone i usunięte z pamięci urządzenia. 
+    	Widoki aplikacji budowane są w wielu różnych plikach XML oraz klasach activity, gdzie istnieje możliwość tworzenia elementów programowo.
     	
-    	Po zamknięciu aplikacji mogą one ciągle działać w tle jedynie zmniejszając część używanej przez siebie pamięci oraz zamknięciu niektórych z używanych procesów jak na przykład połączenie Bluetooth, GPS czy łączność z internetem. Takie rozwiązanie ma sprzyjać szybkości i zużyciu zasobów podczas ponownego uruchamiania aplikacji przez co polepszać wykorzystanie baterii\cite{batterysave}.
+    	W przeciwieństwie do \textit{JVM}, gdzie posiadamy pełną kontrolę nad cyklem życia procesu. W Androidzie aktywności są ciągle aktywne w tle, nawet po zamknięciu aplikacji przez użytkownika. To system steruje, kiedy aktywności zostają całkowicie wyłączone i usunięte z pamięci urządzenia. 
     	
-    	Więcej informacji oraz większa liczba szczegółów można zaczerpnąć z książki \textit{Android Programming: The Big Nerd Ranch Guide (3rd Edition)}\cite{androidprogramming}.
+    	Po zamknięciu aplikacje mogą ciągle działać w tle, jedynie zmniejszając część używanej przez siebie pamięci oraz zamykając niektóre z używanych procesów, jak na przykład połączenie Bluetooth, GPS czy łączność z internetem. Takie rozwiązanie ma sprzyjać szybkości i zmniejszeniu zużycia zasobów, podczas ponownego uruchamiania aplikacji. Dzięki czemu polepszać wykorzystanie baterii\cite{batterysave}.
     	
-    	\vspace{1cm}
+    	Więcej informacji na temat programowania w systemie Android można zaczerpnąć z książki \textit{Android Programming: The Big Nerd Ranch Guide (3rd Edition)}\cite{androidprogramming}.
+    	
     	\subsubsection{SQLite}
-    	SQLite jest relacyjną bazą danych dostępną na licencji \textit{public domain}\cite{publicdomain} zbudowaną w 2000 roku przez Richarda Hippa. SQLite implementuje mały rozmiarem (mniej niż 600KiB), szybki, samodzielny  silnik SQL \textit{(ang. Structured Query Language)}. Jest najczęściej używanym silnikiem baz danych na świecie. Występuje we wszystkich telefonach mobilnych oraz większości komputerów.Do działania nie potrzebuje dodatkowego procesu serwera, zapisuje i odczytuje dane bezpośrednio ze zwykłych dysków danych. Format plików jest uniwersalny, możliwe jest używanie jej i kopiowanie baz po stworzeniu pomiędzy systemami 32 lub 64 bitowymi czy wykorzystującymi architektury kolejności bajtów \textit{big-endian} lub \textit{little-endian}\cite{endian}. SQLite jest starannie testowana przed wypuszczenie każdej nowej wersji oprogramowania. Automatyczne testy osiągają 100 procent pokrycia rozgałęzień\cite{branchcoverage}. Na co dzień SQLite jest wspierany przez międzynarodowy zespół programistów pracujących nad nim w pełnym wymiarze czasu. Kod źródłowy jest otwarty i dostępny dla każdego\cite{sqlite}.
+    	SQLite jest relacyjną bazą danych dostępną na licencji \textit{public domain}\cite{publicdomain} zbudowaną w 2000 roku przez Richarda Hippa. SQLite implementuje mały rozmiarem (mniej niż 600KiB), szybki i samodzielny  silnik SQL \textit{(ang. Structured Query Language)}. Jest najczęściej używanym silnikiem baz danych na świecie. Występuje we wszystkich telefonach mobilnych oraz większości komputerów. Do działania nie potrzebuje dodatkowego procesu serwera, zapisuje i odczytuje dane bezpośrednio ze zwykłych dysków danych. Format plików jest uniwersalny, możliwe jest używanie i kopiowanie baz danych pomiędzy systemami 32 lub 64-bitowymi, lub wykorzystującymi architektury kolejności bajtów \textit{big-endian}, lub \textit{little-endian}\cite{endian}. SQLite jest starannie testowana przed wypuszczeniem każdej nowej wersji oprogramowania. Automatyczne testy osiągają 100 procent pokrycia rozgałęzień\cite{branchcoverage}. Na co dzień, SQLite jest wspierany przez międzynarodowy zespół programistów pracujących nad nim w pełnym wymiarze czasu. Kod źródłowy jest otwarty i dostępny dla każdego\cite{sqlite}.
     	
-    	Szczegółowe informacje dotyczące SQLite i jej zasad działania i użytych technologii na najniższym poziomie dostępne są w książce \textit{SQLite Forensics (2018)}\cite{sqliteforensics}. 
+    	Szczegółowe informacje dotyczące SQLite i zasad jej działania oraz wykorzystanych technologii do produkcji tak wydajnej bazy danych można znaleźć w książce \textit{SQLite Forensics (2018)}\cite{sqliteforensics}. Zostały tam opisane z dokładnością co do bajta relacje pomiędzy danymi w wykonywanych zapytaniach.
     	
-    	\vspace{1cm}
     	\subsubsection{Kod Arduino}
-    	Kod Arduino pisany jest w C++ z dołączonymi do niego specjalnymi metodami i funkcjami wykorzystywanymi i napisanymi specjalnie dla płytek Arduino i ich klonów. Ze względu na otwartą naturę projektu Arduino, biblioteki i inne zasoby posiadają obszerną liczbę pozycji. Arduino posiada wiele wbudowanych bibliotek dostarczających podstawowe funkcjonalności większości elementów, które można podłączyć do płytki. 
+    	Kod Arduino pisany jest w C++ z dołączonymi do niego specjalnymi metodami i funkcjami. Został napisany specjalnie dla płytek Arduino i ich klonów. Ze względu na otwartą naturę projektu Arduino, biblioteki i inne źródła posiadają obszerną liczbę pozycji. Arduino posiada wiele wbudowanych bibliotek dostarczających podstawowe funkcjonalności większości elementów, które można podłączyć do płytki. 
     	
     	\begin{flushleft}
-    	\vspace{.5cm}Programowanie programów dla Arduino jest podzielone na dwie główne części:
+    	Programowanie na Arduino podzielone jest na dwie główne części:
     	\begin{enumerate}
     	    \item  
-    	    \textbf{setup()}, ustalamy tutaj początkowy stan Arduino po uruchomieniu. Wykonywany jest tylko jeden raz.	
+    	    \textbf{setup()}, ustalany jest tutaj początkowy stan Arduino po uruchomieniu. Wykonywany jest tylko jeden raz.	
     	    \begin{itemize}
-    	        \item ustalamy początkowy stan pinów
-    	        \item przypisujemy zmienne
-    	        \item tworzymy klasy
+    	        \item ustalany jest początkowy stan pinów
+    	        \item przypisywane są zmienne
+    	        \item tworzone są klasy
         	\end{itemize}
         	\item  
-    	    \textbf{loop()}, uruchamiana jest po skończeniu działania setup(). Uruchamiana jest w nieskończonej pętli. Opisana jest w niej główna logika programu.
+    	    \textbf{loop()}, zaczyna działać po skończeniu działania setup(). Uruchamiana jest w nieskończonej pętli, opisana jest w niej główna logika programu.
     	\end{enumerate}
     	
-    	\flushleft\vspace{.5cm}Podstawowy zarys jak programować w Arduino można opisać w czterech krokach.\cite{stepsarduino} 
-    	
-    	
+    	Każdy program napisany w Arduino opisać można w czterech głównych krokach:\cite{stepsarduino} 
     	\begin{enumerate}
-    	    \item \textbf{Konfiguracja} - najczęściej będzie opisana w \textit{setup()}. Wykonywana tylko raz do opisu pinów, przypisania zmiennych, kalibracji czujników.
-    	    \item \textbf{Dane wejściowe} - po rozpoczęciu \textit{loop()} powinniśmy przypisać przychodzące dane do zmiennych do dalszego wykorzystania lub do wywołania odpowiednich kawałków kodu zależnie od przychodzących danych, tj. jako instrukcje warunkowe.  
-    	    \item \textbf{Obsługa danych} - konwersja danych w łatwiejsze do obsługi przez programistę np. przypisanie danych z portu szeregowego do tablic po zastosowaniu odpowiednich kodowań. Przystosowanie danych do dalszego przesłania jeżeli wymaga tego program.
-    	    \item \textbf{Dane wyjściowe} - np. wysyłanie przygotowanych danych w odpowiedniej formie na port szeregowy do dalszej obróbki przez inne systemy czy przełączanie pinów na stany odpowiadające logice kodu.
+    	    \item \textbf{Konfiguracja} — najczęściej opisana zostanie w \textit{setup()}. Wykonywana jest tylko raz w celu opisu pinów, przypisania zmiennych, kalibracji czujników.
+    	    \item \textbf{Dane wejściowe} — po rozpoczęciu funkcji \textit{loop()} powinno nastąpić przypisanie przychodzących danych do zmiennych w celu dalszego wykorzystania. Zmienne mogą zostać użyte np. do wywołania instrukcji warunkowych lub przesłania dalej.
+    	    \item \textbf{Obsługa danych} — konwersja danych do postaci, która będzie łatwiejsza do obsługi przez programistę np. przepisanie danych z portu szeregowego do tablic, po zastosowaniu odpowiednich algorytmów, czy przystosowanie ich do dalszego przesłania.
+    	    \item \textbf{Dane wyjściowe} — np. wysłanie przygotowanych danych na port szeregowy do dalszej obróbki przez inne systemy lub przełączenie pinów na stany odpowiadające logice kodu.
     	\end{enumerate}
     	\end{flushleft}
     	
-    	\vspace{1cm}
-        Biblioteki wykorzystywane w programy Arduino składają się z plików źródłowych z rozszerzeniem \textit{.cpp}, oraz plików nagłówkowych \textit{.h}. Pliki nagłówkowe opisują strukturę biblioteki. Są w niej również deklarowane wszystkie zmienne i funkcje wykorzystywane przez bibliotekę. W plikach źródłowych \textit{.cpp} zawarte są implementowane kody funkcji.
+        Biblioteki wykorzystywane w programie Arduino składają się z plików źródłowych z rozszerzeniem \textit{.cpp}, oraz plików nagłówkowych \textit{.h}. Pliki nagłówkowe opisują strukturę biblioteki. Są w niej deklarowane wszystkie zmienne i funkcje wykorzystywane przez bibliotekę. W plikach źródłowych \textit{.cpp} zawarte są zaimplementowane kody funkcji.
         
-        \vspace{1cm}
     	\section{Opis i specyfikacja urządzenia}
-    	Elektroniczna plakietka konfigurowana z urządzenia mobilnego składa się z dwóch fizycznych części. Urządzenia mobilnego z zainstalowanym oprogramowaniem napisanym do obsługi tego projektu oraz urządzenia będącego fizyczną częścią projektu. Składającego się z mikrokontrolera oraz wyświetlacza w technologii elektronicznego papieru.
+    	Elektroniczna plakietka konfigurowana z urządzenia mobilnego składa się z dwóch części. Urządzenia mobilnego z zainstalowanym oprogramowaniem napisanym do obsługi tego projektu oraz urządzenia będącego fizyczną częścią projektu, składającego się z mikrokontrolera oraz wyświetlacza w technologii elektronicznego papieru.
     
-        Przedstawię w tym rozdziale ogólny schemat projektu, wybrane podzespoły do wykonania projektu, idee działania jak również algorytm, według którego działa program mikrokontrolera.
-        \vspace{.5cm}
+        Przedstawię w tym rozdziale ogólny schemat projektu, wybrane podzespoły do jego wykonania. Opisane zostaną idea działania, jak również algorytm, według którego działa program mikrokontrolera.
+        
         \subsection{Opis części fizycznej projektu}
-        Urządzenie wyświetlające zostało zaprojektowane do działania na mikrokontrolerze ESP32 firmy Espressif. Mikrokontroler posiada wbudowany moduł \textit{Bluetooth} BR/EDR \textit{z ang. Basic Rate/Enhanced Data Rate}\cite{edr} oraz BLE \textit{z ang. Bluetooth Low Energy}\cite{ble}, do łączenia z urządzeniem mobilnym. Do wyświetlania przesyłanych danych używany jest wyświetlacz elektronicznego papieru firmy Waveshare model WSR-09099 posiadający ekran o przekątnej 2.9 cala i rozdzielczości 296 × 128 pikseli. Możliwe jest jednak wykorzystanie dowolnego wyświetlacza 
+        Urządzenie imitujące papierowy identyfikator zostało zaprojektowane do działania na mikrokontrolerze ESP32 firmy Espressif. Mikrokontroler posiada wbudowany moduł \textit{Bluetooth} BR/EDR \textit{(ang. Basic Rate/Enhanced Data Rate)}\cite{edr} oraz BLE \textit{(ang. Bluetooth Low Energy)}\cite{ble} do łączenia z urządzeniem mobilnym. Do wyświetlania przesyłanych danych używany jest wyświetlacz elektronicznego papieru firmy Waveshare, model WSR-09099, posiadający ekran o przekątnej 2.9 cala i rozdzielczości 296 × 128 pikseli. Możliwe jest jednak wykorzystanie dowolnego wyświetlacza 
         pracującego w szeregowym interfejsie SPI 4-line i obsługiwanego przez biblioteki \textit{GxEPD}\cite{gxepd}.
-        \vspace{.5cm}
+        
         \subsubsection{Schemat blokowy projektu}
+        Na rysunku numer \ref{fig:block}. przedstawiony został schemat blokowy wykonanego projektu. Projekt posiada cztery główne bloki, jakimi są urządzenie mobilne, mikrokontroler ESP32 z wbudowanym modułem Bluetooth oraz wyświetlacz e-papieru.
         \begin{figure}[H]
     	        \centering
-    			\vspace{.5cm}
-    			\includegraphics[width=14cm]{images/rys_7schemat_blokowy.png}
-    			\vspace{.5cm}
+    			\includegraphics[width=13cm]{images/rys_7schemat_blokowy.png}
     			\caption{Schemat blokowy projektu}
                 \label{fig:block}
     	\end{figure}
-    	\vspace{.5cm}
+    	
         \subsubsection{Opis poszczególnych bloków układu}
-        \textbf{Urządzenie mobilne} wykorzystane do obsługi wyświetlacza papieru elektronicznego musi posiadać wersje systemu Android OS w wersji co najmniej 4.0.3 (\textit{Ice Cream Sandwich})\cite{ics}, posiadającą API w wersji 15\cite{api}. 
+        \textbf{Urządzenie mobilne} wykorzystane w obsłudze wyświetlacza papieru elektronicznego musi posiadać wersje systemu Android OS w wersji co najmniej 4.0.3 (\textit{Ice Cream Sandwich})\cite{ics}, posiadającą API w wersji 15\cite{api}. 
         
-        Kolejnym wymogiem wykorzystania pełnej funkcjonalności projektu jest obecność modułu Bluetooth w urządzeniu mobilnym. Bez jego obecności nie możliwym jest przesłanie danych do mikrokontrolera a zarazem wyświetlenie ich na papierze elektronicznym.
+        Kolejnym wymogiem korzystania z pełnej funkcjonalności projektu, jest obecność modułu Bluetooth w urządzeniu mobilnym. Bez jego obecności niemożliwe staje się przesłanie danych do mikrokontrolera, a zarazem wyświetlenie ich na papierze elektronicznym.
         
-        \vspace{1cm}
-        
-    	\textbf{Mikrokontroler}, który użyto w projekcie to 32-bitowy ESP32. Pracuje on przy 3.3V napięcia roboczego. Do zbudowania prototypu posłużono się kitem developerskim ESP32-DevKitC. Posiada on wbudowany port Micro-USB do zasilania urządzenia oraz łączności ze środowiskiem programistycznym Arduino. Z tego samego portu USB zasilany jest również wyświetlacz papieru elektronicznego. Kit posiada 4MB pamięci flash\cite{flash}. Mamy do dyspozycji również trzydzieści osiem wyprowadzeń z czego dwadzieścia trzy są wyprowadzeniami GPIO\textit{z ang. general-purpose input/output}. Piny te wykorzystywane są w komunikacji pomiędzy mikroprocesorem a urządzeniami peryferyjnymi.
-    	\vspace{.5cm}
+    	\textbf{Mikrokontrolerem}, użytym w projekcie jest 32-bitowy ESP32 firmy Espressif. Pracuje on przy 3.3V napięcia roboczego. Do zbudowania prototypu posłużono się kitem developerskim ESP32-DevKitC. Posiada on wbudowany port Micro-USB do zasilania urządzenia oraz możliwość współpracy ze środowiskiem programistycznym Arduino. Z tego samego portu USB zasilany jest również wyświetlacz papieru elektronicznego. Kit posiada 4MB pamięci flash\cite{flash}. Mamy do dyspozycji również trzydzieści osiem wyprowadzeń, z czego dwadzieścia trzy są wyprowadzeniami GPIO \textit{(ang. general-purpose input/output)}. Piny te wykorzystywane są w komunikacji pomiędzy mikroprocesorem a urządzeniami peryferyjnymi.
     	\begin{figure}[H]
     	        \centering
-    			\vspace{.5cm}
-    			\includegraphics[width=14cm]{images/rys8_devkit.png}
-    			\vspace{.5cm}
+    			\includegraphics[width=9cm]{images/rys8_devkit.png}
     			\caption{Schemat ESP32-DevKitC\cite{devkit}}
                 \label{fig:devkit}
     	\end{figure}
-    	\vspace{.5cm}
-    	Jego zadaniem jest odbieranie danych z połączonego urządzenia mobilnego, następnie przetworzenie ich do typu danych, z pomocą którego będzie można wysyłać je do podłączonego wyświetlacza e-papier.
     	
-    	\vspace{1cm}
+    	Zadaniem mikrokontrolera jest odbieranie danych z połączonego urządzenia mobilnego, następnie przetworzenie ich i przesłanie do wyświetlenia na podłączonym wyświetlaczu e-papier.
     
-        \textbf{Wyświetlacz papieru elektronicznego} jest 2.9-cio calowym ekranem firmy Waveshare. Przystosowany jest do pracy w dwóch napięciach roboczych 3.3V oraz 5V. Zasilany jest z ESP32, który działa w 3.3V więc jest również zasilany 3.3V. Jest w stanie wyświetlać dane w dwóch kolorach (białym i czarnym) z czasem potrzebnym do odświeżenia wyświetlacza równym w przybliżeniu 2s\cite{waveshare}.
+        \textbf{Wyświetlacz papieru elektronicznego} jest to 2.9-calowy ekran firmy Waveshare. Przystosowany jest do pracy w dwóch napięciach roboczych 3.3V oraz 5V. Zasilany jest przez wyjście 3.3V dostępne w ESP32. Jest w stanie wyświetlać dane w dwóch kolorach (białym i czarnym) z czasem potrzebnym do pełnego odświeżenia wyświetlacza równym w przybliżeniu 2 sekundy\cite{waveshare}.
         
         Wykorzystane piny do połączenia wyświetlacza z mikrokontrolerem: 
         \begin{itemize}
-            \item \textbf{VCC, GND} - zostały połączone z wyjściami 3.3V oraz GND mikrokontrolera. Piny te dostarczają zasilanie do wyświetlacza.
-            \item \textbf{DIN, CLK, CS} - są to piny wykorzystywane przez interfejs szeregowy SPI. CLK jest linią zegara. Przez DIN dane wysyłane są z mikrokontrolera (mastera) do wyświetlacza (slave). CS używany jest do wyboru aktywnego urządzenia (stan niski), w naszym projekcie podłączone mamy tylko jedno urządzenie więc jest ono zawsze aktywne.
-            \item \textbf{DC} - wybieramy czy wysyłamy dane czy komendy do wyświetlacza. Stan wysoki dla danych, stan niski dla komend
-            \item \textbf{RST} - zewnętrzny reset, aktywowany stanem niskim.
-            \item \textbf{BUSY}  - linia wyjściowa wyświetlacza jest wykorzystywana do informowania mikrokontrolera o stanie zajętości wyświetlacza. Przy stanie aktywnym (aktywność przy niskim stanie) wyświetlacz nie będzie reagował na komendy przesłane przez mikrokontroler. 
+            \item \textbf{VCC, GND} — zostały połączone z wyjściami 3.3V oraz GND mikrokontrolera. Piny te dostarczają zasilanie wyświetlaczowi.
+            \item \textbf{DIN, CLK, CS} — są to piny wykorzystywane przez interfejs szeregowy SPI. CLK jest linią zegara. Przez DIN dane przesyłane są z mikrokontrolera (mastera) do wyświetlacza (slave). CS używany jest do wyboru aktywnego urządzenia (stan niski), w naszym projekcie podłączone mamy tylko jedno urządzenie więc jest ono zawsze aktywne.
+            \item \textbf{DC} — wybór przesyłania danych lub komend do wyświetlacza. Stan wysoki dla danych, stan niski dla komend.
+            \item \textbf{RST} — zewnętrzny reset, aktywowany stanem niskim.
+            \item \textbf{BUSY}  — linia wyjściowa wyświetlacza wykorzystywana do przesyłania informacji do mikrokontrolera o stanie zajętości wyświetlacza. Przy stanie aktywnym (aktywność przy niskim stanie) wyświetlacz nie będzie reagował na komendy przesłane przez mikrokontroler. 
         \end{itemize}
         
-        \vspace{.5cm}
         \subsection{Opis części programowej mikrokontrolera}
-    	Program sterujący działaniem mikrokontrolera został napisany w języku C++ w zintegrowanym środowisku programistycznym Arduino IDE dostępnym za darmo na licencji GNU General Public License. Program jest kompilowany a następnie przesyłany do mikrokontrolera za pomocą wbudowanego w kit deweloperski, programatora AVRISP mk2.
-    	\vspace{.5cm}
+    	Program sterujący działaniem mikrokontrolera został napisany w języku C++ w zintegrowanym środowisku programistycznym Arduino IDE, które dostępne jest za darmo na licencji GNU General Public License. Program jest kompilowany, a następnie przesyłany do mikrokontrolera za pomocą wbudowanego w kit deweloperski programatora AVRISP mk2.
+   
     	\subsubsection{Zasada działania}
-    	
-    	\vspace{.5cm}
-        Program opiera się na dwóch częściach. Obsługa modułu Bluetooth oparta jest na kodzie napisanym przez Espressif i udostępnianym na licencji Apache License, Version 2.0. 
-        
-        Pierwsza część odpowiedzialna jest za upewnienie się, że moduł Bluetooth w urządzeniu sterującym działa prawidłowo.
-        \vspace{1cm}
+
+        Program opiera się na dwóch częściach. Pierwsza część odpowiedzialna jest za upewnienie się, że moduł Bluetooth dostępny w urządzeniu sterującym działa prawidłowo. Obsługa modułu oparta jest na kodzie napisanym przez Espressif i udostępnianym na licencji Apache License, Version 2.0.
+
     \begin{lstlisting}[language=C++, caption=Sprawdzenie poprawności działania Bluetooth]
-    #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
-    #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
-    #endif\end{lstlisting}
-    	\vspace{.5cm}
-    	Kolejnym korkiem jest zrobienie instancji klasy odpowiadającej za działanie modułu Bluetooth i inicjalizacja komunikacji szeregowej urządzenia sterującego z prędkością transmisji ustawioną na 115200 baudów\cite{baud}. Następnie inicjujemy szeregowe połączenie urządzenia Bluetooth i zaczynamy rozgłaszanie podanej przez nas nazwy naszego urządzenia. Po wykonaniu powyższych program przechodzi do kolejnej części.
-    	
-    	Druga część programu jest wykonywana w nieskończonej pętli. Schemat działania pętli przedstawiony jest na rysunku \ref{fig:petlamikrokontrolera}. W niej tworzymy potrzebne do działania programu zmienne i przypisujemy im startowe wartości, które później w kodzie będą modyfikowane. 
-    	
-    	Głównym zadaniem pętli jest nasłuchiwanie portu szeregowego modułu Bluetooth. Jeżeli na porcie RX modułu otrzymamy dane zapisujemy je do zmiennej. Kolejnym zadaniem wykonywanym przez nasz program jest przetworzenie otrzymanych bajtów na dane, które będzie można wysłać i wyświetlić na wyświetlaczu papieru elektronicznego. Wykorzystujemy do tego funkcję dostępną w języku C++ jaką jest \textit{strtok}\cite{strtok}. Funkcja ta rozdziela otrzymane dane z portu szeregowego Bluetooth na słowa. \label{petladekod}Ogranicznikiem, a zarazem argumentem, który musi być podany w funkcji, po którym następuje podział jest \textit{";"}. Dane wysyłane z urządzenia mobilnego są podzielone tym znakiem. 
-    	
-    	Przy pierwszym wykonaniu, funkcja oczekuje łańcucha znaków odebranego z urządzenia mobilnego jako pierwszy argument oraz znaku służącego do podziału jako drugi argument. Kolejne wywołania \textit{strtok} wykonywane są w pętli wykonującej się do otrzymania wskaźnika zerowego, który jest zwracany przez funkcję po wystąpieniu końca łańcucha znaków. Funkcja zwraca wskaźnik do następnego słowa jeżeli występowało poprzednie słowo, w wypadku gdy wystąpi koniec łańcucha znaków zwracany jest wskaźnik zerowy. W pętli kopiujemy wydzielone słowo i wpisujemy je do utworzonej wcześniej tablicy przy pomocy funkcji \textit{strcpy}\cite{strcpy}, która jest również dostępna w języku C++. Następnie wywołujemy kolejny raz \textit{strtok}, tym razem jako pierwszy argument podajemy wskaźnik zerowy. Funkcja sama ustawia się na końcu poprzedniego słowa, jako początkowe miejsce do ponownego skanowania do wykrycia znaku specjalnego. Pętla kończy się po wykryciu przez \textit{strtok} znaku \textit{null}, czyli znaku sterującego o wartości liczbowej 0, informującego o braku informacji\cite{null} i zwróceniu przez nią wskaźnika zerowego. 
-    	
-    	Pseudokod pętli pokazano w algorytmie numer \ref{lst:petlaprzepisujaca}.
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif\end{lstlisting}
     
-    \begin{lstlisting}[language=C++, label={lst:petlaprzepisujaca}, caption=Działanie pętli przepisującej otrzymane dane do tablicy]
-    char *ptr = strtok(input, ";");
-    while (ptr != NULL) {
-      strcpy(ch_arr[i], ptr);
-      ptr = strtok(NULL, ";");
-      i++;
-    }\end{lstlisting}	
-    	\vspace{.5cm}
-    	Mając do dyspozycji wszystkie dane potrzebne do poprawnego wyświetlania na ekranie wyświetlacza rozpoczynamy wyświetlanie ich na ekranie. Pierwszym krokiem jest ustawienie orientacji ekranu. Następnie ustalamy wielkość czcionki oraz współrzędne pozycji startowej kursora, skąd rozpoczniemy rysowanie danych na wyświetlaczu papieru elektronicznego. Wielkość czcionki, oraz współrzędne są ustalane dla każdego tekstu wyświetlanego na ekranie papieru elektronicznego, zależnie od tego jakie informacje chcemy wyświetlić na identyfikatorze.
-    \vspace{1cm}
-    	\subsubsection{Schemat blokowy pętli programu mikrokontrolera}
-    	Na rysunku \ref{fig:petlamikrokontrolera} przedstawiono schemat blokowy działania głównej pętli programu mikrokontrolera ESP32. Przedstawione są tam kroki wykonywane przed wejściem do pętli oraz działanie pętli.
+    	Następnym krokiem jest zrobienie instancji klasy odpowiadającej za działanie modułu Bluetooth i inicjalizacja komunikacji szeregowej urządzenia sterującego z prędkością transmisji ustawioną na 115200 baudów\cite{baud}. Później inicjowane jest szeregowe połączenie urządzenia Bluetooth i rozpoczęte jest rozgłaszanie podanej nazwy programowanego urządzenia. Po wykonaniu powyższych zadań program przechodzi do kolejnej części.
     	
-    	\newpage
+    	Druga część programu jest wykonywana w nieskończonej pętli. Schemat działania pętli przedstawiony jest na rysunku numer \ref{fig:petlamikrokontrolera}. W niej tworzone są potrzebne do działania programu zmienne i przypisywane są im wartości startowe, które w dalszej części kodu będą używane i modyfikowane. 
+    	
+    	Głównym zadaniem pętli jest nasłuchiwanie portu szeregowego modułu Bluetooth. Otrzymane na porcie RX dane, zapisywane są do zmiennych. W kolejnym kroku wykonywanym przez nasz program, dane te przetwarzane są do postaci, którą można wysłać i wyświetlić na wyświetlaczu papieru elektronicznego. Wykorzystywana jest do tego funkcja dostępna w języku C jaką jest \textit{strtok}\cite{strtok}. Funkcja ta rozdziela otrzymane dane z portu szeregowego Bluetooth na słowa. \label{petladekod}Ogranicznikiem, a zarazem argumentem, który musi być podany w funkcji, jest \textit{";"}. Po jego wykryciu następuje podział danych przesłanych z urządzenia mobilnego.
+    	
+    	Przy pierwszym wykonaniu, funkcja oczekuje łańcucha znaków odebranych z urządzenia mobilnego jako pierwszy argument, oraz znaku służącego do podziału (ogranicznika) jako drugi argument. Kolejne wywołania \textit{strtok} wykonywane są w pętli działającej do otrzymania wskaźnika zerowego, który jest zwracany przez funkcję po wystąpieniu końca łańcucha znaków. Funkcja zwraca wskaźnik do następnego słowa, jeżeli występowało słowo poprzednie. W wypadku gdy wystąpi koniec łańcucha znaków, zwracany jest wskaźnik zerowy. W pętli wydzielone słowo jest kopiowane, a następnie zostaje wpisane do utworzonej wcześniej tablicy. Za kopiowanie i przepisanie słowa do tablicy odpowiada funkcja \textit{strcpy}\cite{strcpy}, która jest dostępna w języku C, w klasie string.h. Następnie po raz kolejny wywoływana jest funkcja \textit{strtok}, tym razem pierwszym argumentem musi być wskaźnik zerowy. Funkcja sama ustawia się na końcu poprzedniego słowa jako początkowe miejsce do ponownego skanowania w celu wykrycia znaku specjalnego. Pętla kończy się po wykryciu przez \textit{strtok} znaku \textit{null}, czyli znaku sterującego o wartości liczbowej 0, informującego o braku informacji\cite{null} i zwróceniu przez nią wskaźnika zerowego. Pseudokod pętli przedstawiony jest w algorytmie numer \ref{lst:petlaprzepisujaca}.
+    \begin{lstlisting}[language=C++, label={lst:petlaprzepisujaca}, caption=Działanie pętli przepisującej otrzymane dane do tablicy]
+char *ptr = strtok(input, ";");
+while (ptr != NULL) {
+  strcpy(ch_arr[i], ptr);
+  ptr = strtok(NULL, ";");
+  i++;
+}\end{lstlisting}
+    
+    	Posiadając wszystkie dane, potrzebne do prawidłowego wyświetlenia na ekranie wyświetlacza, program rozpoczyna przesyłanie ich na ekran. Pierwszym krokiem jest ustawienie orientacji ekranu. Następnie ustawiana jest wielkość czcionki oraz współrzędne pozycji startowej kursora, skąd rozpoczyna się rysowanie tekstu na wyświetlaczu papieru elektronicznego. Wielkość czcionki oraz współrzędne są ustalane dla każdej przesłanej informacji z osobna.
+    	
+    	\subsubsection{Schemat blokowy pętli programu mikrokontrolera}
+    	Na rysunku numer \ref{fig:petlamikrokontrolera}. przedstawiony został schemat blokowy działania głównej pętli programu mikrokontrolera ESP32. Przedstawiono tam kroki wykonywane przed wejściem do pętli oraz działanie pętli.
+ 
     	\begin{figure}[H]
     	        \centering
-    			\includegraphics[width=12cm]{images/rys10_petlamikro.png}
+    			\includegraphics[width=10.5cm]{images/rys10_petlamikro.png}
     			\caption{Schemat blokowy pętli programu mikrokontrolera}
                 \label{fig:petlamikrokontrolera}
     	\end{figure}
     	
-    	\newpage
     	\section{Opis aplikacji}
-    	\vspace{.5cm}
-    	Aplikacja na urządzenie mobilne została zrobiona dla systemu mobilnego Android w środowisku Android Studio firmy Google, przystosowanej do budowy aplikacji na system Android. Aplikację napisano w języku Java. Minimalna wersja API to 15, która jest w systemie Android od wersji 4.0.3 \textit{Ice Cream Sandwich} z czerwca 2012 roku.
+    	Aplikacja na urządzenie mobilne została napisana dla systemu mobilnego Android w środowisku Android Studio firmy Google. Środowisko to jest dostosowane do budowy aplikacji na system Android. Aplikację napisano w języku Java. Minimalna wersja API to 15. Jest ona obecna w systemie Android od wersji 4.0.3 \textit{Ice Cream Sandwich} z czerwca 2012 roku.
     	
-    	Program został zaprojektowany zgodnie ze wzorcem programowania obiektowego \textit{(Object Oriented Programming)}\cite{oop}, w którym kod został podzielony na części, które są łatwiejsze w utrzymaniu i do konserwacji. Każda część jest samodzielna w swojej funkcjonalności, zarazem możliwe jest wykorzystanie jej przez inne programy działające w aplikacji. Wszystkie części działając wspólnie tworzą całość aplikacji. Części te nazywane są obiektami. 
+    	Program zaprojektowano zgodnie ze wzorcem programowania obiektowego \textit{(Object Oriented Programming)}\cite{oop}, w którym kod podzielony jest na części, które są łatwiejsze w utrzymaniu i konserwacji. Każda część jest samodzielna w swojej funkcjonalności, zarazem możliwe jest wykorzystanie jej przez inne programy działające w aplikacji. Wszystkie części działają wspólnie, tworząc całość aplikacji. Części te nazywane są obiektami. 
     	
-    	Aplikacja posiada cztery aktywności, odpowiadające za różne funkcjonalności. Do przechowywania danych użyto relacyjnej bazy danych SQLite. W aplikacji można przechowywać zapisane dane do wyświetlenia na wyświetlaczu jak również przygotowane i zapisane układy wyświetlania.
+    	Aplikacja posiada cztery aktywności odpowiadające za różne funkcjonalności. Do przechowywania danych użyto relacyjnej bazy danych SQLite. W aplikacji można przechowywać zapisane dane do wyświetlenia na wyświetlaczu, jak również przygotowane i zapisane układy wyświetlania.
     	
     	\subsection{Podział na klasy}
-    	Aplikacja składa się z kilku klas, są one odpowiedzialne za m.in. wyświetlanie widoku oraz obsługę jego funkcjonalności, klasa pomocnicza dla obsługi bazy danych czy klasa dla adaptera danych. Istnieje również klasa bazowa, z której dziedziczy reszty obecnych w aplikacji klas.
+    	Aplikacja składa się z kilku klas, są one odpowiedzialne za np. wyświetlanie widoków oraz obsługę ich funkcjonalności czy obsługę bazy danych. Występuje klasa adaptera danych widoku listy oraz istnieje klasa bazowa, z której dziedziczy reszty obecnych w aplikacji klas.
     	
     	Klasy występujące w aplikacji i ich skrócony opis:
     	\begin{itemize}
-    	    \item \textit{DeviceList} - klasa odpowiada za sprawdzenie czy urządzenie jest wyposażone w moduł Bluetooth i czy jest on włączony. Po spełnieniu tych warunków wyświetla sparowane z urządzeniem mobilnym urządzenia Bluetooth. Po wybraniu odpowiedniego urządzenia wysyła jego adres Bluetooth \textit{z ang. Bluetooth Device Address}\cite{bdaddr} do kolejnej klasy.
-    	    \item \textit{DataControl} - po stworzeniu klasy następuje próba połączenia z urządzeniem, którego adres Bluetooth otrzymaliśmy, o ile urządzenie mobilne nie jest w tym samym czasie połączone. W tej samej klasie mamy pokazany widok, z którego możemy uzupełnić dane do wyświetlenia na papierze elektronicznym, po czym je bezpośrednio wysłać na urządzenie poprzez ustanowioną łączność Bluetooth lub zapisać je do bazy danych do późniejszego użycia. Została w tym miejscu również zaimplementowana funkcjonalność rozłączenia z urządzeniem Bluetooth.
-    	    \item \textit{DatabaseHelper} - jest to klasa pomocnicza do obsługi bazy danych SQLite. Przygotowywane i wykonywane są w niej skrypty do tworzenia tabeli dla danych oraz tabeli dla układów, która jest również uzupełniana wartościami domyślnymi. Są tutaj również napisane metody do obsługi tabel. Mamy możliwość pobrania danych rekordów z tabeli, edycji lub usunięcia ich.
-    	    \item \textit{DataList} - klasa, w której wyświetlane są rekordy z tabeli zawierającej zapisane dane, które można przesłać na wyświetlacz papieru elektronicznego. Po przesunięciu wybranego rekordu mamy możliwość usunięcia go lub przesłania do widoku, gdzie mamy możliwość nim sterować. Rekord można edytować lub przesłać do urządzenia, gdzie zostanie wyświetlony.
-    	    \item\textit{DataAdapter} - jest to klasa pomocnicza dla klasy DataList. Odpowiada ona za poprawne wyświetlanie danych pobranych z bazy danych na adapterze widoku liście.
-    	    \item \textit{AddLayout} - w tej klasie mamy możliwość dodawania nowych układów do wyświetlania danych na ekranie papieru elektronicznego. Klasa posiada również metody do edycji i usuwania układów danych. Jest tutaj również zaimplementowany prosty dialog pomagający w projektowaniu nowych układów, które można wyświetlać.
-    	    \item \textit{DynamicSquareLayout} - klasa odpowiada za obliczanie i ustawianie proporcji pomocniczego widoku wyświetlacza w dialogu pomocy zaimplementowanym w klasie \textit{AddLayout}. Proporcje te odpowiadają fizycznym rozmiarom wyświetlacza papieru elektronicznego. Wysokość i szerokość pomocniczego widoku wyświetlacza dobierane są w taki sposób, aby szerokość wyświetlacza pokazywanego w aplikacji była równa 80-ciu procentom szerokości ekranu urządzenia mobilnego.
-    	    \item \textit{BaseActivity} - jest klasą bazową aplikacji, z której dziedziczą inne klasy. Napisane zostały w niej metody wykorzystywane we wszystkich widokach jak również metody, które łączą kilka klas. Metodą wykorzystywaną przez wszystkie widoki a napisaną w tej klasie jest metoda odpowiedzialna za wyświetlanie wszystkich, dostępnych i zapisanych w tabeli, układów danych.
+    	    \item \textit{DeviceList} — klasa odpowiada za sprawdzanie, czy urządzenie jest wyposażone w moduł Bluetooth i czy jest on włączony. Po spełnieniu tych warunków wyświetla sparowane z urządzeniem mobilnym urządzenia Bluetooth. Po wybraniu odpowiedniego urządzenia przesyła jego adres Bluetooth \textit{(ang. Bluetooth Device Address)}\cite{bdaddr} do kolejnej klasy.
+    	    \item \textit{DataControl} — po stworzeniu klasy następuje próba połączenia z urządzeniem, którego adres Bluetooth został otrzymany. Urządzenie, z którym próbowane jest nawiązanie połączenia, nie może być w tym samym czasie połączone. W tej samej klasie pokazany jest widok, z którego można uzupełnić dane do wyświetlenia na papierze elektronicznym. Możliwe jest również wysłanie danych na urządzenie poprzez ustanowioną łączność Bluetooth lub zapisanie ich do bazy danych w celu późniejszego wykorzystania. Została w tym miejscu również zaimplementowana funkcjonalność rozłączenia z urządzeniem Bluetooth.
+    	    \item \textit{DatabaseHelper} — jest to klasa pomocnicza do obsługi bazy danych SQLite. Przygotowywane i wykonywane są w niej skrypty do tworzenia tabeli danych oraz tabeli układów. Tabela, w której przechowywane są układy jest tutaj również uzupełniana wartościami domyślnymi. Zamieszczone są w niej metody do obsługi tabel, takie jak pobieranie, edycja i usuwanie rekordów.
+    	    \item \textit{DataList} — klasa w której wyświetlane są rekordy z tabeli zawierającej zapisane dane. Dane te można przesyłać na wyświetlacz papieru elektronicznego. Po przesunięciu wybranego rekordu mamy możliwość usunięcia go lub przesłania do widoku, gdzie można nim sterować.
+    	    \item\textit{DataAdapter} — jest to klasa pomocnicza dla klasy DataList. Odpowiada ona za poprawne wyświetlanie danych pobranych z bazy danych na adapterze widoku liście.
+    	    \item \textit{AddLayout} — klasa odpowiada za dodawanie nowych układów do wyświetlania danych na ekranie papieru elektronicznego. Posiada również metody edycji i usuwania układów danych. Jest tutaj również zaimplementowany prosty dialog pomagający w projektowaniu nowych układów danych.
+    	    \item \textit{DynamicSquareLayout} — klasa odpowiada za obliczanie i ustawianie proporcji pomocniczego widoku wyświetlacza, który znajduje się w dialogu pomocy, zaimplementowanym w klasie \textit{AddLayout}. Proporcje te odpowiadają fizycznym rozmiarom podłączonego wyświetlacza. Wysokość i szerokość wyświetlacza prezentowanego w dialogu dobierane są w taki sposób, aby jego szerokość była równa 80-ciu procentom szerokości ekranu urządzenia mobilnego.
+    	    \item \textit{BaseActivity} — jest klasą bazową aplikacji. Z niej dziedziczą inne klasy. Napisane zostały w niej metody wykorzystywane we wszystkich widokach, jak również metody, które przesyłają dane pomiędzy kilkoma klasami. Metodą wykorzystywaną przez wszystkie widoki i napisaną w tej klasie, jest metoda odpowiedzialna za wyświetlanie wszystkich dostępnych i zapisanych w tabeli układów danych.
     	\end{itemize}
     
-    
         \subsubsection{Baza danych}
-        W aplikacji istnieje możliwość przechowywania rekordów zapisanych układów oraz wpisów z danymi personalnymi do wyświetlania na identyfikatorze. Obsługa zapisanych danych wykonywana jest w relacyjnej bazie danych SQLite. Baza posiada dwie tabele połączone ze sobą kluczem obcym, na rysunku \ref{fig:database} można zobaczyć diagram związków encji bazy danych. 
+        W aplikacji istnieje możliwość przechowywania rekordów zapisanych wpisów z danymi personalnymi oraz układów danych. Obsługa zapisanych danych wykonywana jest w relacyjnej bazie danych SQLite. Baza posiada dwie tabele połączone ze sobą kluczem obcym. Na rysunku numer \ref{fig:database}. można zobaczyć diagram związków encji bazy danych. 
         
-        Kolumna id z tabeli \textit{layouts} jest kluczem głównym tej tabeli oraz jest wykorzystywana jako klucz obcy w tabeli \textit{data}. 
+        Kolumna id występująca w tabeli \textit{layouts} jest kluczem głównym tej tabeli jest również wykorzystywana jako klucz obcy tabeli \textit{data}. 
         
         \begin{figure}[H]
     	        \centering
-    	        \vspace{.5cm}
     			\includegraphics[width=12cm]{images/rys_11baza.png}
-    			\vspace{.5cm}
     			\caption{Diagram związków encji bazy danych}
                 \label{fig:database}
     	\end{figure}
     	
-        Relacja pomiędzy tabelami to jeden do wielu (1: N), oznacza to, że jeden rekord tabeli \textit{layouts} może być wykorzystany przez wiele rekordów w tabeli \textit{data}. Z drugiej strony, pojedynczy wpis do tabeli \textit{data} może posiadać tylko jeden layout. Dzięki takiemu połączeniu SQLite zapewni nam poprawność działania bazy danych, uniemożliwiając usuwanie wpisów wykorzystywanych przez inne tabele. 
+        Relacja występująca pomiędzy tabelami to relacja jeden do wielu (1: N). Oznacza to, że jeden rekord tabeli \textit{layouts} może być wykorzystany przez wiele rekordów w tabeli \textit{data}. Z drugiej strony, pojedynczy wpis w tabeli \textit{data} może posiadać tylko jeden layout. Dzięki takiemu połączeniu SQLite zapewnia poprawność działania bazy danych, uniemożliwiając usunięcie wpisów wykorzystywanych przez inne tabele. 
         
-        W wykorzystywanej w projekcie bazie danych niemożliwe będzie usunięcie rekordu tabeli \textit{layouts}, gdy jego klucz główny \textit{id} jest obecny w kolumnie \textit{layout\_id} tabeli \textit{data}, który jest kluczem obcym tej tabeli. Po wykryciu przez bazę danych takiego zachowania wyrzucany jest błąd, który następnie obsługiwany jest przez aplikację w celu przekazania użytkownikowi informacji o niepożądanej akcji.
+        W zaprojektowanej dla projektu bazie danych niemożliwe będzie usunięcie rekordu tabeli \textit{layouts}, gdy jego klucz główny \textit{id} jest obecny w kolumnie \textit{layout\_id} tabeli \textit{data}, który jest kluczem obcym tej tabeli. Po wykryciu przez bazę danych takiego zachowania wyrzucany jest błąd, który następnie obsługiwany zostaje przez aplikację w celu przekazania użytkownikowi informacji o niepożądanej akcji.
     	
-    	\vspace{.5cm}
     	\subsubsection{Połączenie Bluetooth}
-    	Połączenie, obsługa i komunikacja Bluetooth jest zarządzana poprzez pakiet dostępny dla systemu Android jakim jest \textit{android.bluetooth}\cite{android.bluetooth}. W projekcie wykorzystujemy funkcjonalności szukania dostępnych urządzeń, nawiązania połączenia oraz przesyłania danych. Schemat połączenia urządzenia mobilnego z urządzeniem wyświetlającym przedstawiony jest na rysunku \ref{fig:btconnect}. 
+    	Połączenie, obsługa i komunikacja Bluetooth jest zarządzana poprzez pakiet dostępny dla systemu Android, jakim jest \textit{android.bluetooth}\cite{android.bluetooth}. W projekcie wykorzystywana jest funkcjonalność wyszukiwania dostępnych urządzeń, nawiązywania połączenia oraz przesyłania danych. Schemat blokowy przedstawiający nawiązywanie połączenia pomiędzy urządzeniem mobilnym a urządzeniem wyświetlającym, przedstawiony jest na rysunku numer \ref{fig:btconnect}. 
     	
-    	Pierwszym krokiem nawiązania komunikacji poprzez adapter Bluetooth jest sprawdzenie czy moduł ten jest obecny w urządzeniu mobilnym. W przypadku gdy urządzenie mobilne nie posiada adaptera Bluetooth aplikacja blokuje większość funkcji, pozostawiając jedynie możliwość przeglądania i dodawania nowych układów danych. 
+    	Pierwszym krokiem nawiązania komunikacji poprzez adapter Bluetooth jest sprawdzenie, czy moduł ten, jest obecny w urządzeniu mobilnym. W przypadku gdy urządzenie mobilne nie posiada adaptera Bluetooth, aplikacja blokuje większość funkcji, pozostawiając jedynie możliwość przeglądania i dodawania nowych układów danych. 
     	
-    	Przy pozytywnym stwierdzeniu obecności modułu można przejść do dalszych kroków. Kolejnym etapem jest sprawdzenie czy moduł Bluetooth jest włączony i wyświetlenie prośby o włączenie go w przypadku gdy Bluetooth jest wyłączony. Następnie pobieramy listę sparowanych z urządzeniem mobilnym urządzeń Bluetooth. Wykorzystujemy do tego metodę \textit{getBondedDevices}\cite{bonded} dostępną w klasie \textit{BluetoothAdapter}. Metoda ta zwraca zbiór obiektów sparowanych z lokalnym dla aplikacji adapterem Bluetooth. Po wybraniu urządzenia pobieramy jego adres BD\_ADDR i nawiązujemy próbę połączenia z nim. Sprawdzamy dostępność urządzenia i tworzymy połączenie \textit{RFCOMM}\cite{rfcomm}. Po czym łączymy się z urządzeniem, mając do dyspozycji połączenie szeregowe do przesyłania danych.
+    	Przy pozytywnym stwierdzeniu obecności modułu, można przejść do dalszych kroków. Następnym etapem jest sprawdzenie, czy moduł Bluetooth jest włączony. W przypadku gdy Bluetooth jest wyłączony, następuje wyświetlenie prośby o jego włączenie. Później pobierana jest lista sparowanych z urządzeniem mobilnym urządzeń Bluetooth. Wykorzystywana jest do tego metoda \textit{getBondedDevices}\cite{bonded} dostępna w klasie \textit{BluetoothAdapter}. Metoda ta zwraca zbiór obiektów sparowanych z lokalnym dla aplikacji adapterem Bluetooth. Po wybraniu urządzenia pobierany jest jego adres BD\_ADDR i nawiązywana jest próba połączenia. Sprawdzana jest dostępność urządzenia, następnie utworzone zostaje połączenie \textit{RFCOMM}\cite{rfcomm}. Po wykonaniu poprzedzających czynności możliwe jest nawiązanie połączenia pomiędzy urządzeniami. Połączone urządzenia dysponują szeregowym połączeniem, po którym można przesyłać dane.
     	
     	\begin{figure}[H]
     	        \centering
-    	        \vspace{.5cm}
     			\includegraphics[width=12cm]{images/rys_12bluetoothconnection.png}
-    			\vspace{.5cm}
     			\caption{Schemat blokowy nawiązywania połączenia Bluetooth}
                 \label{fig:btconnect}
     	\end{figure}
     	
-    	\vspace{.5cm}
     	\subsection{Transmisja danych}
-    	Obsługa przesyłania danych realizowana jest poprzez klasę \textit{BluetoothSocket}. Używając metody \textit{getOutputStream}\cite{outputstream} otwieramy strumień wyjścia, za pomocą którego możemy przesyłać dane binarne. Przed wysłaniem, dane pobierane są z przygotowanych na widoku pól edycji. Do których były wcześniej wpisane lub przesłane z bazy danych. Dane te przed wysłaniem są przystosowywane do poprawnego odbioru przez mikrokontroler. Po każdym słowie dodawany jest znak specjalny \textit{";"}, który jest w programie mikrokontrolera używany do rozróżnienia ciągu znaków i poprawnego wyświetlenia. Algorytm dekodowania odczytanych danych, przesyłanych przez urządzenie mobilne, w mikrokontrolerze opisany był w części \ref{petladekod} \textit{Zasada działania}.
+    	Obsługa przesyłania danych realizowana jest poprzez klasę \textit{BluetoothSocket}. Używając metody \textit{getOutputStream}\cite{outputstream}, otwarty zostaje strumień wyjścia, za pomocą którego można przesyłać dane binarne. Przed przesłaniem, dane pobierane są z przygotowanych na widoku pól edycji, do których były wcześniej wpisane lub przesłane z bazy danych. Dane te przed wysłaniem są przystosowywane do poprawnego odbioru przez mikrokontroler. Po każdym słowie dodawany jest znak specjalny \textit{";"}, który w programie mikrokontrolera używany jest do rozróżniania ciągu znaków. Algorytm służący do dekodowania odebranych przez urządzenie mobilne danych, obecny jest w mikrokontrolerze i został opisany w części \ref{petladekod} \textit{Zasada działania}.
     	
-    	Transmisja danych jest możliwa tylko gdy gniazdo Bluetooth jest połączone z urządzeniem docelowym.
+    	Transmisja danych możliwa jest tylko w wypadku gdy gniazdo Bluetooth jest połączone z urządzeniem docelowym.
     	
-    	\vspace{.5cm}
     	\section{Instrukcja obsługi}
-    	Opisane zostaną w tej części pracy wszystkie działania konieczne do poprawnego uruchomienia urządzenia identyfikatora i urządzenia mobilnego w celu wykorzystania wszystkich funkcjonalności przygotowanych dla aplikacji mobilnej.
+    	W tej części pracy, opisane zostaną wszystkie działania konieczne do poprawnego uruchomienia urządzenia identyfikatora oraz urządzenia mobilnego w celu wykorzystania wszystkich funkcjonalności przygotowanych dla aplikacji mobilnej.
     	
-    	\vspace{.5cm}
     	\subsection{Uruchomienie elektronicznej plakietki}
-    	Plakietka do działania potrzebuje zasilania 3.3V, które należy dostarczyć za pomocą wejścia USB znajdującego się w kicie deweloperskim mikrokontrolera. Prototyp zasilany był z zewnętrznej baterii co zapewniało mu możliwość przenoszenia. Po dostarczeniu zasilania i przy wgranym na mikrokontroler oprogramowaniu plakietka jest bezobsługowa.
+    	Plakietka do działania potrzebuje zasilania 3.3V, które należy dostarczyć za pomocą wejścia USB, znajdującego się w kicie deweloperskim mikrokontrolera. Prototyp zasilany był z zewnętrznej baterii, co zapewniało mu możliwość przenoszenia. Po dostarczeniu zasilania i przy wgranym na mikrokontroler oprogramowaniu plakietka jest bezobsługowa.
     	
-    	\vspace{.5cm}
     	\subsection{Obsługa aplikacji mobilnej}
-    	Przed pierwszym uruchomieniem aplikacji musimy sparować się z plakietką elektroniczna za pomocą łączności Bluetooth. Upewniamy się, że Bluetooth w naszym urządzeniu mobilnym jest włączony. Następnie przechodzimy do ustawień, gdzie szukamy strony odnoszącej się do połączeń Bluetooth. Klikamy wyszukaj urządzenia , kiedy wyszukane zostaną urządzenia klikamy na urządzenie o nazwie \textit{ESP32test} i parujemy się z nim. Połączenie nie wymaga podania hasła czy pinu. Po sparowaniu urządzeń możemy przejść do uruchomienia aplikacji. 
+    	Przed pierwszym uruchomieniem aplikacji należy sparować urządzenie mobilne i elektroniczną plakietkę ze sobą za pomocą łączności Bluetooth. Po upewnieniu się, że łączność Bluetooth w naszym urządzeniu mobilnym jest włączona, można przejść do ustawień, gdzie należy znaleźć stronę z ustawieniami połączeń Bluetooth. Po kliknięciu przycisku wyszukiwania urządzeń, wyświetlone zostaną dostępne do połączenia urządzenia. Należy znaleźć urządzenie o nazwie \textit{ESP32test} i połączyć się z nim. Połączenie nie wymaga podania hasła lub pinu. Po sparowaniu urządzeń można przejść do uruchomienia aplikacji. 
     	
-    	Po instalacji i pierwszym uruchomieniu, aplikacja tworzy bazę danych i uzupełnia ją domyślnymi układami. 
-    	Przy pierwszym i każdym następnym włączeniu, sprawdzana jest obecność modułu Bluetooth. W przypadku braku modułu, funkcjonalności aplikacji zostają ograniczone. Następnie sprawdzane jest czy moduł Bluetooth jest uruchomiony. Przy wyłączonym module aplikacja wyświetli dialog proszący o włączenie Bluetooth. Przedstawia to ekran na rysunku \ref{fig:bton}.
+    	Po instalacji i pierwszym uruchomieniu aplikacja tworzy bazę danych i uzupełnia ją domyślnymi układami. 
+    	Przy pierwszym i każdym następnym włączeniu, sprawdzana jest obecność modułu Bluetooth. W przypadku braku modułu, funkcjonalności aplikacji zostają ograniczone. Następnie sprawdzane jest, czy moduł Bluetooth jest uruchomiony. Przy wyłączonym module aplikacja wyświetli dialog proszący o włączenie modułu Bluetooth. Ekran tego dialogu został przedstawiony na rysunku numer \ref{fig:bton}.
     	
     	\begin{figure}[H]
-    	\vspace{.5cm}
     	\centering
     	\begin{minipage}{.5\textwidth}
     	    \centering
-    	    \includegraphics[width=5cm]{images/rys_13bluetoothdialog.jpg}
+    	    \includegraphics[width=6cm]{images/rys_13bluetoothdialog.jpg}
     	    \captionof{figure}{Dialog proszący \newline o włączenie Bluetooth}
             \label{fig:bton}
         \end{minipage}%
         \begin{minipage}{.5\textwidth}
             \centering
-    	    \includegraphics[width=5cm]{images/rys_14devicelist.jpg}
+    	    \includegraphics[width=6cm]{images/rys_14devicelist.jpg}
     	    \captionof{figure}{Ekran wyświetlający listę sparowanych urządzeń}
             \label{fig:btdevices}
         \end{minipage}
-        \vspace{.5cm}
     	\end{figure}
+    	\vspace{.5cm}
     	
-    	Na rysunku \ref{fig:btdevices} przedstawiona jest sytuacja po włączeniu adaptera Bluetooth. Wyświetlana jest wtedy lista urządzeń, z którymi możemy się połączyć. Po wybraniu nazwy naszego prototypu \textit{ESP32test}, przejdziemy do widoku, w którym możemy sterować danymi.
-    	
+    	Na rysunku numer \ref{fig:btdevices}. przedstawiona jest sytuacja po włączeniu adaptera Bluetooth. Wyświetlona zostaje wtedy lista urządzeń, z którymi można się połączyć. Po wybraniu nazwy prototypu, którą jest \textit{ESP32test}, aplikacja przechodzi do widoku, w którym można sterować danymi.
     	\newpage
-    	\vspace{1cm}
-    	Sterowanie danymi odbywa się w widoku pokazanym na rysunku \ref{fig:datacontrol}. Widok ten oferuje funkcjonalności przesyłania danych do identyfikatora oraz ich zapisu w bazie danych. Informacje jakie możemy przesłać na elektroniczną plakietkę to:
+    	Sterowanie danymi odbywa się w widoku pokazanym na rysunku numer \ref{fig:datacontrol}. Widok ten oferuje funkcjonalności przesyłania danych do identyfikatora oraz zapisu w bazie danych. Informacje, jakie można przesłać na elektroniczną plakietkę to:
     	\begin{itemize}
     	    \item Imię i nazwisko
     	    \item Nazwa firmy
@@ -506,92 +454,94 @@
     	
     	\begin{figure}[H]
     	        \centering
-    	        \vspace{.5cm}
-    			\includegraphics[width=5cm]{images/rys_15datacontrol.jpg}
-    			\vspace{.5cm}
+    			\includegraphics[width=6cm]{images/rys_15datacontrol.jpg}
     			\caption{Ekran umożliwiający sterowanie danymi}
                 \label{fig:datacontrol}
     	\end{figure}
     	
-    	\newpage
-    	Aplikacja posiada również widok, na którym prezentowane są zapisane w bazie danych informacje do wyświetlania na identyfikatorze. Z tego samego okna można usuwać i modyfikować zapisane rekordy. Widok z akcjami usuwania i modyfikacji jest pokazany na rysunku \ref{fig:datadelete} i \ref{fig:dataedit}.
+    	Aplikacja posiada również widok, na którym prezentowane są zapisane w bazie danych informacje do wyświetlania na identyfikatorze. Z tego samego okna można usuwać i modyfikować zapisane rekordy. Widok z akcjami usuwania i modyfikacji jest pokazany na rysunku \ref{fig:datadelete}. i \ref{fig:dataedit}.
     	
     	\begin{figure}[H]
-    	\vspace{.5cm}
     	\centering
     	\begin{minipage}{.5\textwidth}
     	    \centering
-    	    \includegraphics[width=5cm]{images/rys_16delete.jpg}
-    	    \captionof{figure}{Lista danych - usuwanie}
+    	    \includegraphics[width=6cm]{images/rys_16delete.jpg}
+    	    \captionof{figure}{Lista danych — usuwanie}
             \label{fig:datadelete}
         \end{minipage}%
         \begin{minipage}{.5\textwidth}
             \centering
-    	    \includegraphics[width=5cm]{images/rys_17edit.jpg}
-    	    \captionof{figure}{Lista danych - edycja}
+    	    \includegraphics[width=6cm]{images/rys_17edit.jpg}
+    	    \captionof{figure}{Lista danych — edycja}
             \label{fig:dataedit}
         \end{minipage}
     	\end{figure}
     	
-    	Po wykonaniu akcji edycji, przesunięciu wiersza w prawo, następuje przejście do ekranu sterowania danymi gdzie informacje z bazy danych zostaną wpisane do pól edycyjnych. Następnie możemy je edytować lub przesłać na urządzenie. Przesunięcie rekordu w lewo powoduje jego usunięcie z bazy danych.
+    	Po wykonaniu akcji edycji, przesunięciu wiersza w prawo, następuje przejście do ekranu sterowania danymi, gdzie informacje z bazy danych zostaną wpisane do pól edycyjnych. Następnie istnieje możliwość edycji lub wysłania ich na urządzenie wyświetlające. Przesunięcie rekordu w lewo powoduje usunięcie go z bazy danych.
     	
-    	\newpage
-    	Z każdego widoku mamy również możliwość przeglądania znajdujących się w bazie danych układów. Do dodawania nowych układów zaprojektowany został osobny widok. Posiada on metody do zarządzania układami, tj. dodawanie nowych układów, usuwanie i modyfikacja istniejących. Możliwości te przedstawiono na rysunkach \ref{fig:addlayout} i \ref{fig:showlayout}. 
-    	
+    	Z każdego widoku jest również możliwość przeglądania znajdujących się w bazie danych układów. Dodawanie nowych układów wykonywane jest w zaprojektowanym do tego osobnym widoku. Posiada on metody do zarządzania układami, tj. dodawanie nowych oraz usuwanie i modyfikacja istniejących układów. Możliwości te przedstawiono na rysunkach \ref{fig:addlayout}. i \ref{fig:showlayout}. 
     	
     	\begin{figure}[H]
-    	\vspace{.5cm}
     	\centering
     	\begin{minipage}{.5\textwidth}
     	    \centering
-    	    \includegraphics[width=5cm]{images/rys_18addlayout.jpg}
+    	    \includegraphics[width=6cm]{images/rys_18addlayout.jpg}
     	    \captionof{figure}{Widok dodawania\newline nowych układów}
             \label{fig:addlayout}
         \end{minipage}%
         \begin{minipage}{.5\textwidth}
             \centering
-    	    \includegraphics[width=5cm]{images/rys_20layouts.jpg}
+    	    \includegraphics[width=6cm]{images/rys_20layouts.jpg}
     	    \captionof{figure}{Dialog z listą dostępnych układów}
             \label{fig:showlayout}
         \end{minipage}
     	\end{figure}
     	
+    	Na ekranie dodawania nowych układów wykonany został również dialog pomocniczy. Informuje on użytkownika o prawidłowym umiejscowieniu współrzędnych przesyłanych danych. Ma to na celu zapobiegnięcie tworzenia układów, w których tekst znajdzie się poza ekranem, będzie na siebie nachodził lub zacznie przechodzić do kolejnego wiersza.
     	
-    	Na ekranie dodawania nowych układów stworzony został również dialog pomocniczy, informujący użytkownika o prawidłowym umiejscowieniu współrzędnych przesyłanych danych. Ma to na celu zapobiegnięcie tworzenia układów, w których tekst znajdzie się poza ekranem, będzie na siebie nachodził lub zacznie przechodzić do kolejnego wiersza.
-    	
-
+        \newpage
     	\section{Testy urządzenia}
-    	Zbudowany prototyp poddano praktycznym testom wszystkich funkcjonalności. W trakcie testów badano jak zachowuje się aplikacja w różnych wariantach działania i na kilku różnych urządzeniach. Sprawdzono również poprawność pracy i wyświetlania mikrokontrolera wraz z ekranem papieru elektronicznego.
+    	Zbudowany prototyp poddany został praktycznym testom wszystkich funkcjonalności. W trakcie testów badano sposób zachowania się aplikacji w różnych wariantach działania i na kilku różnych urządzeniach. Sprawdzono również poprawność pracy mikrokontrolera i poprawność wyświetlania danych na ekranie.
     	
     	\begin{figure}[H]
     	        \centering
-    	        \vspace{.5cm}
-    			\includegraphics[width=13cm]{images/rys21device.jpg}
-    			\vspace{.5cm}
+    			\includegraphics[width=15cm]{images/rys21device.jpg}
     		    \caption{Prototyp elektronicznej plakietki}
                 \label{fig:device}
     	\end{figure}
     	
-    	W trakcie testowania programu w emulatorze dostępnym w środowisku Android Studio, napotkano błąd dotyczący braku modułu Bluetooth w urządzeniu. We wszystkich urządzeniach emulowanych przez Android Studio nie jest emulowane wsparcie dla technologi bezprzewodowej łączności takich jak Bluetooth, Wi-Fi czy NFC \textit{(z ang. Near Field Communication)}. Przez brak obecności adaptera Bluetooth aplikacja zachowywała się w sposób niepożądany. Po wykryciu takiego zachowania wprowadzono zmiany w kodzie aplikacji stabilizujące działanie aplikacji oraz uniemożliwienie prób nawiązywania połączeń przez urządzenia nieposiadające modułu Bluetooth. Ograniczono również funkcjonalność aplikacji dla takich urządzeń do dodawania i przeglądania układów. Zablokowane jest przesyłania i zapisywanie danych.
+    	W trakcie testowania programu w emulatorze, dostępnym w środowisku Android Studio, napotkano błąd dotyczący braku modułu Bluetooth w urządzeniu. Wszystkie urządzenia emulowane przez Android Studio nie posiadają wsparcia dla technologii bezprzewodowych łączności takich jak Bluetooth, Wi-Fi czy NFC \textit{(ang. Near Field Communication)}. Przez brak obecności adaptera Bluetooth, aplikacja zachowywała się w sposób niepożądany. Po wykryciu takiego zachowania wprowadzono zmiany w kodzie aplikacji, stabilizujące jej działanie oraz uniemożliwiające próby nawiązywania połączeń przez urządzenia nieposiadające modułu Bluetooth. Ograniczono również funkcjonalność aplikacji dla takich urządzeń do dodawania i przeglądania układów. Zablokowane zostało wysyłanie i zapisywanie danych.
     	
-    	W przesyłaniu danych na wyświetlacz nie stwierdzono żadnych problemów. Istnieje jednak możliwość zapchania potoku danych odbieranych przez mikrokontroler, jeżeli będziemy bardzo szybko naciskać przycisk w aplikacji odpowiadający za wysyłanie danych. W takim wypadku można przesłać do mikrokontrolera wiele zestawów znaków do wyświetlenia, których wyświetlacz nie zdąży wyświetlić przed nadejściem kolejnych danych do wyświetlenia. Może to spowodować odświeżanie się wyświetlacza i usuwanie widocznych znaków od razu po ich pojawieniu się. Taki przypadek może dać wrażenie zawieszenia się urządzenia. Rozwiązaniem tego problemu może być zablokowanie przycisku służącego do wysyłania danych po jego wciśnięciu na czas minimalnie większy od czasu potrzebnego do przesłania danych, ich obsługę w mikrokontrolerze i czasu potrzebnego dla wyświetlacza do odświeżenia i wyświetlenia nowo otrzymanych znaków. Ta ostatnia wartość zajmuje zdecydowanie najwięcej czasu. Z instrukcji obsługi modułu wynika, że czas pełnego odświeżenia wyświetlacza Waveshare 2.9 cala wynosi około dwóch sekund\cite{waveshare}. Przesłanie i obsługa danych w wyświetlaczu tak małej ilości danych jest czasem pomijalnym. Drugim możliwym rozwiązaniem mogłoby się okazać wprowadzenie przerwy w działaniu mikrokontrolera w wielkości większej niż dwie sekundy po zakończeniu rysowania danych na wyświetlaczu i wywołania funkcji odświeżenia ekranu. 
+    	W przesyłaniu danych na wyświetlacz nie stwierdzono żadnych problemów. Istnieje jednak możliwość, przesłania zbyt dużej ilości danych do mikrokontrolera. Taka sytuacja może nastąpić przy wielokrotnym kliknięciu przycisku w aplikacji, który odpowiada za przesyłanie danych. Do mikrokontrolera zostaje wtedy dostarczonych wiele zestawów znaków do wyświetlenia, których wyświetlacz nie zdąży wyświetlić przed nadejściem kolejnych danych do wyświetlenia. Może to spowodować odświeżanie się wyświetlacza i usuwanie widocznych znaków od razu po ich pojawieniu się. Taki przypadek może dać wrażenie zawieszenia się urządzenia. 
     	
-        % Bląd zauważono również 
+    	Rozwiązaniem tego problemu, może być zablokowanie przycisku służącego do wysyłania danych po jego wciśnięciu, na czas minimalnie większy, od czasu potrzebnego do przesłania danych, ich obsługi w mikrokontrolerze i czasu wymaganego przez wyświetlacz do odświeżenia i wyświetlenia nowo otrzymanych znaków. Ta ostatnia wartość zajmuje zdecydowanie najwięcej czasu. Z instrukcji obsługi modułu wynika, że czas pełnego odświeżenia wyświetlacza Waveshare 2.9 cala wynosi około dwóch sekund\cite{waveshare}. Czas potrzebny na obsługę i przesłanie tak małej ilości danych przez mikrokontroler jest pomijalny. Drugim możliwym rozwiązaniem, może być wprowadzenie przerwy w działaniu mikrokontrolera, o czasie dłuższym, niż dwie sekundy po zakończeniu rysowania danych na wyświetlaczu i wywołaniu funkcji odświeżenia ekranu. 
+        
+        Po kolejnych testach spostrzeżono błąd, występujący w przypadku gdy w jednym z pól edycyjnych umieścimy zbyt dużą liczbę znaków. Tekst po napotkaniu fizycznego końca wyświetlacza zostaje przeniesiony do kolejnej linii. W takim wypadku prawdopodobne jest, że może zostać naniesiony na inny zestaw znaków, który będzie znajdował się w tym miejscu. Rozwiązaniem tego problemu, może stać się algorytm, ograniczający liczbę możliwych do wpisania znaków do pola edycyjnego. W algorytmie tym obliczana byłaby odległość, od ustalonych w układzie danych współrzędnych, do końca linii wyświetlacza. Wartość ta byłaby następnie dzielona przez szerokość jednego znaku, jaki możemy wpisać do pola edycyjnego. Wartość dzielenia byłaby ustawiana jako maksymalna liczba znaków, które można wpisać do pola edycyjnego. Do poprawnego działania algorytmu, aplikacja musiałaby znać wymiary wyświetlacza, oraz szerokość jednego znaku czcionki. Przy prototypie nie jest to problemem, ponieważ używany jest tylko jeden wyświetlacz ze znanymi wymiarami, jednak przy wykorzystaniu komercyjnym projektu, urządzenie mogłoby używać wyświetlaczy o różnych fizycznych parametrach. Te wielkości musiałyby być znane przed wykonaniem się algorytmu ograniczania liczby znaków. Kolejnym wymaganiem, jest zapewnienie jednakowej szerokości dla każdego znaku, który można wpisać do pola edycji. Przygotowane do wykorzystania w projekcie czcionki musiałyby posiadać taką właściwość.
+
     	
+    	W trakcie przeprowadzonych testów nie zaobserwowano żadnych przekłamań znaków, transmisja jest przeprowadzana poprawnie. Algorytm dostosowujący odebrane dane do wyświetlania również działa poprawnie, nie stwierdzono w nim żadnych sprzeczności ani błędów powodujących zmianę lokalizacji współrzędnych lub czcionki.
     	
-    	
-    	
-    	W trakcie przeprowadzonych testów nie zaobserwowano żadnych przekłamań znaków, transmisja jest przeprowadzana poprawnie. Algorytm dostosowujący odebrane dane do wyświetlania również działa poprawnie i nie stwierdzono w nim żadnych sprzeczności z algorytmem.
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+    	Wadą projektu, którą zauważono w trakcie testów przy wyświetlaniu na ekranie danych, jest brak polskich znaków diaktrycznych w użytych w projekcie zestawach czcionek. 
+
     	\section{Podsumowanie}
+    	W trakcie realizacji projektu, którego celem było zbudowanie elektronicznej plakietki identyfikującej, mogącej zastąpić identyfikatory lub wizytówki, spełniono wszystkie założenia projektowe. Założeniami z punktu fizycznej części projektu, które udało się wykonać, są mobilność działania identyfikatora oraz użycie wyświetlacza wykonanego w technologii papieru elektronicznego. Komunikacja pomiędzy urządzeniem mobilnym a mikrokontrolerem obsługującym wyświetlacz e-papieru jest obsługiwana przez protokół łączności bezprzewodowej, na którą wybrano technologię Bluetooth.
     	
+    	Założeniami, które zostały spełnione, a odnosiły się do części programowej, było przygotowanie aplikacji mobilnej na system Android. Aplikacja posiada możliwość przechowywania wpisów z danymi do wyświetlania oraz przechowuje układy wyświetlania danych w swojej pamięci.
     	
+    	Urządzenie fizyczne jak i aplikacja na urządzenie mobilne została przetestowana i umożliwia niżej przedstawione funkcjonalności:
+    	\begin{itemize}
+    	    \item projekt posiada możliwość bezprzewodowego przesyłania danych z urządzenia mobilnego, na ekran papieru elektronicznego podłączonego do mikrokontrolera.
+    	    \item aplikacja mobilna jest w stanie przechowywać dane do przesłania.
+    	    \item istnieje możliwość zapisu układów, w jakich dane będą wyświetlane na wyświetlaczu.
+    	    \item aplikacja posiada funkcjonalność dodawania i konfiguracji układów przez użytkownika według jego projektu i pomysłu.
+    	\end{itemize}
+    	
+        W trakcie testów napotkano kilka ograniczeń. Jednym z nich jest korzystanie z technologii bezprzewodowej Bluetooth. Przesyłanie danych przy wykorzystaniu tego protokołu, może być bardzo czasochłonne, jeżeli chcemy wyświetlić dane na większej ilości identyfikatorów. Przed możliwością przesłania danych, każde urządzenie musi być sparowane z urządzeniem mobilnym. Kolejny problem to wybór poprawnego urządzenia do połączenia. Zakładając, że każda elektroniczna plakietka będzie posiadała swój własny, unikalny dla grupy numer, to przy liście kilkudziesięciu urządzeń, wystąpi problem wyszukiwania tego poprawnego.
+        
+        Taką sytuację można łatwo wyeliminować używając do przesyłania danych technologii NFC \textit{(ang. Near Field Communication)}. Wykorzystując komunikację bliskiego zasięgu, wyeliminowalibyśmy konieczność łączenia się z każdym z urządzeń z osobna. Wystarczyłoby proste zbliżenie urządzenia mobilnego do czytnika RFID \textit{(ang. Radio-frequency identification, Systemy (zdalnej) identyfikacji radiowej)} podłączonego do mikrokontrolera w celu przesłania danych. NFC korzysta z rozwiązań opracowanych dla standardu RFID, jest jednak osobnym standardem komunikacji bezprzewodowej. Moduły komunikacji bliskiego zasięgu NFC są używane w coraz większej ilości urządzeń mobilnych, przez co nie występowałby problem użyteczności projektu opartego na takim rozwiązaniu. Przy używaniu łączności bliskiego zasięgu czas potrzebny do przesyłania danych ograniczyłby się jedynie do wpisywania nowych danych identyfikujących do wyświetlenia na innym identyfikatorze. Nie występowałaby konieczność przełączania się pomiędzy urządzeniami.
+        
+        Kolejną korzystną zmianą, którą można wprowadzić w projekcie może być dodanie większej ilości czcionek do wyboru, wykorzystywanych przy wyświetlaniu danych na wyświetlaczu. Obecnie użytkownik ma do wyboru dwa rozmiary jednej czcionki. Dodając większą ilość czcionek, zwiększylibyśmy możliwości konfiguracji i personalizacji wyglądu identyfikatorów. Idąc dalej tropem wyglądu i personalizacji, umożliwienie użytkownikowi dodawania zdjęć lub grafik byłoby pozytywną zmianą w projekcie. Rozwiązanie to nie zostało jednak wprowadzone w prototypie ze względu na małą powierzchnię użytkową wykorzystanego wyświetlacza elektronicznego papieru.
+        
     	\newpage
     	\section{Bibliografia}
     	
@@ -656,6 +606,11 @@
     		\bibitem{cli}
     		CLI,
     		\newline\url{https://pl.wikipedia.org/wiki/CLI}, 
+    		\newline Dostęp: 28 grudnia 2019
+    		
+    		\bibitem{githubpack}
+    		GitHub Student Developer Pack,
+    		\newline\url{https://education.github.com/pack}, 
     		\newline Dostęp: 28 grudnia 2019
     		
     		\bibitem{sdk}
