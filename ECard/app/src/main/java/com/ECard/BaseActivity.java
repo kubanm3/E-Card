@@ -110,14 +110,19 @@ public class BaseActivity extends AppCompatActivity {
             buffer.append("Orientation :" + res.getString(2) + "\n");
             buffer.append("Name X :" + res.getString(3) + "\n");
             buffer.append("Name Y :" + res.getString(4) + "\n");
-            buffer.append("Company X :" + res.getString(5) + "\n");
-            buffer.append("Company Y :" + res.getString(6) + "\n");
-            buffer.append("Address X :" + res.getString(7) + "\n");
-            buffer.append("Address Y :" + res.getString(8) + "\n");
-            buffer.append("Email X :" + res.getString(9) + "\n");
-            buffer.append("Email Y :" + res.getString(10) + "\n");
-            buffer.append("Phone X :" + res.getString(11) + "\n");
-            buffer.append("Phone Y :" + res.getString(12) + "\n\n");
+            buffer.append("Name Font size :" + res.getString(5) + "\n");
+            buffer.append("Company X :" + res.getString(6) + "\n");
+            buffer.append("Company Y :" + res.getString(7) + "\n");
+            buffer.append("Company Font size :" + res.getString(8) + "\n");
+            buffer.append("Address X :" + res.getString(9) + "\n");
+            buffer.append("Address Y :" + res.getString(10) + "\n");
+            buffer.append("Address Font size :" + res.getString(11) + "\n");
+            buffer.append("Email X :" + res.getString(12) + "\n");
+            buffer.append("Email Y :" + res.getString(13) + "\n");
+            buffer.append("Email Font size :" + res.getString(14) + "\n");
+            buffer.append("Phone X :" + res.getString(15) + "\n");
+            buffer.append("Phone Y :" + res.getString(16) + "\n");
+            buffer.append("Phone Font size :" + res.getString(17) + "\n\n");
         }
 
         // Show all data

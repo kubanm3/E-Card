@@ -1,27 +1,24 @@
 package com.ECard;
 
-import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class AddLayout extends BaseActivity {
@@ -31,8 +28,10 @@ public class AddLayout extends BaseActivity {
             editAddressX, editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY, editId;
     Button btnAddData;
     RadioGroup radioGroup;
+    Switch nameFontSwitch, companyFontSwitch, addressFontSwitch, emailFontSwitch, phoneFontSwitch;
 
-    String orientation;
+    String orientation = "1", nameFont = "0", companyFont = "0", addressFont = "0", emailFont = "0", phoneFont = "0";
+
 
 
     @Override
@@ -44,17 +43,32 @@ public class AddLayout extends BaseActivity {
         editName = findViewById(R.id.layoutName);
         radioGroup = findViewById(R.id.layoutOrientRadio);
         editNameX = findViewById(R.id.layoutNameX);
+        editNameX.setFilters(new InputFilter[]{new MaxValueFilter(0, 296)});
         editNameY = findViewById(R.id.layoutNameY);
+        editNameY.setFilters(new InputFilter[]{new MaxValueFilter(0, 128)});
         editCompanyX = findViewById(R.id.layoutCompanyX);
+        editCompanyX.setFilters(new InputFilter[]{new MaxValueFilter(0, 296)});
         editCompanyY = findViewById(R.id.layoutCompanyY);
+        editCompanyY.setFilters(new InputFilter[]{new MaxValueFilter(0, 128)});
         editAddressX = findViewById(R.id.layoutAddressX);
+        editAddressX.setFilters(new InputFilter[]{new MaxValueFilter(0, 296)});
         editAddressY = findViewById(R.id.layoutAddressY);
+        editAddressY.setFilters(new InputFilter[]{new MaxValueFilter(0, 128)});
         editEmailX = findViewById(R.id.layoutEmailX);
+        editEmailX.setFilters(new InputFilter[]{new MaxValueFilter(0, 296)});
         editEmailY = findViewById(R.id.layoutEmailY);
+        editEmailY.setFilters(new InputFilter[]{new MaxValueFilter(0, 128)});
         editPhoneX = findViewById(R.id.layoutPhoneX);
+        editPhoneX.setFilters(new InputFilter[]{new MaxValueFilter(0, 296)});
         editPhoneY = findViewById(R.id.layoutPhoneY);
+        editPhoneY.setFilters(new InputFilter[]{new MaxValueFilter(0, 128)});
         editId = findViewById(R.id.layoutID);
         btnAddData = findViewById(R.id.saveLayoutBT);
+        nameFontSwitch = findViewById(R.id.nameFontSwitch);
+        companyFontSwitch = findViewById(R.id.companyFontSwitch);
+        addressFontSwitch = findViewById(R.id.addressFontSwitch);
+        emailFontSwitch = findViewById(R.id.emailFontSwitch);
+        phoneFontSwitch = findViewById(R.id.phoneFontSwitch);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -69,6 +83,45 @@ public class AddLayout extends BaseActivity {
                     Toast.makeText(getApplicationContext(), "Horizontal orientation",
                             Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        nameFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {nameFont = "1";}
+                else {nameFont = "0";}
+            }
+        });
+
+        companyFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {companyFont = "1";}
+                else {companyFont = "0";}
+            }
+        });
+
+        addressFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {addressFont = "1";}
+                else {addressFont = "0";}
+            }
+        });
+
+        emailFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {emailFont = "1";}
+                else {emailFont = "0";}
+            }
+        });
+
+        phoneFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {phoneFont = "1";}
+                else {phoneFont = "0";}
             }
         });
 
@@ -156,11 +209,11 @@ public class AddLayout extends BaseActivity {
                     myDb.updateData(id,
                             editName.getText().toString(),
                             orientation,
-                            editNameX.getText().toString(), editNameY.getText().toString(),
-                            editCompanyX.getText().toString(), editCompanyY.getText().toString(),
-                            editAddressX.getText().toString(), editAddressY.getText().toString(),
-                            editEmailX.getText().toString(), editEmailY.getText().toString(),
-                            editPhoneX.getText().toString(), editPhoneY.getText().toString());
+                            editNameX.getText().toString(), editNameY.getText().toString(), nameFont,
+                            editCompanyX.getText().toString(), editCompanyY.getText().toString(), companyFont,
+                            editAddressX.getText().toString(), editAddressY.getText().toString(), addressFont,
+                            editEmailX.getText().toString(), editEmailY.getText().toString(), emailFont,
+                            editPhoneX.getText().toString(), editPhoneY.getText().toString(), phoneFont);
             if (isUpdate)
                 Toast.makeText(AddLayout.this, "Layout updated", Toast.LENGTH_LONG).show();
             else
@@ -197,11 +250,11 @@ public class AddLayout extends BaseActivity {
 
                         boolean isInserted = myDb.insertDataLayout(editName.getText().toString(),
                                 orientation,
-                                editNameX.getText().toString(), editNameY.getText().toString(),
-                                editCompanyX.getText().toString(), editCompanyY.getText().toString(),
-                                editAddressX.getText().toString(), editAddressY.getText().toString(),
-                                editEmailX.getText().toString(), editEmailY.getText().toString(),
-                                editPhoneX.getText().toString(), editPhoneY.getText().toString());
+                                editNameX.getText().toString(), editNameY.getText().toString(), nameFont,
+                                editCompanyX.getText().toString(), editCompanyY.getText().toString(), companyFont,
+                                editAddressX.getText().toString(), editAddressY.getText().toString(), addressFont,
+                                editEmailX.getText().toString(), editEmailY.getText().toString(), emailFont,
+                                editPhoneX.getText().toString(), editPhoneY.getText().toString(), phoneFont);
                         if (isInserted) {
                             Toast.makeText(AddLayout.this, "Data inserted", Toast.LENGTH_LONG).show();
                             loadSpinnerData();

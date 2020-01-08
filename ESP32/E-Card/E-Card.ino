@@ -38,18 +38,10 @@ void setup()
 void loop()
 {
   char input[INPUT_SIZE + 1];
-    char ch_arr[16][21]; 
+    char ch_arr[21][21]; 
     int i = 0;
   if (SerialBT.available())
-  {
-//       Serial.write(SerialBT.readString());
-    //    display.fillScreen(GxEPD_WHITE);
-    //    display.setRotation(1);
-    //    display.setCursor(50, 15);
-    //    display.println(SerialBT.readString());
-    //    display.update();
-
-    
+  {    
     byte size = SerialBT.readBytes(input, INPUT_SIZE);
     input[size] = 0;
 
@@ -65,20 +57,42 @@ void loop()
     display.fillScreen(GxEPD_WHITE);
     
     display.setRotation(atoi(ch_arr[0]));
-    showFont("FreeMono12pt7b", &FreeMono12pt7b);
     display.setCursor(atoi(ch_arr[1]), atoi(ch_arr[2]));
-    display.println(ch_arr[3]);
-    display.setCursor(atoi(ch_arr[4]), atoi(ch_arr[5]));
-    showFont("FreeMono9pt7b", &FreeMono9pt7b);
-    display.println(ch_arr[6]);
-    display.setCursor(atoi(ch_arr[7]), atoi(ch_arr[8]));
-    display.println(ch_arr[9]);
-    display.setCursor(atoi(ch_arr[10]), atoi(ch_arr[11]));
+    if (ch_arr[3] == "0") {
+      showFont("FreeMono9pt7b", &FreeMono9pt7b);
+    } else {
+      showFont("FreeMono12pt7b", &FreeMono12pt7b);
+    }
+    display.println(ch_arr[4]);
+    display.setCursor(atoi(ch_arr[5]), atoi(ch_arr[6]));
+    if (atoi(ch_arr[7]) == 0) {
+      showFont("FreeMono9pt7b", &FreeMono9pt7b);
+    } else {
+      showFont("FreeMono12pt7b", &FreeMono12pt7b);
+    }
+    display.println(ch_arr[8]);
+    display.setCursor(atoi(ch_arr[9]), atoi(ch_arr[10]));
+    if (atoi(ch_arr[11]) == 0) {
+      showFont("FreeMono9pt7b", &FreeMono9pt7b);
+    } else {
+      showFont("FreeMono12pt7b", &FreeMono12pt7b);
+    }
     display.println(ch_arr[12]);
     display.setCursor(atoi(ch_arr[13]), atoi(ch_arr[14]));
-    display.println(ch_arr[15]);
-    display.update();
-    
+    if (atoi(ch_arr[15]) == 0) {
+      showFont("FreeMono9pt7b", &FreeMono9pt7b);
+    } else {
+      showFont("FreeMono12pt7b", &FreeMono12pt7b);
+    }
+    display.println(ch_arr[16]);
+    display.setCursor(atoi(ch_arr[17]), atoi(ch_arr[18]));
+    if (atoi(ch_arr[19]) == 0) {
+      showFont("FreeMono9pt7b", &FreeMono9pt7b);
+    } else {
+      showFont("FreeMono12pt7b", &FreeMono12pt7b);
+    }
+    display.println(ch_arr[20]);
+    display.update();   
   }
   delay(20);
 }

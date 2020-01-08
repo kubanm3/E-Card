@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -219,20 +220,26 @@ public class DataControl extends BaseActivity {
         buffer.append(res.getInt(2)).append(";"); //orientation
         buffer.append(res.getInt(3)).append(";"); //pos x name
         buffer.append(res.getInt(4)).append(";"); // pos y name
+        buffer.append(res.getInt(5)).append(";"); // font name
         buffer.append((name.equals("")) ? " ;" : (name + ";")); //name
-        buffer.append(res.getInt(5)).append(";"); //pos x company
-        buffer.append(res.getInt(6)).append(";"); //pos y company
+        buffer.append(res.getInt(6)).append(";"); //pos x company
+        buffer.append(res.getInt(7)).append(";"); //pos y company
+        buffer.append(res.getInt(8)).append(";"); // font company
         buffer.append((company.equals("")) ? " ;" : (company + ";")); //company
-        buffer.append(res.getInt(7)).append(";"); //pos x address
-        buffer.append(res.getInt(8)).append(";"); //pos y address
+        buffer.append(res.getInt(9)).append(";"); //pos x address
+        buffer.append(res.getInt(10)).append(";"); //pos y address
+        buffer.append(res.getInt(11)).append(";"); // font address
         buffer.append((address.equals("")) ? " ;" : (address + ";")); //address
-        buffer.append(res.getInt(9)).append(";"); //pos x email
-        buffer.append(res.getInt(10)).append(";"); //pos y email
+        buffer.append(res.getInt(12)).append(";"); //pos x email
+        buffer.append(res.getInt(13)).append(";"); //pos y email
+        buffer.append(res.getInt(14)).append(";"); // font email
         buffer.append((email.equals("")) ? " ;" : (email + ";")); //email
-        buffer.append(res.getInt(11)).append(";"); //pos x phone
-        buffer.append(res.getInt(12)).append(";"); //pos y phone
+        buffer.append(res.getInt(15)).append(";"); //pos x phone
+        buffer.append(res.getInt(16)).append(";"); //pos y phone
+        buffer.append(res.getInt(17)).append(";"); // font phone
         buffer.append((phone.equals("")) ? " ;" : (phone + ";")); //phone
 
+        Log.d("przeslanedane", String.valueOf(buffer));
         return buffer;
     }
 
