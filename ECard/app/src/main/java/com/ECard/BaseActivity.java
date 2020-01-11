@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class BaseActivity extends AppCompatActivity {
     ArrayAdapter dataAdapter;
 
     DatabaseHelper myDb;
     Spinner layoutSpinner;
     DataAdapter mAdapter;
+
 
     public static String EXTRA_NAME = "com.ECard.EXTRA_NAME";
     public static String EXTRA_COMPANY_NAME = "com.ECard.EXTRA_COMPANY_NAME";
@@ -52,6 +54,7 @@ public class BaseActivity extends AppCompatActivity {
 
         return ids;
     }
+
 
     public DataAdapter getAllItemsData() {
         myDb = new DatabaseHelper(this);
@@ -143,5 +146,4 @@ public class BaseActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
-
 }

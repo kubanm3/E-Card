@@ -26,6 +26,7 @@
     <string name="save_data">Save data</string>
     <string name="data_list">View All Data</string>
     <string name="empty">Empty</string>
+    <string name="add_data">Add data</string>
 
 
 </resources>

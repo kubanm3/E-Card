@@ -61,7 +61,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:text="Set coordinates for data input. X value is for horizontal value. Y value is for vertical value."
+        android:text="Set coordinates for data input. X value is for horizontal value. Y value is for vertical value.\n\nChecking 'Big font' switch will change font size to 12p from 9p."
         android:textColor="#000000"
         android:textSize="13sp" />
 

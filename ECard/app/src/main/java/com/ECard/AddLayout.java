@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
@@ -158,6 +159,11 @@ public class AddLayout extends BaseActivity {
                 return true;
             case R.id.buttonShowHelpDialog:
                 showHelpDialog();
+                return true;
+            case R.id.showData:
+                Intent intentData = new Intent(this, DataList.class);
+                startActivityForResult(intentData, 2);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -36,6 +36,8 @@ public class DataList extends BaseActivity {
     private Drawable iconEdit;
     private ColorDrawable backgroundEdit;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class DataList extends BaseActivity {
         dataList.addItemDecoration(decoration);
         mAdapter = getAllItemsData();
         dataList.setAdapter(mAdapter);
+
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT) {

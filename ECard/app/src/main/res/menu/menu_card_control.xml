@@ -22,12 +22,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/disconnect"
-        android:orderInCategory="100"
-        android:title="@string/disconnectMenu"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/about"
         android:orderInCategory="100"
         android:title="@string/about"

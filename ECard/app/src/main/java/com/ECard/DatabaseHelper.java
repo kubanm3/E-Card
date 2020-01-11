@@ -190,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 labels.add(cursor.getString(1));
             } while (cursor.moveToNext());
         }
-
+        db.close();
         return cursor;
     }
 
