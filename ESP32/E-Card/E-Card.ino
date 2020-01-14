@@ -61,35 +61,45 @@ void loop()
     } else {
       showFont("FreeMono12pt7b", &FreeMono12pt7b);
     }
-    display.println(ch_arr[4]);
+    if (atoi(ch_arr[1]) != 0 || atoi(ch_arr[2]) != 0) {
+      display.println(ch_arr[4]);
+    }
     display.setCursor(atoi(ch_arr[5]), atoi(ch_arr[6]));
     if (atoi(ch_arr[7]) == 0) {
       showFont("FreeMono9pt7b", &FreeMono9pt7b);
     } else {
       showFont("FreeMono12pt7b", &FreeMono12pt7b);
     }
-    display.println(ch_arr[8]);
+    if (atoi(ch_arr[5]) != 0 || atoi(ch_arr[6]) != 0) {
+      display.println(ch_arr[8]);
+    }
     display.setCursor(atoi(ch_arr[9]), atoi(ch_arr[10]));
     if (atoi(ch_arr[11]) == 0) {
       showFont("FreeMono9pt7b", &FreeMono9pt7b);
     } else {
       showFont("FreeMono12pt7b", &FreeMono12pt7b);
     }
-    display.println(ch_arr[12]);
+    if (atoi(ch_arr[9]) != 0 || atoi(ch_arr[10]) != 0) {
+      display.println(ch_arr[12]);
+    }
     display.setCursor(atoi(ch_arr[13]), atoi(ch_arr[14]));
     if (atoi(ch_arr[15]) == 0) {
       showFont("FreeMono9pt7b", &FreeMono9pt7b);
     } else {
       showFont("FreeMono12pt7b", &FreeMono12pt7b);
     }
-    display.println(ch_arr[16]);
+    if (atoi(ch_arr[13]) != 0 || atoi(ch_arr[14]) != 0) {
+      display.println(ch_arr[16]);
+    }
     display.setCursor(atoi(ch_arr[17]), atoi(ch_arr[18]));
     if (atoi(ch_arr[19]) == 0) {
       showFont("FreeMono9pt7b", &FreeMono9pt7b);
     } else {
       showFont("FreeMono12pt7b", &FreeMono12pt7b);
     }
-    display.println(ch_arr[20]);
+    if (atoi(ch_arr[17]) != 0 || atoi(ch_arr[18]) != 0) {
+      display.println(ch_arr[20]);
+    }
     display.update();   
   }
   delay(20);

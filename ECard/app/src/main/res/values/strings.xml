@@ -15,8 +15,8 @@
     <string name="saveBtn">Save</string>
     <string name="nameLayout">Enter name of layout</string>
     <string name="orientationLayout">Enter layout orientation</string>
-    <string name="XLayout">Enter value 0–296</string>
-    <string name="YLayout">Enter value 0–128</string>
+    <string name="XLayout">Enter value 0–282</string>
+    <string name="YLayout">Enter value 0–120</string>
     <string name="idLayout">ID</string>
     <string name="update_layout">Update Layout</string>
     <string name="delete_layout">Delete Layout</string>

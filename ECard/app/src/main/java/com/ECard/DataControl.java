@@ -86,7 +86,7 @@ public class DataControl extends BaseActivity {
         if (!isBtConnected) {
             new ConnectBT().execute();
         }
-        //commands to be sent to bluetooth
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +96,14 @@ public class DataControl extends BaseActivity {
                 String email = emailTextbox.getText().toString();
                 String phone = phoneNumberTextbox.getText().toString();
                 sendData(getDataToSend(name, company, address, email, phone,layoutId));
+                btnSend.setEnabled(false);
+                btnSend.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnSend.setEnabled(true);
+                        Toast.makeText(DataControl.this, "You can send again.", Toast.LENGTH_LONG).show();
+                    }
+                }, 2500);
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
