@@ -154,10 +154,6 @@ public class DataControl extends BaseActivity {
                 spinnerPosition = dataAdapter.getPosition(layoutName);
                 layoutSpinner.setSelection(spinnerPosition);
             }
-
-            if (data.getBooleanExtra(EXTRA_BOOL,false)) {
-                sendData(getDataToSend(name, companyName, address_data, email, phone, layout_id));
-            }
         }
 
     }
@@ -180,15 +176,22 @@ public class DataControl extends BaseActivity {
                 Disconnect();
                 return true;
             case R.id.layoutList:
-                Intent intent = new Intent(this, AddLayout.class);
+                Intent intentAddLayout = new Intent(this, AddLayout.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                    startActivity(intentAddLayout, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 } else {
-                    startActivity(intent);
+                    startActivity(intentAddLayout);
                 }
                 return true;
             case R.id.showFromList:
-                viewAll();
+//                viewAll();
+//                return true;
+                Intent intentLayoutList = new Intent(this, LayoutList.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentLayoutList, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentLayoutList);
+                }
                 return true;
             case R.id.showDataList:
                 Intent intentData = new Intent(this, DataList.class);

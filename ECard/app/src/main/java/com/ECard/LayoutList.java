@@ -1,11 +1,13 @@
 package com.ECard;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,16 +23,28 @@ import android.widget.Toast;
 
 import static android.widget.LinearLayout.VERTICAL;
 
-public class DataList extends BaseActivity {
-    public static String EXTRA_NAME = "com.ECard.EXTRA_NAME";
-    public static String EXTRA_COMPANY_NAME = "com.ECard.EXTRA_COMPANY_NAME";
-    public static String EXTRA_ADDRESS = "com.ECard.EXTRA_ADDRESS";
-    public static String EXTRA_EMAIL = "com.ECard.EXTRA_EMAIL";
-    public static String EXTRA_PHONE = "com.ECard.EXTRA_PHONE";
-    public static String EXTRA_LAYOUT_NAME = "com.ECard.EXTRA_LAYOUT_NAME";
+public class LayoutList extends BaseActivity {
+    public static String EXTRA_ID_LAYOUT = "com.ECard.EXTRA_LAYOUT_ID";
+    public static String EXTRA_NAME_LAYOUT = "com.ECard.EXTRA_LAYOUT_NAME";
+    public static String EXTRA_ORIENTATION = "com.ECard.EXTRA_ORIENTATION";
+    public static String EXTRA_NAME_POS_X = "com.ECard.EXTRA_NAME_POS_X";
+    public static String EXTRA_NAME_POS_Y = "com.ECard.EXTRA_NAME_POS_Y";
+    public static String EXTRA_NAME_FONT = "com.ECard.EXTRA_NAME_FONT";
+    public static String EXTRA_COMPANY_POS_X = "com.ECard.EXTRA_COMPANY_POS_X";
+    public static String EXTRA_COMPANY_POS_Y = "com.ECard.EXTRA_COMPANY_POS_Y";
+    public static String EXTRA_COMPANY_FONT = "com.ECard.EXTRA_COMPANY_FONT";
+    public static String EXTRA_ADDRESS_POS_X = "com.ECard.EXTRA_ADDRESS_POS_X";
+    public static String EXTRA_ADDRESS_POS_Y = "com.ECard.EXTRA_ADDRESS_POS_Y";
+    public static String EXTRA_ADDRESS_FONT = "com.ECard.EXTRA_ADDRESS_FONT";
+    public static String EXTRA_EMAIL_POS_X = "com.ECard.EXTRA_EMAIL_POS_X";
+    public static String EXTRA_EMAIL_POS_Y = "com.ECard.EXTRA_EMAIL_POS_Y";
+    public static String EXTRA_EMAIL_FONT = "com.ECard.EXTRA_EMAIL_FONT";
+    public static String EXTRA_PHONE_POS_X = "com.ECard.EXTRA_PHONE_POS_X";
+    public static String EXTRA_PHONE_POS_Y = "com.ECard.EXTRA_PHONE_POS_Y";
+    public static String EXTRA_PHONE_FONT = "com.ECard.EXTRA_PHONE_FONT";
 
-    RecyclerView dataList;
-    DataAdapter mAdapter;
+    RecyclerView layoutList;
+    LayoutAdapter mAdapter;
 
     private Drawable iconDelete;
     private ColorDrawable backgroundDelete;
@@ -40,7 +55,7 @@ public class DataList extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_list);
+        setContentView(R.layout.activity_layout_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,15 +67,15 @@ public class DataList extends BaseActivity {
                 R.drawable.ic_edit_white_36dp);
         backgroundEdit = new ColorDrawable(Color.GREEN);
 
-        dataList = findViewById(R.id.dataListView);
-        dataList.setLayoutManager(new LinearLayoutManager(this));
+        layoutList = findViewById(R.id.layoutListView);
+        layoutList.setLayoutManager(new LinearLayoutManager(this));
 
         DividerItemDecoration decoration =
                 new DividerItemDecoration(getApplicationContext(), VERTICAL);
         decoration.setDrawable(getResources().getDrawable(R.drawable.drawble_divider));
-        dataList.addItemDecoration(decoration);
-        mAdapter = getAllItemsData();
-        dataList.setAdapter(mAdapter);
+        layoutList.addItemDecoration(decoration);
+        mAdapter = getAllItemsLayout();
+        layoutList.setAdapter(mAdapter);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT) {
@@ -72,9 +87,9 @@ public class DataList extends BaseActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                myDb.deleteDataData((String) viewHolder.itemView.getTag());
-                mAdapter = getAllItemsData();
-                dataList.setAdapter(mAdapter);
+                myDb.deleteDataLayout((String) viewHolder.itemView.getTag());
+                mAdapter = getAllItemsLayout();
+                layoutList.setAdapter(mAdapter);
             }
 
             @Override
@@ -104,7 +119,7 @@ public class DataList extends BaseActivity {
                 backgroundDelete.draw(c);
                 iconDelete.draw(c);
             }
-        }).attachToRecyclerView(dataList);
+        }).attachToRecyclerView(layoutList);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.RIGHT) {
@@ -116,7 +131,7 @@ public class DataList extends BaseActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                openDataControlActivityToEdit(viewHolder.itemView.getTag().toString());
+                openLayoutControlActivityToEdit(viewHolder.itemView.getTag().toString());
             }
 
             @Override
@@ -144,7 +159,7 @@ public class DataList extends BaseActivity {
                 backgroundEdit.draw(c);
                 iconEdit.draw(c);
             }
-        }).attachToRecyclerView(dataList);
+        }).attachToRecyclerView(layoutList);
     }
 
 
@@ -165,35 +180,79 @@ public class DataList extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_data_list, menu);
+        getMenuInflater().inflate(R.menu.menu_layout_list, menu);
         return true;
     }
 
-    public void openDataControlActivityToEdit(String id) {
-        Cursor res = myDb.getDataData(Integer.valueOf(id));
+    public void openLayoutControlActivityToEdit(String id) {
+        Cursor res = myDb.getLayoutData(Integer.valueOf(id));
 
         if (res.getCount() == 0) {
             return;
         }
 
         res.moveToFirst();
-        String name = res.getString(0);
-        String companyName = res.getString(1);
-        String address = res.getString(2);
-        String email = res.getString(3);
-        String phone = res.getString(4);
-        String layoutName = res.getString(5);
+        String name = res.getString(1);
+        Log.d("przesyłanedane", name + "; ");
+        String orientation = res.getString(2);
+        Log.d("przesyłanedane", orientation + "; ");
+        String name_pos_x = res.getString(3);
+        Log.d("przesyłanedane", name_pos_x + "; ");
+        String name_pos_y = res.getString(4);
+        Log.d("przesyłanedane", name_pos_y + "; ");
+        String name_font = res.getString(5);
+        Log.d("przesyłanedane", name_font + "; ");
+        String company_pos_x = res.getString(6);
+        Log.d("przesyłanedane", company_pos_x + "; ");
+        String company_pos_y = res.getString(7);
+        Log.d("przesyłanedane", company_pos_y + "; ");
+        String company_font = res.getString(8);
+        Log.d("przesyłanedane", company_font + "; ");
+        String address_pos_x = res.getString(9);
+        Log.d("przesyłanedane", address_pos_x + "; ");
+        String address_pos_y = res.getString(10);
+        Log.d("przesyłanedane", address_pos_y + "; ");
+        String address_font = res.getString(11);
+        Log.d("przesyłanedane", address_font + "; ");
+        String email_pos_x = res.getString(12);
+        Log.d("przesyłanedane", email_pos_x + "; ");
+        String email_pos_y = res.getString(13);
+        Log.d("przesyłanedane", email_pos_y + "; ");
+        String email_font = res.getString(14);
+        Log.d("przesyłanedane", email_font + "; ");
+        String phone_pos_x = res.getString(15);
+        Log.d("przesyłanedane", phone_pos_x + "; ");
+        String phone_pos_y = res.getString(16);
+        Log.d("przesyłanedane", phone_pos_y + "; ");
+        String phone_font = res.getString(17);
+        Log.d("przesyłanedane", phone_font + "; ");
 
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_NAME, name);
-        intent.putExtra(EXTRA_COMPANY_NAME, companyName);
-        intent.putExtra(EXTRA_ADDRESS, address);
-        intent.putExtra(EXTRA_EMAIL, email);
-        intent.putExtra(EXTRA_PHONE, phone);
-        intent.putExtra(EXTRA_LAYOUT_NAME, layoutName);
+        Intent intent = new Intent(this, AddLayout.class);
+        intent.putExtra(EXTRA_ID_LAYOUT, id);
+        intent.putExtra(EXTRA_NAME_LAYOUT, name);
+        intent.putExtra(EXTRA_ORIENTATION, orientation);
+        intent.putExtra(EXTRA_NAME_POS_X, name_pos_x);
+        intent.putExtra(EXTRA_NAME_POS_Y, name_pos_y);
+        intent.putExtra(EXTRA_NAME_FONT, name_font);
+        intent.putExtra(EXTRA_COMPANY_POS_X, company_pos_x);
+        intent.putExtra(EXTRA_COMPANY_POS_Y, company_pos_y);
+        intent.putExtra(EXTRA_COMPANY_FONT, company_font);
+        intent.putExtra(EXTRA_ADDRESS_POS_X, address_pos_x);
+        intent.putExtra(EXTRA_ADDRESS_POS_Y, address_pos_y);
+        intent.putExtra(EXTRA_ADDRESS_FONT, address_font);
+        intent.putExtra(EXTRA_EMAIL_POS_X, email_pos_x);
+        intent.putExtra(EXTRA_EMAIL_POS_Y, email_pos_y);
+        intent.putExtra(EXTRA_EMAIL_FONT, email_font);
+        intent.putExtra(EXTRA_PHONE_POS_X, phone_pos_x);
+        intent.putExtra(EXTRA_PHONE_POS_Y, phone_pos_y);
+        intent.putExtra(EXTRA_PHONE_FONT, phone_font);
 
         setResult(RESULT_OK, intent);
-        finish();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 
 

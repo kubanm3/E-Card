@@ -17,7 +17,8 @@ public class BaseActivity extends AppCompatActivity {
 
     DatabaseHelper myDb;
     Spinner layoutSpinner;
-    DataAdapter mAdapter;
+    LayoutAdapter mAdapterLayout;
+    DataAdapter mAdapterData;
 
     public static String EXTRA_NAME = "com.ECard.EXTRA_NAME";
     public static String EXTRA_COMPANY_NAME = "com.ECard.EXTRA_COMPANY_NAME";
@@ -27,6 +28,24 @@ public class BaseActivity extends AppCompatActivity {
     public static String EXTRA_LAYOUT_NAME = "com.ECard.EXTRA_LAYOUT_NAME";
     public static String EXTRA_BOOL = "com.ECard.EXTRA_BOOL";
     public static String EXTRA_LAYOUT_ID = "com.ECard.EXTRA_LAYOUT_ID";
+
+    public static String EXTRA_NAME_LAYOUT = "com.ECard.EXTRA_LAYOUT_NAME";
+    public static String EXTRA_ORIENTATION = "com.ECard.EXTRA_ORIENTATION";
+    public static String EXTRA_NAME_POS_X = "com.ECard.EXTRA_NAME_POS_X";
+    public static String EXTRA_NAME_POS_Y = "com.ECard.EXTRA_NAME_POS_Y";
+    public static String EXTRA_NAME_FONT = "com.ECard.EXTRA_NAME_FONT";
+    public static String EXTRA_COMPANY_POS_X = "com.ECard.EXTRA_COMPANY_POS_X";
+    public static String EXTRA_COMPANY_POS_Y = "com.ECard.EXTRA_COMPANY_POS_Y";
+    public static String EXTRA_COMPANY_FONT = "com.ECard.EXTRA_COMPANY_FONT";
+    public static String EXTRA_ADDRESS_POS_X = "com.ECard.EXTRA_ADDRESS_POS_X";
+    public static String EXTRA_ADDRESS_POS_Y = "com.ECard.EXTRA_ADDRESS_POS_Y";
+    public static String EXTRA_ADDRESS_FONT = "com.ECard.EXTRA_ADDRESS_FONT";
+    public static String EXTRA_EMAIL_POS_X = "com.ECard.EXTRA_EMAIL_POS_X";
+    public static String EXTRA_EMAIL_POS_Y = "com.ECard.EXTRA_EMAIL_POS_Y";
+    public static String EXTRA_EMAIL_FONT = "com.ECard.EXTRA_EMAIL_FONT";
+    public static String EXTRA_PHONE_POS_X = "com.ECard.EXTRA_PHONE_POS_X";
+    public static String EXTRA_PHONE_POS_Y = "com.ECard.EXTRA_PHONE_POS_Y";
+    public static String EXTRA_PHONE_FONT = "com.ECard.EXTRA_PHONE_FONT";
 
     public List<String> loadSpinnerData() {
         // database handler
@@ -56,7 +75,7 @@ public class BaseActivity extends AppCompatActivity {
     public DataAdapter getAllItemsData() {
         myDb = new DatabaseHelper(this);
         final Cursor res = myDb.getAllItems();
-        mAdapter = new DataAdapter(this, res, new DataAdapter.OnDataListener() {
+        mAdapterData = new DataAdapter(this, res, new DataAdapter.OnDataListener() {
             @Override
             public void onDataClick(int position) {
                 res.moveToPosition(position);
@@ -90,7 +109,66 @@ public class BaseActivity extends AppCompatActivity {
                 finish();
             }
         });
-        return mAdapter;
+        return mAdapterData;
+    }
+
+    public LayoutAdapter getAllItemsLayout() {
+        myDb = new DatabaseHelper(this);
+        final Cursor res = myDb.getAllData();
+        mAdapterLayout = new LayoutAdapter(this, res, new LayoutAdapter.OnLayoutListener() {
+            @Override
+            public void onDataClick(int position) {
+                res.moveToPosition(position);
+                int id = res.getInt(0);
+                Cursor res = myDb.getLayoutData(id);
+
+                if (res.getCount() == 0) {
+                    return;
+                }
+
+                res.moveToFirst();
+                String name = res.getString(1);
+                String orientation = res.getString(2);
+                String name_pos_x = res.getString(3);
+                String name_pos_y = res.getString(4);
+                String name_font = res.getString(5);
+                String company_pos_x = res.getString(6);
+                String company_pos_y = res.getString(7);
+                String company_font = res.getString(8);
+                String address_pos_x = res.getString(9);
+                String address_pos_y = res.getString(10);
+                String address_font = res.getString(11);
+                String email_pos_x = res.getString(12);
+                String email_pos_y = res.getString(13);
+                String email_font = res.getString(14);
+                String phone_pos_x = res.getString(15);
+                String phone_pos_y = res.getString(16);
+                String phone_font = res.getString(17);
+
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_NAME_LAYOUT, name);
+                intent.putExtra(EXTRA_ORIENTATION, orientation);
+                intent.putExtra(EXTRA_NAME_POS_X, name_pos_x);
+                intent.putExtra(EXTRA_NAME_POS_Y, name_pos_y);
+                intent.putExtra(EXTRA_NAME_FONT, name_font);
+                intent.putExtra(EXTRA_COMPANY_POS_X, company_pos_x);
+                intent.putExtra(EXTRA_COMPANY_POS_Y, company_pos_y);
+                intent.putExtra(EXTRA_COMPANY_FONT, company_font);
+                intent.putExtra(EXTRA_ADDRESS_POS_X, address_pos_x);
+                intent.putExtra(EXTRA_ADDRESS_POS_Y, address_pos_y);
+                intent.putExtra(EXTRA_ADDRESS_FONT, address_font);
+                intent.putExtra(EXTRA_EMAIL_POS_X, email_pos_x);
+                intent.putExtra(EXTRA_EMAIL_POS_Y, email_pos_y);
+                intent.putExtra(EXTRA_EMAIL_FONT, email_font);
+                intent.putExtra(EXTRA_PHONE_POS_X, phone_pos_x);
+                intent.putExtra(EXTRA_PHONE_POS_Y, phone_pos_y);
+                intent.putExtra(EXTRA_PHONE_FONT, phone_font);
+
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        return mAdapterLayout;
     }
 
 

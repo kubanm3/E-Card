@@ -13,26 +13,30 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     //table for layouts
+
     private static final String DATABASE_NAME = "ECard.db";
-    private static final String TABLE_NAME_LAYOUTS = "layouts";
-    private static final String LAYOUTS_ID = "ID";
-    private static final String LAYOUTS_NAME = "LAYOUT_NAME";
-    private static final String LAYOUTS_ORIENTATION = "ORIENTATION";
-    private static final String LAYOUTS_NAME_POS_X = "NAME_POS_X";
-    private static final String LAYOUTS_NAME_POS_Y = "NAME_POS_Y";
-    private static final String LAYOUTS_NAME_FONT = "NAME_FONT";
-    private static final String LAYOUTS_COMPANY_POS_X = "COMPANY_POS_X";
-    private static final String LAYOUTS_COMPANY_POS_Y = "COMPANY_POS_Y";
-    private static final String LAYOUTS_COMPANY_FONT = "COMPANY_FONT";
-    private static final String LAYOUTS_ADDRESS_POS_X = "ADDRESS_POS_X";
-    private static final String LAYOUTS_ADDRESS_POS_Y = "ADDRESS_POS_Y";
-    private static final String LAYOUTS_ADDRESS_FONT = "ADDRESS_FONT";
-    private static final String LAYOUTS_EMAIL_POS_X = "EMAIL_POS_X";
-    private static final String LAYOUTS_EMAIL_POS_Y = "EMAIL_POS_Y";
-    private static final String LAYOUTS_EMAIL_FONT = "EMAIL_FONT";
-    private static final String LAYOUTS_PHONE_POS_X = "PHONE_POS_X";
-    private static final String LAYOUTS_PHONE_POS_Y = "PHONE_POS_Y";
-    private static final String LAYOUTS_PHONE_FONT = "PHONE_FONT";
+
+    public static final class LayoutEntry implements BaseColumns {
+        public static final String TABLE_NAME_LAYOUTS = "layouts";
+        public static final String LAYOUTS_ID = "ID";
+        public static final String LAYOUTS_NAME = "LAYOUT_NAME";
+        public static final String LAYOUTS_ORIENTATION = "ORIENTATION";
+        public static final String LAYOUTS_NAME_POS_X = "NAME_POS_X";
+        public static final String LAYOUTS_NAME_POS_Y = "NAME_POS_Y";
+        public static final String LAYOUTS_NAME_FONT = "NAME_FONT";
+        public static final String LAYOUTS_COMPANY_POS_X = "COMPANY_POS_X";
+        public static final String LAYOUTS_COMPANY_POS_Y = "COMPANY_POS_Y";
+        public static final String LAYOUTS_COMPANY_FONT = "COMPANY_FONT";
+        public static final String LAYOUTS_ADDRESS_POS_X = "ADDRESS_POS_X";
+        public static final String LAYOUTS_ADDRESS_POS_Y = "ADDRESS_POS_Y";
+        public static final String LAYOUTS_ADDRESS_FONT = "ADDRESS_FONT";
+        public static final String LAYOUTS_EMAIL_POS_X = "EMAIL_POS_X";
+        public static final String LAYOUTS_EMAIL_POS_Y = "EMAIL_POS_Y";
+        public static final String LAYOUTS_EMAIL_FONT = "EMAIL_FONT";
+        public static final String LAYOUTS_PHONE_POS_X = "PHONE_POS_X";
+        public static final String LAYOUTS_PHONE_POS_Y = "PHONE_POS_Y";
+        public static final String LAYOUTS_PHONE_FONT = "PHONE_FONT";
+    }
 
     //table for data
     public static final class DataEntry implements BaseColumns {
@@ -48,25 +52,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_LAYOUTS =
             "CREATE TABLE "
-                    + TABLE_NAME_LAYOUTS + " ("
-                    + LAYOUTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + LAYOUTS_NAME + " TEXT, "
-                    + LAYOUTS_ORIENTATION + " INTEGER,"
-                    + LAYOUTS_NAME_POS_X + " INTEGER, "
-                    + LAYOUTS_NAME_POS_Y + " INTEGER, "
-                    + LAYOUTS_NAME_FONT + " INTEGER, "
-                    + LAYOUTS_COMPANY_POS_X + " INTEGER, "
-                    + LAYOUTS_COMPANY_POS_Y + " INTEGER, "
-                    + LAYOUTS_COMPANY_FONT + " INTEGER, "
-                    + LAYOUTS_ADDRESS_POS_X + " INTEGER, "
-                    + LAYOUTS_ADDRESS_POS_Y + " INTEGER, "
-                    + LAYOUTS_ADDRESS_FONT + " INTEGER, "
-                    + LAYOUTS_EMAIL_POS_X + " INTEGER, "
-                    + LAYOUTS_EMAIL_POS_Y + " INTEGER, "
-                    + LAYOUTS_EMAIL_FONT + " INTEGER, "
-                    + LAYOUTS_PHONE_POS_X + " INTEGER, "
-                    + LAYOUTS_PHONE_POS_Y + " INTEGER, "
-                    + LAYOUTS_PHONE_FONT + " INTEGER)";
+                    + LayoutEntry.TABLE_NAME_LAYOUTS + " ("
+                    + LayoutEntry.LAYOUTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + LayoutEntry.LAYOUTS_NAME + " TEXT, "
+                    + LayoutEntry.LAYOUTS_ORIENTATION + " INTEGER,"
+                    + LayoutEntry.LAYOUTS_NAME_POS_X + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_NAME_POS_Y + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_NAME_FONT + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_COMPANY_POS_X + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_COMPANY_POS_Y + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_COMPANY_FONT + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_ADDRESS_POS_X + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_ADDRESS_POS_Y + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_ADDRESS_FONT + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_EMAIL_POS_X + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_EMAIL_POS_Y + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_EMAIL_FONT + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_PHONE_POS_X + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_PHONE_POS_Y + " INTEGER, "
+                    + LayoutEntry.LAYOUTS_PHONE_FONT + " INTEGER)";
 
     private static final String CREATE_TABLE_DATA =
             "CREATE TABLE "
@@ -78,7 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + DataEntry.DATA_EMAIL + " TEXT, "
                     + DataEntry.DATA_PHONE + " INTEGER, "
                     + DataEntry.DATA_LAYOUT_ID + " INTEGER, " +
-                    "FOREIGN KEY(" + DataEntry.DATA_LAYOUT_ID + ") REFERENCES " + TABLE_NAME_LAYOUTS + "(" + LAYOUTS_ID + "))";
+                    "FOREIGN KEY(" + DataEntry.DATA_LAYOUT_ID + ") REFERENCES " + LayoutEntry.TABLE_NAME_LAYOUTS + "(" + LayoutEntry.LAYOUTS_ID + "))";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -93,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_LAYOUTS);
+        db.execSQL("DROP TABLE IF EXISTS " + LayoutEntry.TABLE_NAME_LAYOUTS);
         db.execSQL("DROP TABLE IF EXISTS " + DataEntry.TABLE_NAME_DATA);
         onCreate(db);
     }
@@ -109,27 +113,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean insertDataLayout(String layout_name, String orientation, String name_pos_x, String name_pos_y, String name_font,
                                     String company_pos_x, String company_pos_y, String company_font, String address_pos_x, String address_pos_y, String address_font,
-                                    String email_pos_x, String email_pos_y, String email_font, String phone_pos_x, String phone_pos_y,  String phone_font) {
+                                    String email_pos_x, String email_pos_y, String email_font, String phone_pos_x, String phone_pos_y, String phone_font) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LAYOUTS_NAME, layout_name);
-        contentValues.put(LAYOUTS_ORIENTATION, orientation);
-        contentValues.put(LAYOUTS_NAME_POS_X, name_pos_x);
-        contentValues.put(LAYOUTS_NAME_POS_Y, name_pos_y);
-        contentValues.put(LAYOUTS_NAME_FONT, name_font);
-        contentValues.put(LAYOUTS_COMPANY_POS_X, company_pos_x);
-        contentValues.put(LAYOUTS_COMPANY_POS_Y, company_pos_y);
-        contentValues.put(LAYOUTS_COMPANY_FONT, company_font);
-        contentValues.put(LAYOUTS_ADDRESS_POS_X, address_pos_x);
-        contentValues.put(LAYOUTS_ADDRESS_POS_Y, address_pos_y);
-        contentValues.put(LAYOUTS_ADDRESS_FONT, address_font);
-        contentValues.put(LAYOUTS_EMAIL_POS_X, email_pos_x);
-        contentValues.put(LAYOUTS_EMAIL_POS_Y, email_pos_y);
-        contentValues.put(LAYOUTS_EMAIL_FONT, email_font);
-        contentValues.put(LAYOUTS_PHONE_POS_X, phone_pos_x);
-        contentValues.put(LAYOUTS_PHONE_POS_Y, phone_pos_y);
-        contentValues.put(LAYOUTS_PHONE_FONT, phone_font);
-        long result = db.insert(TABLE_NAME_LAYOUTS, null, contentValues);
+        contentValues.put(LayoutEntry.LAYOUTS_NAME, layout_name);
+        contentValues.put(LayoutEntry.LAYOUTS_ORIENTATION, orientation);
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_X, name_pos_x);
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_Y, name_pos_y);
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_FONT, name_font);
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_X, company_pos_x);
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_Y, company_pos_y);
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_FONT, company_font);
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_X, address_pos_x);
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_Y, address_pos_y);
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_FONT, address_font);
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_X, email_pos_x);
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_Y, email_pos_y);
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_FONT, email_font);
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_X, phone_pos_x);
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_Y, phone_pos_y);
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_FONT, phone_font);
+        long result = db.insert(LayoutEntry.TABLE_NAME_LAYOUTS, null, contentValues);
         if (result == -1)
             return false;
         else
@@ -155,7 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_NAME_LAYOUTS, null);
+        Cursor res = db.rawQuery("select * from " + LayoutEntry.TABLE_NAME_LAYOUTS, null);
         return res;
     }
 
@@ -175,7 +179,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getLayoutData(Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_NAME_LAYOUTS + " WHERE ID = " + id, null);
+        Cursor res = db.rawQuery("select * from " + LayoutEntry.TABLE_NAME_LAYOUTS + " WHERE ID = " + id, null);
         return res;
     }
 
@@ -196,37 +200,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean updateData(String id, String layout_name, String orientation, String name_pos_x, String name_pos_y, String name_font,
                               String company_pos_x, String company_pos_y, String company_font, String address_pos_x, String address_pos_y, String address_font,
-                              String email_pos_x, String email_pos_y, String email_font, String phone_pos_x, String phone_pos_y,  String phone_font) {
+                              String email_pos_x, String email_pos_y, String email_font, String phone_pos_x, String phone_pos_y, String phone_font) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         if (!id.equals(""))
-            contentValues.put(LAYOUTS_ID, id);
+            contentValues.put(LayoutEntry.LAYOUTS_ID, id);
         else
             return false;
-        if (layout_name != null && !layout_name.equals("")) contentValues.put(LAYOUTS_NAME, layout_name);
-        if (orientation != null && !orientation.equals("")) contentValues.put(LAYOUTS_ORIENTATION, orientation);
-        if (name_pos_x != null && !name_pos_x.equals("")) contentValues.put(LAYOUTS_NAME_POS_X, name_pos_x);
-        if (name_pos_y != null && !name_pos_y.equals("")) contentValues.put(LAYOUTS_NAME_POS_Y, name_pos_y);
-        if (name_font != null && !name_font.equals("")) contentValues.put(LAYOUTS_NAME_FONT, name_font);
-        if (company_pos_x != null && !company_pos_x.equals("")) contentValues.put(LAYOUTS_COMPANY_POS_X, company_pos_x);
-        if (company_pos_y != null && !company_pos_y.equals("")) contentValues.put(LAYOUTS_COMPANY_POS_Y, company_pos_y);
-        if (company_font != null && !company_font.equals("")) contentValues.put(LAYOUTS_COMPANY_FONT, company_font);
-        if (address_pos_x != null && !address_pos_x.equals("")) contentValues.put(LAYOUTS_ADDRESS_POS_X, address_pos_x);
-        if (address_pos_y != null && !address_pos_y.equals("")) contentValues.put(LAYOUTS_ADDRESS_POS_Y, address_pos_y);
-        if (address_font != null && !address_font.equals("")) contentValues.put(LAYOUTS_ADDRESS_FONT, address_font);
-        if (email_pos_x != null && !email_pos_x.equals("")) contentValues.put(LAYOUTS_EMAIL_POS_X, email_pos_x);
-        if (email_pos_y != null && !email_pos_y.equals("")) contentValues.put(LAYOUTS_EMAIL_POS_Y, email_pos_y);
-        if (email_font != null && !email_font.equals("")) contentValues.put(LAYOUTS_EMAIL_FONT, email_font);
-        if (phone_pos_x != null && !phone_pos_x.equals("")) contentValues.put(LAYOUTS_PHONE_POS_X, phone_pos_x);
-        if (phone_pos_y != null && !phone_pos_y.equals("")) contentValues.put(LAYOUTS_PHONE_POS_Y, phone_pos_y);
-        if (phone_font != null && !phone_font.equals("")) contentValues.put(LAYOUTS_PHONE_FONT, phone_font);
-        db.update(TABLE_NAME_LAYOUTS, contentValues, "ID = ?", new String[]{id});
+        if (layout_name != null && !layout_name.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_NAME, layout_name);
+        if (orientation != null && !orientation.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_ORIENTATION, orientation);
+        if (name_pos_x != null && !name_pos_x.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_X, name_pos_x);
+        if (name_pos_y != null && !name_pos_y.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_Y, name_pos_y);
+        if (name_font != null && !name_font.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_NAME_FONT, name_font);
+        if (company_pos_x != null && !company_pos_x.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_X, company_pos_x);
+        if (company_pos_y != null && !company_pos_y.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_Y, company_pos_y);
+        if (company_font != null && !company_font.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_COMPANY_FONT, company_font);
+        if (address_pos_x != null && !address_pos_x.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_X, address_pos_x);
+        if (address_pos_y != null && !address_pos_y.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_Y, address_pos_y);
+        if (address_font != null && !address_font.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_FONT, address_font);
+        if (email_pos_x != null && !email_pos_x.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_X, email_pos_x);
+        if (email_pos_y != null && !email_pos_y.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_Y, email_pos_y);
+        if (email_font != null && !email_font.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_EMAIL_FONT, email_font);
+        if (phone_pos_x != null && !phone_pos_x.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_X, phone_pos_x);
+        if (phone_pos_y != null && !phone_pos_y.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_Y, phone_pos_y);
+        if (phone_font != null && !phone_font.equals(""))
+            contentValues.put(LayoutEntry.LAYOUTS_PHONE_FONT, phone_font);
+        db.update(LayoutEntry.TABLE_NAME_LAYOUTS, contentValues, "ID = ?", new String[]{id});
         return true;
     }
 
     public Integer deleteDataLayout(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME_LAYOUTS, "ID = ?", new String[]{id});
+        return db.delete(LayoutEntry.TABLE_NAME_LAYOUTS, "ID = ?", new String[]{id});
     }
 
     public Integer deleteDataData(String id) {
@@ -237,67 +258,68 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getDataData(Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =
-                db.rawQuery("select D.NAME, D.COMPANY_NAME, D.ADDRESS, D.EMAIL, D.PHONE, L.LAYOUT_NAME, L.ID FROM " + DataEntry.TABLE_NAME_DATA + " D LEFT JOIN " + TABLE_NAME_LAYOUTS + " L ON D.LAYOUT_ID = L.ID WHERE D.ID = " + id, null);
+                db.rawQuery("select D.NAME, D.COMPANY_NAME, D.ADDRESS, D.EMAIL, D.PHONE, L.LAYOUT_NAME, L.ID FROM " + DataEntry.TABLE_NAME_DATA + " D LEFT JOIN "
+                        + LayoutEntry.TABLE_NAME_LAYOUTS + " L ON D.LAYOUT_ID = L.ID WHERE D.ID = " + id, null);
         return res;
     }
 
     private void putDefaultValueLayouts(SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LAYOUTS_NAME, "Default");
-        contentValues.put(LAYOUTS_ORIENTATION, "1");
-        contentValues.put(LAYOUTS_NAME_POS_X, "5");
-        contentValues.put(LAYOUTS_NAME_POS_Y, "20");
-        contentValues.put(LAYOUTS_NAME_FONT, "1");
-        contentValues.put(LAYOUTS_COMPANY_POS_X, "5");
-        contentValues.put(LAYOUTS_COMPANY_POS_Y, "40");
-        contentValues.put(LAYOUTS_COMPANY_FONT, "1");
-        contentValues.put(LAYOUTS_ADDRESS_POS_X, "5");
-        contentValues.put(LAYOUTS_ADDRESS_POS_Y, "60");
-        contentValues.put(LAYOUTS_ADDRESS_FONT, "0");
-        contentValues.put(LAYOUTS_EMAIL_POS_X, "5");
-        contentValues.put(LAYOUTS_EMAIL_POS_Y, "90");
-        contentValues.put(LAYOUTS_EMAIL_FONT, "0");
-        contentValues.put(LAYOUTS_PHONE_POS_X, "5");
-        contentValues.put(LAYOUTS_PHONE_POS_Y, "110");
-        contentValues.put(LAYOUTS_PHONE_FONT, "0");
-        db.insert(TABLE_NAME_LAYOUTS, null, contentValues);
+        contentValues.put(LayoutEntry.LAYOUTS_NAME, "Default");
+        contentValues.put(LayoutEntry.LAYOUTS_ORIENTATION, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_X, "5");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_Y, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_FONT, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_X, "5");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_Y, "40");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_FONT, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_X, "5");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_Y, "60");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_FONT, "0");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_X, "5");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_Y, "90");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_FONT, "0");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_X, "5");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_Y, "110");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_FONT, "0");
+        db.insert(LayoutEntry.TABLE_NAME_LAYOUTS, null, contentValues);
 
-        contentValues.put(LAYOUTS_NAME, "Default 2");
-        contentValues.put(LAYOUTS_ORIENTATION, "1");
-        contentValues.put(LAYOUTS_NAME_POS_X, "20");
-        contentValues.put(LAYOUTS_NAME_POS_Y, "20");
-        contentValues.put(LAYOUTS_NAME_FONT, "1");
-        contentValues.put(LAYOUTS_COMPANY_POS_X, "20");
-        contentValues.put(LAYOUTS_COMPANY_POS_Y, "40");
-        contentValues.put(LAYOUTS_COMPANY_FONT, "1");
-        contentValues.put(LAYOUTS_ADDRESS_POS_X, "20");
-        contentValues.put(LAYOUTS_ADDRESS_POS_Y, "60");
-        contentValues.put(LAYOUTS_ADDRESS_FONT, "0");
-        contentValues.put(LAYOUTS_EMAIL_POS_X, "100");
-        contentValues.put(LAYOUTS_EMAIL_POS_Y, "100");
-        contentValues.put(LAYOUTS_EMAIL_FONT, "0");
-        contentValues.put(LAYOUTS_PHONE_POS_X, "100");
-        contentValues.put(LAYOUTS_PHONE_POS_Y, "120");
-        contentValues.put(LAYOUTS_PHONE_FONT, "0");
-        db.insert(TABLE_NAME_LAYOUTS, null, contentValues);
+        contentValues.put(LayoutEntry.LAYOUTS_NAME, "Default 2");
+        contentValues.put(LayoutEntry.LAYOUTS_ORIENTATION, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_X, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_Y, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_FONT, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_X, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_Y, "40");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_FONT, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_X, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_Y, "60");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_FONT, "0");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_X, "100");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_Y, "100");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_FONT, "0");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_X, "100");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_Y, "120");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_FONT, "0");
+        db.insert(LayoutEntry.TABLE_NAME_LAYOUTS, null, contentValues);
 
-        contentValues.put(LAYOUTS_NAME, "Default 3");
-        contentValues.put(LAYOUTS_ORIENTATION, "1");
-        contentValues.put(LAYOUTS_NAME_POS_X, "20");
-        contentValues.put(LAYOUTS_NAME_POS_Y, "20");
-        contentValues.put(LAYOUTS_NAME_FONT, "1");
-        contentValues.put(LAYOUTS_COMPANY_POS_X, "20");
-        contentValues.put(LAYOUTS_COMPANY_POS_Y, "40");
-        contentValues.put(LAYOUTS_COMPANY_FONT, "1");
-        contentValues.put(LAYOUTS_ADDRESS_POS_X, "110");
-        contentValues.put(LAYOUTS_ADDRESS_POS_Y, "60");
-        contentValues.put(LAYOUTS_ADDRESS_FONT, "0");
-        contentValues.put(LAYOUTS_EMAIL_POS_X, "110");
-        contentValues.put(LAYOUTS_EMAIL_POS_Y, "80");
-        contentValues.put(LAYOUTS_EMAIL_FONT, "0");
-        contentValues.put(LAYOUTS_PHONE_POS_X, "110");
-        contentValues.put(LAYOUTS_PHONE_POS_Y, "100");
-        contentValues.put(LAYOUTS_PHONE_FONT, "0");
-        db.insert(TABLE_NAME_LAYOUTS, null, contentValues);
+        contentValues.put(LayoutEntry.LAYOUTS_NAME, "Default 3");
+        contentValues.put(LayoutEntry.LAYOUTS_ORIENTATION, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_X, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_Y, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_FONT, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_X, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_Y, "40");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_FONT, "1");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_X, "110");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_Y, "60");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_FONT, "0");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_X, "110");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_Y, "80");
+        contentValues.put(LayoutEntry.LAYOUTS_EMAIL_FONT, "0");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_X, "110");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_Y, "100");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_FONT, "0");
+        db.insert(LayoutEntry.TABLE_NAME_LAYOUTS, null, contentValues);
     }
 }

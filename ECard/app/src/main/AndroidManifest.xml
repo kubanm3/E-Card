@@ -14,7 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.ECard.DeviceList"
-            android:label="@string/app_name"
+            android:label="Devices"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,17 +24,22 @@
         </activity>
         <activity
             android:name="com.ECard.DataControl"
-            android:label="@string/app_name"
+            android:label="Data control"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.ECard.AddLayout"
-            android:label="@string/app_name"
+            android:label="Layout control"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.ECard.DataList"
-            android:label="@string/app_name"
+            android:label="Data list"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.ECard.LayoutList"
+            android:label="Layout list"
             android:screenOrientation="portrait">
         </activity>
     </application>
