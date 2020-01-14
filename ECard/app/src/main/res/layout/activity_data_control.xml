@@ -27,7 +27,7 @@
         android:layout_above="@+id/sendBtn"
         android:layout_marginBottom="434dp"
         android:hint="@string/nameHint"
-        android:inputType="text" />
+        android:inputType="text"/>
 
     <EditText
         android:id="@+id/addressText"
@@ -54,7 +54,7 @@
         android:layout_above="@+id/sendBtn"
         android:layout_marginBottom="193dp"
         android:hint="@string/numberHint"
-        android:inputType="phone" />
+        android:inputType="number" />
 
     <Button
         android:id="@+id/sendBtn"

@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,9 +53,13 @@ public class DataControl extends BaseActivity {
         setContentView(R.layout.activity_data_control);
 
         nameTextbox = findViewById(R.id.nameText);
+        nameTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
         companyTextbox = findViewById(R.id.companyText);
+        companyTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
         addressTextbox = findViewById(R.id.addressText);
+        addressTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
         emailTextbox = findViewById(R.id.emailText);
+        emailTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
         phoneNumberTextbox = findViewById(R.id.phoneNumberText);
         btnSend = findViewById(R.id.sendBtn);
         btnSave = findViewById(R.id.saveBtn);

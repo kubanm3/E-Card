@@ -1,5 +1,3 @@
-
-
 #include "BluetoothSerial.h"
 #include <string.h>
 
@@ -58,7 +56,7 @@ void loop()
     
     display.setRotation(atoi(ch_arr[0]));
     display.setCursor(atoi(ch_arr[1]), atoi(ch_arr[2]));
-    if (ch_arr[3] == "0") {
+    if (atoi(ch_arr[3]) == 0) {
       showFont("FreeMono9pt7b", &FreeMono9pt7b);
     } else {
       showFont("FreeMono12pt7b", &FreeMono12pt7b);

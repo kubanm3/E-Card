@@ -1,25 +1,29 @@
 package com.ECard;
 
-import android.text.InputFilter ;
-import android.text.Spanned ;
+import android.text.InputFilter;
+import android.text.Spanned;
+
 public class MaxValueFilter implements InputFilter {
-    private int mIntMin , mIntMax ;
-    public MaxValueFilter(int minValue , int maxValue) {
-        this . mIntMin = minValue ;
-        this . mIntMax = maxValue ;
+    private int mIntMin, mIntMax;
+
+    public MaxValueFilter(int minValue, int maxValue) {
+        this.mIntMin = minValue;
+        this.mIntMax = maxValue;
     }
+
     @Override
-    public CharSequence filter (CharSequence source , int start , int end , Spanned dest ,int dstart , int dend) {
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            int input = Integer. parseInt (dest.toString() + source.toString()) ;
-            if (isInRange( mIntMin , mIntMax , input))
+            int input = Integer.parseInt(dest.toString() + source.toString());
+            if (isInRange(mIntMin, mIntMax, input))
                 return null;
         } catch (NumberFormatException e) {
-            e.printStackTrace() ;
+            e.printStackTrace();
         }
-        return "" ;
+        return "";
     }
-    private boolean isInRange ( int a , int b , int c) {
-        return b > a ? c >= a && c <= b : c >= b && c <= a ;
+
+    private boolean isInRange(int a, int b, int c) {
+        return b > a ? c >= a && c <= b : c >= b && c <= a;
     }
 }
