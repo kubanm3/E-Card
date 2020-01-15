@@ -179,7 +179,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getLayoutData(Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + LayoutEntry.TABLE_NAME_LAYOUTS + " WHERE ID = " + id, null);
+        Cursor res =
+                db.rawQuery("select * from " + LayoutEntry.TABLE_NAME_LAYOUTS + " WHERE ID = " + id, null);
         return res;
     }
 
@@ -198,50 +199,73 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public boolean updateData(String id, String layout_name, String orientation, String name_pos_x, String name_pos_y, String name_font,
-                              String company_pos_x, String company_pos_y, String company_font, String address_pos_x, String address_pos_y, String address_font,
-                              String email_pos_x, String email_pos_y, String email_font, String phone_pos_x, String phone_pos_y, String phone_font) {
+    public boolean updateLayout(String id, String layout_name, String orientation, String name_pos_x, String name_pos_y, String name_font,
+                                String company_pos_x, String company_pos_y, String company_font, String address_pos_x, String address_pos_y, String address_font,
+                                String email_pos_x, String email_pos_y, String email_font, String phone_pos_x, String phone_pos_y, String phone_font) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         if (!id.equals(""))
             contentValues.put(LayoutEntry.LAYOUTS_ID, id);
         else
             return false;
-        if (layout_name != null && !layout_name.equals(""))
+        if (layout_name != null)
             contentValues.put(LayoutEntry.LAYOUTS_NAME, layout_name);
-        if (orientation != null && !orientation.equals(""))
+        if (orientation != null)
             contentValues.put(LayoutEntry.LAYOUTS_ORIENTATION, orientation);
-        if (name_pos_x != null && !name_pos_x.equals(""))
+        if (name_pos_x != null)
             contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_X, name_pos_x);
-        if (name_pos_y != null && !name_pos_y.equals(""))
+        if (name_pos_y != null)
             contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_Y, name_pos_y);
-        if (name_font != null && !name_font.equals(""))
+        if (name_font != null)
             contentValues.put(LayoutEntry.LAYOUTS_NAME_FONT, name_font);
-        if (company_pos_x != null && !company_pos_x.equals(""))
+        if (company_pos_x != null)
             contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_X, company_pos_x);
-        if (company_pos_y != null && !company_pos_y.equals(""))
+        if (company_pos_y != null)
             contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_Y, company_pos_y);
-        if (company_font != null && !company_font.equals(""))
+        if (company_font != null)
             contentValues.put(LayoutEntry.LAYOUTS_COMPANY_FONT, company_font);
-        if (address_pos_x != null && !address_pos_x.equals(""))
+        if (address_pos_x != null)
             contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_X, address_pos_x);
-        if (address_pos_y != null && !address_pos_y.equals(""))
+        if (address_pos_y != null)
             contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_Y, address_pos_y);
-        if (address_font != null && !address_font.equals(""))
+        if (address_font != null)
             contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_FONT, address_font);
-        if (email_pos_x != null && !email_pos_x.equals(""))
+        if (email_pos_x != null)
             contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_X, email_pos_x);
-        if (email_pos_y != null && !email_pos_y.equals(""))
+        if (email_pos_y != null)
             contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_Y, email_pos_y);
-        if (email_font != null && !email_font.equals(""))
+        if (email_font != null)
             contentValues.put(LayoutEntry.LAYOUTS_EMAIL_FONT, email_font);
-        if (phone_pos_x != null && !phone_pos_x.equals(""))
+        if (phone_pos_x != null)
             contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_X, phone_pos_x);
-        if (phone_pos_y != null && !phone_pos_y.equals(""))
+        if (phone_pos_y != null)
             contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_Y, phone_pos_y);
-        if (phone_font != null && !phone_font.equals(""))
+        if (phone_font != null)
             contentValues.put(LayoutEntry.LAYOUTS_PHONE_FONT, phone_font);
         db.update(LayoutEntry.TABLE_NAME_LAYOUTS, contentValues, "ID = ?", new String[]{id});
+        return true;
+    }
+
+    public boolean updateData(String id, String layout_id, String name, String company, String address, String email, String phone) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        if (!id.equals(""))
+            contentValues.put(DataEntry.DATA_ID, id);
+        else
+            return false;
+        if (layout_id != null)
+            contentValues.put(DataEntry.DATA_LAYOUT_ID, layout_id);
+        if (name != null)
+            contentValues.put(DataEntry.DATA_NAME, name);
+        if (company != null)
+            contentValues.put(DataEntry.DATA_COMPANY_NAME, company);
+        if (address != null)
+            contentValues.put(DataEntry.DATA_ADDRESS, address);
+        if (email != null)
+            contentValues.put(DataEntry.DATA_EMAIL, email);
+        if (phone != null)
+            contentValues.put(DataEntry.DATA_PHONE, phone);
+        db.update(DataEntry.TABLE_NAME_DATA, contentValues, "ID = ?", new String[]{id});
         return true;
     }
 
@@ -258,7 +282,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getDataData(Integer id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =
-                db.rawQuery("select D.NAME, D.COMPANY_NAME, D.ADDRESS, D.EMAIL, D.PHONE, L.LAYOUT_NAME, L.ID FROM " + DataEntry.TABLE_NAME_DATA + " D LEFT JOIN "
+                db.rawQuery("select D.NAME, D.COMPANY_NAME, D.ADDRESS, D.EMAIL, D.PHONE, L.LAYOUT_NAME, L.ID, D.ID FROM " + DataEntry.TABLE_NAME_DATA + " D LEFT JOIN "
                         + LayoutEntry.TABLE_NAME_LAYOUTS + " L ON D.LAYOUT_ID = L.ID WHERE D.ID = " + id, null);
         return res;
     }

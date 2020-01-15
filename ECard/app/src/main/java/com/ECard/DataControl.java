@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -27,8 +28,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class DataControl extends BaseActivity {
-    Button btnSend, btnSave;
+    Button btnSend, btnSave, btnUpdate;
     EditText nameTextbox, companyTextbox, addressTextbox, emailTextbox, phoneNumberTextbox;
+    TextView idTextbox;
     Spinner layoutSpinner;
     Integer layoutId = 0;
     int spinnerPosition = 0;
@@ -49,21 +51,8 @@ public class DataControl extends BaseActivity {
         address =
                 newint.getStringExtra(DeviceList.EXTRA_ADDRESS); //receive the address of the bluetooth device
 
-        //view of datacontrol
         setContentView(R.layout.activity_data_control);
-
-        nameTextbox = findViewById(R.id.nameText);
-        nameTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
-        companyTextbox = findViewById(R.id.companyText);
-        companyTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
-        addressTextbox = findViewById(R.id.addressText);
-        addressTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
-        emailTextbox = findViewById(R.id.emailText);
-        emailTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
-        phoneNumberTextbox = findViewById(R.id.phoneNumberText);
-        btnSend = findViewById(R.id.sendBtn);
-        btnSave = findViewById(R.id.saveBtn);
-        layoutSpinner = findViewById(R.id.layoutSpinner);
+        initFields();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,32 +76,9 @@ public class DataControl extends BaseActivity {
             new ConnectBT().execute();
         }
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = nameTextbox.getText().toString();
-                String company = companyTextbox.getText().toString();
-                String address = addressTextbox.getText().toString();
-                String email = emailTextbox.getText().toString();
-                String phone = phoneNumberTextbox.getText().toString();
-                sendData(getDataToSend(name, company, address, email, phone,layoutId));
-                btnSend.setEnabled(false);
-                btnSend.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        btnSend.setEnabled(true);
-                        Toast.makeText(DataControl.this, "You can send again.", Toast.LENGTH_LONG).show();
-                    }
-                }, 2500);
-            }
-        });
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveData();
-            }
-        });
-
+        SendDataListener();
+        SaveDataListener();
+        UpdateDataListener();
     }
 
     @Override
@@ -147,8 +113,9 @@ public class DataControl extends BaseActivity {
             emailTextbox.setText(email);
             String phone = data.getStringExtra(EXTRA_PHONE);
             phoneNumberTextbox.setText(phone);
+            String id = data.getStringExtra(EXTRA_ID_DATA);
+            idTextbox.setText(id);
 
-            int layout_id = data.getIntExtra(EXTRA_LAYOUT_ID, 1);
             String layoutName = data.getStringExtra(EXTRA_LAYOUT_NAME);
             if (layoutName != null) {
                 spinnerPosition = dataAdapter.getPosition(layoutName);
@@ -184,8 +151,6 @@ public class DataControl extends BaseActivity {
                 }
                 return true;
             case R.id.showFromList:
-//                viewAll();
-//                return true;
                 Intent intentLayoutList = new Intent(this, LayoutList.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     startActivity(intentLayoutList, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
@@ -201,6 +166,52 @@ public class DataControl extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void initFields() {
+        nameTextbox = findViewById(R.id.nameText);
+        nameTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
+        companyTextbox = findViewById(R.id.companyText);
+        companyTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
+        addressTextbox = findViewById(R.id.addressText);
+        addressTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
+        emailTextbox = findViewById(R.id.emailText);
+        emailTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
+        phoneNumberTextbox = findViewById(R.id.phoneNumberText);
+        idTextbox = findViewById(R.id.dataID);
+        btnSend = findViewById(R.id.sendBtn);
+        btnSave = findViewById(R.id.saveBtn);
+        btnUpdate = findViewById(R.id.editBtn);
+        layoutSpinner = findViewById(R.id.layoutSpinner);
+    }
+
+    public void UpdateDataListener() {
+        btnUpdate.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UpdateData();
+                    }
+                }
+        );
+    }
+
+    public void UpdateData() {
+        String id = idTextbox.getText().toString();
+        if (id != null && !id.trim().isEmpty()) {
+            boolean isUpdate =
+                    myDb.updateData(id, String.valueOf(layoutId),
+                            nameTextbox.getText().toString(),
+                            companyTextbox.getText().toString(),
+                            addressTextbox.getText().toString(),
+                            emailTextbox.getText().toString(),
+                            phoneNumberTextbox.getText().toString());
+            if (isUpdate)
+                Toast.makeText(DataControl.this, "Data updated", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(DataControl.this, "Data not updated", Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(DataControl.this, "If you wish to update data, enter its ID.", Toast.LENGTH_LONG).show();
+    }
+
     private void Disconnect() {
         if (btSocket != null) //If the btSocket is busy
         {
@@ -211,6 +222,28 @@ public class DataControl extends BaseActivity {
             }
         }
         finish(); //return to the first layout
+    }
+
+    private void SendDataListener() {
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = nameTextbox.getText().toString();
+                String company = companyTextbox.getText().toString();
+                String address = addressTextbox.getText().toString();
+                String email = emailTextbox.getText().toString();
+                String phone = phoneNumberTextbox.getText().toString();
+                sendData(getDataToSend(name, company, address, email, phone, layoutId));
+                btnSend.setEnabled(false);
+                btnSend.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnSend.setEnabled(true);
+                        Toast.makeText(DataControl.this, "You can send again.", Toast.LENGTH_LONG).show();
+                    }
+                }, 2500);
+            }
+        });
     }
 
     private void sendData(StringBuffer buffer) {
@@ -257,6 +290,15 @@ public class DataControl extends BaseActivity {
 
         Log.d("przeslanedane", String.valueOf(buffer));
         return buffer;
+    }
+
+    private void SaveDataListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveData();
+            }
+        });
     }
 
     private void saveData() {

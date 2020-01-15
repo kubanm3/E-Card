@@ -24,25 +24,6 @@ import android.widget.Toast;
 import static android.widget.LinearLayout.VERTICAL;
 
 public class LayoutList extends BaseActivity {
-    public static String EXTRA_ID_LAYOUT = "com.ECard.EXTRA_LAYOUT_ID";
-    public static String EXTRA_NAME_LAYOUT = "com.ECard.EXTRA_LAYOUT_NAME";
-    public static String EXTRA_ORIENTATION = "com.ECard.EXTRA_ORIENTATION";
-    public static String EXTRA_NAME_POS_X = "com.ECard.EXTRA_NAME_POS_X";
-    public static String EXTRA_NAME_POS_Y = "com.ECard.EXTRA_NAME_POS_Y";
-    public static String EXTRA_NAME_FONT = "com.ECard.EXTRA_NAME_FONT";
-    public static String EXTRA_COMPANY_POS_X = "com.ECard.EXTRA_COMPANY_POS_X";
-    public static String EXTRA_COMPANY_POS_Y = "com.ECard.EXTRA_COMPANY_POS_Y";
-    public static String EXTRA_COMPANY_FONT = "com.ECard.EXTRA_COMPANY_FONT";
-    public static String EXTRA_ADDRESS_POS_X = "com.ECard.EXTRA_ADDRESS_POS_X";
-    public static String EXTRA_ADDRESS_POS_Y = "com.ECard.EXTRA_ADDRESS_POS_Y";
-    public static String EXTRA_ADDRESS_FONT = "com.ECard.EXTRA_ADDRESS_FONT";
-    public static String EXTRA_EMAIL_POS_X = "com.ECard.EXTRA_EMAIL_POS_X";
-    public static String EXTRA_EMAIL_POS_Y = "com.ECard.EXTRA_EMAIL_POS_Y";
-    public static String EXTRA_EMAIL_FONT = "com.ECard.EXTRA_EMAIL_FONT";
-    public static String EXTRA_PHONE_POS_X = "com.ECard.EXTRA_PHONE_POS_X";
-    public static String EXTRA_PHONE_POS_Y = "com.ECard.EXTRA_PHONE_POS_Y";
-    public static String EXTRA_PHONE_FONT = "com.ECard.EXTRA_PHONE_FONT";
-
     RecyclerView layoutList;
     LayoutAdapter mAdapter;
 
@@ -88,8 +69,8 @@ public class LayoutList extends BaseActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 myDb.deleteDataLayout((String) viewHolder.itemView.getTag());
-                mAdapter = getAllItemsLayout();
-                layoutList.setAdapter(mAdapter);
+//                mAdapter = getAllItemsLayout();
+//                layoutList.setAdapter(mAdapter);
             }
 
             @Override
@@ -126,14 +107,11 @@ public class LayoutList extends BaseActivity {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
-
             }
-
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 openLayoutControlActivityToEdit(viewHolder.itemView.getTag().toString());
             }
-
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -162,6 +140,12 @@ public class LayoutList extends BaseActivity {
         }).attachToRecyclerView(layoutList);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdapter = getAllItemsLayout();
+        layoutList.setAdapter(mAdapter);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -193,39 +177,22 @@ public class LayoutList extends BaseActivity {
 
         res.moveToFirst();
         String name = res.getString(1);
-        Log.d("przesyłanedane", name + "; ");
         String orientation = res.getString(2);
-        Log.d("przesyłanedane", orientation + "; ");
         String name_pos_x = res.getString(3);
-        Log.d("przesyłanedane", name_pos_x + "; ");
         String name_pos_y = res.getString(4);
-        Log.d("przesyłanedane", name_pos_y + "; ");
         String name_font = res.getString(5);
-        Log.d("przesyłanedane", name_font + "; ");
         String company_pos_x = res.getString(6);
-        Log.d("przesyłanedane", company_pos_x + "; ");
         String company_pos_y = res.getString(7);
-        Log.d("przesyłanedane", company_pos_y + "; ");
         String company_font = res.getString(8);
-        Log.d("przesyłanedane", company_font + "; ");
         String address_pos_x = res.getString(9);
-        Log.d("przesyłanedane", address_pos_x + "; ");
         String address_pos_y = res.getString(10);
-        Log.d("przesyłanedane", address_pos_y + "; ");
         String address_font = res.getString(11);
-        Log.d("przesyłanedane", address_font + "; ");
         String email_pos_x = res.getString(12);
-        Log.d("przesyłanedane", email_pos_x + "; ");
         String email_pos_y = res.getString(13);
-        Log.d("przesyłanedane", email_pos_y + "; ");
         String email_font = res.getString(14);
-        Log.d("przesyłanedane", email_font + "; ");
         String phone_pos_x = res.getString(15);
-        Log.d("przesyłanedane", phone_pos_x + "; ");
         String phone_pos_y = res.getString(16);
-        Log.d("przesyłanedane", phone_pos_y + "; ");
         String phone_font = res.getString(17);
-        Log.d("przesyłanedane", phone_font + "; ");
 
         Intent intent = new Intent(this, AddLayout.class);
         intent.putExtra(EXTRA_ID_LAYOUT, id);

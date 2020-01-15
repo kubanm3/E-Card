@@ -20,6 +20,7 @@ public class BaseActivity extends AppCompatActivity {
     LayoutAdapter mAdapterLayout;
     DataAdapter mAdapterData;
 
+    public static String EXTRA_ID_DATA = "com.ECard.EXTRA_ID_DATA";
     public static String EXTRA_NAME = "com.ECard.EXTRA_NAME";
     public static String EXTRA_COMPANY_NAME = "com.ECard.EXTRA_COMPANY_NAME";
     public static String EXTRA_ADDRESS = "com.ECard.EXTRA_ADDRESS";
@@ -29,6 +30,7 @@ public class BaseActivity extends AppCompatActivity {
     public static String EXTRA_BOOL = "com.ECard.EXTRA_BOOL";
     public static String EXTRA_LAYOUT_ID = "com.ECard.EXTRA_LAYOUT_ID";
 
+    public static String EXTRA_ID_LAYOUT = "com.ECard.EXTRA_LAYOUT_ID";
     public static String EXTRA_NAME_LAYOUT = "com.ECard.EXTRA_LAYOUT_NAME";
     public static String EXTRA_ORIENTATION = "com.ECard.EXTRA_ORIENTATION";
     public static String EXTRA_NAME_POS_X = "com.ECard.EXTRA_NAME_POS_X";

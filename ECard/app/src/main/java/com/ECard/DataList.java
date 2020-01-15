@@ -21,13 +21,6 @@ import android.widget.Toast;
 import static android.widget.LinearLayout.VERTICAL;
 
 public class DataList extends BaseActivity {
-    public static String EXTRA_NAME = "com.ECard.EXTRA_NAME";
-    public static String EXTRA_COMPANY_NAME = "com.ECard.EXTRA_COMPANY_NAME";
-    public static String EXTRA_ADDRESS = "com.ECard.EXTRA_ADDRESS";
-    public static String EXTRA_EMAIL = "com.ECard.EXTRA_EMAIL";
-    public static String EXTRA_PHONE = "com.ECard.EXTRA_PHONE";
-    public static String EXTRA_LAYOUT_NAME = "com.ECard.EXTRA_LAYOUT_NAME";
-
     RecyclerView dataList;
     DataAdapter mAdapter;
 
@@ -147,6 +140,12 @@ public class DataList extends BaseActivity {
         }).attachToRecyclerView(dataList);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdapter = getAllItemsData();
+        dataList.setAdapter(mAdapter);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -183,6 +182,7 @@ public class DataList extends BaseActivity {
         String email = res.getString(3);
         String phone = res.getString(4);
         String layoutName = res.getString(5);
+        String dataId = res.getString(7);
 
         Intent intent = new Intent();
         intent.putExtra(EXTRA_NAME, name);
@@ -191,6 +191,7 @@ public class DataList extends BaseActivity {
         intent.putExtra(EXTRA_EMAIL, email);
         intent.putExtra(EXTRA_PHONE, phone);
         intent.putExtra(EXTRA_LAYOUT_NAME, layoutName);
+        intent.putExtra(EXTRA_ID_DATA, dataId);
 
         setResult(RESULT_OK, intent);
         finish();

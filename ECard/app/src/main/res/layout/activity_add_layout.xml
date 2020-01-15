@@ -400,7 +400,7 @@
         android:layout_below="@+id/phoneFont"
         android:layout_toRightOf="@+id/layoutPhoneY"/>
 
-    <EditText
+    <TextView
         android:id="@+id/layoutID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -411,7 +411,6 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="10dp"
         android:hint="@string/idLayout"
-        android:inputType="number"
         android:textSize="15sp"
         tools:ignore="TextFields" />
 

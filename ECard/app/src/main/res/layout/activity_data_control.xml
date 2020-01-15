@@ -56,6 +56,15 @@
         android:hint="@string/numberHint"
         android:inputType="number" />
 
+    <EditText
+        android:id="@+id/companyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sendBtn"
+        android:layout_marginBottom="369dp"
+        android:hint="@string/companyHint"
+        android:inputType="text" />
+
     <Button
         android:id="@+id/sendBtn"
         android:layout_width="wrap_content"
@@ -69,19 +78,33 @@
         android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/editBtn"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/editBtn"
         android:text="@string/save_data" />
 
-    <EditText
-        android:id="@+id/companyText"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/editBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/sendBtn"
-        android:layout_marginBottom="369dp"
-        android:hint="@string/companyHint"
-        android:inputType="text" />
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/dataID"
+        android:text="UPDATE DATA" />
+
+    <TextView
+        android:id="@+id/dataID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/saveBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/idLayout"
+        android:textSize="15sp"
+        tools:ignore="TextFields" />
+
 
 
 </RelativeLayout>

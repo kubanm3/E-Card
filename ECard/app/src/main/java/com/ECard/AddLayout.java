@@ -20,15 +20,17 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddLayout extends BaseActivity {
 
     DatabaseHelper myDb;
     EditText editName, editNameX, editNameY, editCompanyX, editCompanyY,
-            editAddressX, editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY, editId;
-    Button btnAddData, btnUpdateData;
-    RadioGroup radioGroup;
+            editAddressX, editAddressY, editEmailX, editEmailY, editPhoneX, editPhoneY;
+    TextView editId;
+    Button btnAddData, btnUpdateLayout;
+    RadioGroup radioOrientation;
     Switch nameFontSwitch, companyFontSwitch, addressFontSwitch, emailFontSwitch, phoneFontSwitch;
 
     String orientation = "1", nameFont = "0", companyFont = "0", addressFont = "0", emailFont = "0",
@@ -41,178 +43,20 @@ public class AddLayout extends BaseActivity {
         setContentView(R.layout.activity_add_layout);
         myDb = new DatabaseHelper(this);
 
-        editName = findViewById(R.id.layoutName);
-        radioGroup = findViewById(R.id.layoutOrientRadio);
-        editNameX = findViewById(R.id.layoutNameX);
-        editNameX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
-        editNameY = findViewById(R.id.layoutNameY);
-        editNameY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
-        editCompanyX = findViewById(R.id.layoutCompanyX);
-        editCompanyX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
-        editCompanyY = findViewById(R.id.layoutCompanyY);
-        editCompanyY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
-        editAddressX = findViewById(R.id.layoutAddressX);
-        editAddressX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
-        editAddressY = findViewById(R.id.layoutAddressY);
-        editAddressY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
-        editEmailX = findViewById(R.id.layoutEmailX);
-        editEmailX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
-        editEmailY = findViewById(R.id.layoutEmailY);
-        editEmailY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
-        editPhoneX = findViewById(R.id.layoutPhoneX);
-        editPhoneX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
-        editPhoneY = findViewById(R.id.layoutPhoneY);
-        editPhoneY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
-        editId = findViewById(R.id.layoutID);
-        btnAddData = findViewById(R.id.saveLayoutBT);
-        btnUpdateData = findViewById(R.id.updateLayoutBT);
-        nameFontSwitch = findViewById(R.id.nameFontSwitch);
-        companyFontSwitch = findViewById(R.id.companyFontSwitch);
-        addressFontSwitch = findViewById(R.id.addressFontSwitch);
-        emailFontSwitch = findViewById(R.id.emailFontSwitch);
-        phoneFontSwitch = findViewById(R.id.phoneFontSwitch);
-
+        initFields();
 
         Intent data = getIntent();
-        String id = data.getStringExtra(EXTRA_LAYOUT_ID);
-        editId.setText(id);
-        String name = data.getStringExtra(EXTRA_NAME_LAYOUT);
-        editName.setText(name);
-        orientation = data.getStringExtra(EXTRA_ORIENTATION);
-        if (orientation.equals("1")) {
-            radioGroup.check(R.id.horizontal);
-        } else {
-            radioGroup.check(R.id.vertical);
-        }
+        setEditSwipedValues(data);
 
-        String name_pos_x = data.getStringExtra(EXTRA_NAME_POS_X);
-        editNameX.setText(name_pos_x);
-        String name_pos_y = data.getStringExtra(EXTRA_NAME_POS_Y);
-        editNameY.setText(name_pos_y);
-        String name_font = data.getStringExtra(EXTRA_NAME_FONT);
-        if (name_font.equals("0")) {
-            nameFontSwitch.setChecked(false);
-        } else {
-            nameFontSwitch.setChecked(true);
-        }
-
-        String company_pos_x = data.getStringExtra(EXTRA_COMPANY_POS_X);
-        editCompanyX.setText(company_pos_x);
-        String company_pos_y = data.getStringExtra(EXTRA_COMPANY_POS_Y);
-        editCompanyY.setText(company_pos_y);
-        String company_font = data.getStringExtra(EXTRA_COMPANY_FONT);
-        if (company_font.equals("0")) {
-            companyFontSwitch.setChecked(false);
-        } else {
-            companyFontSwitch.setChecked(true);
-        }
-
-        String address_pos_x = data.getStringExtra(EXTRA_ADDRESS_POS_X);
-        editAddressX.setText(address_pos_x);
-        String address_pos_y = data.getStringExtra(EXTRA_ADDRESS_POS_Y);
-        editAddressY.setText(address_pos_y);
-        String address_font = data.getStringExtra(EXTRA_ADDRESS_FONT);
-        if (address_font.equals("0")) {
-            addressFontSwitch.setChecked(false);
-        } else {
-            addressFontSwitch.setChecked(true);
-        }
-
-        String email_pos_x = data.getStringExtra(EXTRA_EMAIL_POS_X);
-        editEmailX.setText(email_pos_x);
-        String email_pos_y = data.getStringExtra(EXTRA_EMAIL_POS_Y);
-        editEmailY.setText(email_pos_y);
-        String email_font = data.getStringExtra(EXTRA_EMAIL_FONT);
-        if (email_font.equals("0")) {
-            emailFontSwitch.setChecked(false);
-        } else {
-            emailFontSwitch.setChecked(true);
-        }
-
-        String phone_pos_x = data.getStringExtra(EXTRA_PHONE_POS_X);
-        editPhoneX.setText(phone_pos_x);
-        String phone_pos_y = data.getStringExtra(EXTRA_PHONE_POS_Y);
-        editPhoneY.setText(phone_pos_y);
-        String phone_font = data.getStringExtra(EXTRA_PHONE_FONT);
-        if (phone_font.equals("0")) {
-            phoneFontSwitch.setChecked(false);
-        } else {
-            phoneFontSwitch.setChecked(true);
-        }
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // find which radio button is selected
-                if (checkedId == R.id.vertical) {
-                    orientation = "0";
-                    Toast.makeText(getApplicationContext(), "Vertical orientation",
-                            Toast.LENGTH_SHORT).show();
-                } else if (checkedId == R.id.horizontal) {
-                    orientation = "1";
-                    Toast.makeText(getApplicationContext(), "Horizontal orientation",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        radioGroupListener();
+        nameFontListener();
+        companyFontListener();
+        addressFontListener();
+        emailFontListener();
+        phoneFontListener();
 
 
-        nameFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    nameFont = "1";
-                } else {
-                    nameFont = "0";
-                }
-            }
-        });
-
-        companyFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    companyFont = "1";
-                } else {
-                    companyFont = "0";
-                }
-            }
-        });
-
-        addressFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    addressFont = "1";
-                } else {
-                    addressFont = "0";
-                }
-            }
-        });
-
-        emailFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    emailFont = "1";
-                } else {
-                    emailFont = "0";
-                }
-            }
-        });
-
-        phoneFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    phoneFont = "1";
-                } else {
-                    phoneFont = "0";
-                }
-            }
-        });
-
-        UpdateDataListener();
+        UpdateLayoutListener();
         AddDataListener();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -241,6 +85,119 @@ public class AddLayout extends BaseActivity {
                 showHelpDialog();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initFields() {
+        editName = findViewById(R.id.layoutName);
+        radioOrientation = findViewById(R.id.layoutOrientRadio);
+        editNameX = findViewById(R.id.layoutNameX);
+        editNameX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editNameY = findViewById(R.id.layoutNameY);
+        editNameY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editCompanyX = findViewById(R.id.layoutCompanyX);
+        editCompanyX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editCompanyY = findViewById(R.id.layoutCompanyY);
+        editCompanyY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editAddressX = findViewById(R.id.layoutAddressX);
+        editAddressX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editAddressY = findViewById(R.id.layoutAddressY);
+        editAddressY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editEmailX = findViewById(R.id.layoutEmailX);
+        editEmailX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editEmailY = findViewById(R.id.layoutEmailY);
+        editEmailY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editPhoneX = findViewById(R.id.layoutPhoneX);
+        editPhoneX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editPhoneY = findViewById(R.id.layoutPhoneY);
+        editPhoneY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editId = findViewById(R.id.layoutID);
+        btnAddData = findViewById(R.id.saveLayoutBT);
+        btnUpdateLayout = findViewById(R.id.updateLayoutBT);
+        nameFontSwitch = findViewById(R.id.nameFontSwitch);
+        companyFontSwitch = findViewById(R.id.companyFontSwitch);
+        addressFontSwitch = findViewById(R.id.addressFontSwitch);
+        emailFontSwitch = findViewById(R.id.emailFontSwitch);
+        phoneFontSwitch = findViewById(R.id.phoneFontSwitch);
+    }
+
+    private void setEditSwipedValues(Intent data) {
+        String id = data.getStringExtra(EXTRA_LAYOUT_ID);
+        editId.setText(id);
+        String name = data.getStringExtra(EXTRA_NAME_LAYOUT);
+        editName.setText(name);
+        orientation = data.getStringExtra(EXTRA_ORIENTATION);
+        if (orientation != null) {
+            if (orientation.equals("1")) {
+                radioOrientation.check(R.id.horizontal);
+            } else {
+                radioOrientation.check(R.id.vertical);
+            }
+        }
+
+        String name_pos_x = data.getStringExtra(EXTRA_NAME_POS_X);
+        editNameX.setText(name_pos_x);
+        String name_pos_y = data.getStringExtra(EXTRA_NAME_POS_Y);
+        editNameY.setText(name_pos_y);
+        String name_font = data.getStringExtra(EXTRA_NAME_FONT);
+        if (name_font != null) {
+            if (name_font.equals("0")) {
+                nameFontSwitch.setChecked(false);
+            } else {
+                nameFontSwitch.setChecked(true);
+            }
+        }
+
+        String company_pos_x = data.getStringExtra(EXTRA_COMPANY_POS_X);
+        editCompanyX.setText(company_pos_x);
+        String company_pos_y = data.getStringExtra(EXTRA_COMPANY_POS_Y);
+        editCompanyY.setText(company_pos_y);
+        String company_font = data.getStringExtra(EXTRA_COMPANY_FONT);
+        if (company_font != null) {
+            if (company_font.equals("0")) {
+                companyFontSwitch.setChecked(false);
+            } else {
+                companyFontSwitch.setChecked(true);
+            }
+        }
+
+        String address_pos_x = data.getStringExtra(EXTRA_ADDRESS_POS_X);
+        editAddressX.setText(address_pos_x);
+        String address_pos_y = data.getStringExtra(EXTRA_ADDRESS_POS_Y);
+        editAddressY.setText(address_pos_y);
+        String address_font = data.getStringExtra(EXTRA_ADDRESS_FONT);
+        if (address_font != null) {
+            if (address_font.equals("0")) {
+                addressFontSwitch.setChecked(false);
+            } else {
+                addressFontSwitch.setChecked(true);
+            }
+        }
+
+        String email_pos_x = data.getStringExtra(EXTRA_EMAIL_POS_X);
+        editEmailX.setText(email_pos_x);
+        String email_pos_y = data.getStringExtra(EXTRA_EMAIL_POS_Y);
+        editEmailY.setText(email_pos_y);
+        String email_font = data.getStringExtra(EXTRA_EMAIL_FONT);
+        if (email_font != null) {
+            if (email_font.equals("0")) {
+                emailFontSwitch.setChecked(false);
+            } else {
+                emailFontSwitch.setChecked(true);
+            }
+        }
+
+        String phone_pos_x = data.getStringExtra(EXTRA_PHONE_POS_X);
+        editPhoneX.setText(phone_pos_x);
+        String phone_pos_y = data.getStringExtra(EXTRA_PHONE_POS_Y);
+        editPhoneY.setText(phone_pos_y);
+        String phone_font = data.getStringExtra(EXTRA_PHONE_FONT);
+        if (phone_font != null) {
+            if (phone_font.equals("0")) {
+                phoneFontSwitch.setChecked(false);
+            } else {
+                phoneFontSwitch.setChecked(true);
+            }
+        }
     }
 
     private void showHelpDialog() {
@@ -283,11 +240,11 @@ public class AddLayout extends BaseActivity {
     }
 
 
-    public void UpdateData() {
+    public void UpdateLayout() {
         String id = editId.getText().toString();
         if (id != null && !id.trim().isEmpty()) {
             boolean isUpdate =
-                    myDb.updateData(id,
+                    myDb.updateLayout(id,
                             editName.getText().toString(),
                             orientation,
                             editNameX.getText().toString(), editNameY.getText().toString(), nameFont,
@@ -347,14 +304,97 @@ public class AddLayout extends BaseActivity {
         );
     }
 
-    public void UpdateDataListener() {
-        btnUpdateData.setOnClickListener(
+    public void UpdateLayoutListener() {
+        btnUpdateLayout.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        UpdateData();
+                        UpdateLayout();
                     }
                 }
         );
+    }
+
+    public void radioGroupListener() {
+        radioOrientation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if (checkedId == R.id.vertical) {
+                    orientation = "0";
+                    Toast.makeText(getApplicationContext(), "Vertical orientation",
+                            Toast.LENGTH_SHORT).show();
+                } else if (checkedId == R.id.horizontal) {
+                    orientation = "1";
+                    Toast.makeText(getApplicationContext(), "Horizontal orientation",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void nameFontListener() {
+        nameFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    nameFont = "1";
+                } else {
+                    nameFont = "0";
+                }
+            }
+        });
+    }
+
+    public void companyFontListener() {
+        companyFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    companyFont = "1";
+                } else {
+                    companyFont = "0";
+                }
+            }
+        });
+    }
+
+    public void addressFontListener() {
+        addressFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    addressFont = "1";
+                } else {
+                    addressFont = "0";
+                }
+            }
+        });
+    }
+
+    public void emailFontListener() {
+        emailFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    emailFont = "1";
+                } else {
+                    emailFont = "0";
+                }
+            }
+        });
+    }
+
+    public void phoneFontListener() {
+        phoneFontSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    phoneFont = "1";
+                } else {
+                    phoneFont = "0";
+                }
+            }
+        });
     }
 }
