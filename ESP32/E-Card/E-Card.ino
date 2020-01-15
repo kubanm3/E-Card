@@ -14,7 +14,7 @@
 
 GxIO_Class io(SPI, SS, 22, 21);
 GxEPD_Class display(io, 16, 4);
-#define INPUT_SIZE 200
+#define INPUT_SIZE 350
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
@@ -36,22 +36,22 @@ void setup()
 void loop()
 {
   char input[INPUT_SIZE + 1];
-    char ch_arr[21][21]; 
+    char ch_arr[21][27]; 
     int i = 0;
   if (SerialBT.available())
   {    
     byte size = SerialBT.readBytes(input, INPUT_SIZE);
     input[size] = 0;
 
-    char *command = strtok(input, ";");
-    while (command != NULL)
-    {
-      strcpy(ch_arr[i], command);
-      command = strtok(NULL, ";");
+    char *ptr = strtok(input, ";");
+    while (ptr != NULL) {
+      strcpy(ch_arr[i], ptr);
+      ptr = strtok(NULL, ";");
       Serial.write(ch_arr[i]);
       Serial.write("/n");
       i++;
     }
+    
     display.fillScreen(GxEPD_WHITE);
     
     display.setRotation(atoi(ch_arr[0]));
