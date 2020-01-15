@@ -6,7 +6,7 @@
     <string name="companyHint">Enter your company name</string>
     <string name="addressHint">Enter your address</string>
     <string name="emailHint">Enter your email</string>
-    <string name="numberHint">Enter your phone numer</string>
+    <string name="numberHint">Enter your phone number</string>
     <string name="hello_world">Hello world!</string>
     <string name="about">Info</string>
     <string name="title_activity_led_control">E-Card</string>
@@ -19,13 +19,12 @@
     <string name="YLayout">Enter value 0–120</string>
     <string name="idLayout">ID</string>
     <string name="update_layout">Update Layout</string>
-    <string name="delete_layout">Delete Layout</string>
     <string name="view_all_layouts">View All Layouts</string>
     <string name="author">Author: Jakub Legutko</string>
     <string name="devices">Devices</string>
-    <string name="save_data">Save data</string>
+    <string name="save_data">Add data</string>
     <string name="data_list">View All Data</string>
     <string name="empty">Empty</string>
-
-
+    <string name="update_data">Update data</string>
+    <string name="add_layout">Add layout</string>
 </resources>

@@ -89,15 +89,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/dataID"
-        android:text="UPDATE DATA" />
+        android:text="@string/update_data" />
 
     <TextView
         android:id="@+id/dataID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/saveBtn"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="10dp"
