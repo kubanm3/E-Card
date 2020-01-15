@@ -5,8 +5,15 @@
 
     <item
         android:id="@+id/showFromList"
+        android:icon="@drawable/ic_library_books_white_36dp"
         android:orderInCategory="100"
-        android:title="@string/view_all_layouts"
+        android:title="View details"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/layoutList"
+        android:orderInCategory="100"
+        android:title="@string/layoutList"
         app:showAsAction="never" />
 
     <item
