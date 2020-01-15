@@ -1,11 +1,13 @@
 package com.ECard;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -154,7 +156,12 @@ public class DataList extends BaseActivity {
                 Toast.makeText(this, "Autor: Jakub Legutko", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.showFromList:
-                viewAll();
+                Intent intentLayoutList = new Intent(this, LayoutList.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentLayoutList, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentLayoutList);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

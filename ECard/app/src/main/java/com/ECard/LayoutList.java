@@ -155,6 +155,14 @@ public class LayoutList extends BaseActivity {
             case R.id.showFromList:
                 viewAll();
                 return true;
+            case R.id.layoutList:
+                Intent intentAddLayout = new Intent(this, LayoutControl.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentAddLayout, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentAddLayout);
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -193,7 +201,7 @@ public class LayoutList extends BaseActivity {
         String phone_pos_y = res.getString(16);
         String phone_font = res.getString(17);
 
-        Intent intent = new Intent(this, AddLayout.class);
+        Intent intent = new Intent(this, LayoutControl.class);
         intent.putExtra(EXTRA_ID_LAYOUT, id);
         intent.putExtra(EXTRA_NAME_LAYOUT, name);
         intent.putExtra(EXTRA_ORIENTATION, orientation);

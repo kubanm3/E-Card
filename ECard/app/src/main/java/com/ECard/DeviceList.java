@@ -79,7 +79,7 @@ public class DeviceList extends BaseActivity {
                 Toast.makeText(this, author, Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.layoutList:
-                Intent intent = new Intent(this, AddLayout.class);
+                Intent intent = new Intent(this, LayoutControl.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 } else {
@@ -87,7 +87,12 @@ public class DeviceList extends BaseActivity {
                 }
                 return true;
             case R.id.showFromList:
-                viewAll();
+                Intent intentLayoutList = new Intent(this, LayoutList.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentLayoutList, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentLayoutList);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

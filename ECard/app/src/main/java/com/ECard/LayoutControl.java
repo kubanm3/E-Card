@@ -1,8 +1,10 @@
 package com.ECard;
 
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
@@ -21,7 +23,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddLayout extends BaseActivity {
+public class LayoutControl extends BaseActivity {
 
     DatabaseHelper myDb;
     EditText editName, editNameX, editNameY, editCompanyX, editCompanyY,
@@ -38,7 +40,7 @@ public class AddLayout extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_layout);
+        setContentView(R.layout.activity_layout_control);
         myDb = new DatabaseHelper(this);
 
         initFields();
@@ -66,7 +68,7 @@ public class AddLayout extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_layout, menu);
+        getMenuInflater().inflate(R.menu.menu_layout_control, menu);
         return true;
     }
 
@@ -77,7 +79,12 @@ public class AddLayout extends BaseActivity {
                 Toast.makeText(this, "Autor: Jakub Legutko", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.showFromList:
-                viewAll();
+                Intent intentLayoutList = new Intent(this, LayoutList.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentLayoutList, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intentLayoutList);
+                }
                 return true;
             case R.id.buttonShowHelpDialog:
                 showHelpDialog();
@@ -89,25 +96,25 @@ public class AddLayout extends BaseActivity {
         editName = findViewById(R.id.layoutName);
         radioOrientation = findViewById(R.id.layoutOrientRadio);
         editNameX = findViewById(R.id.layoutNameX);
-        editNameX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editNameX.setFilters(new InputFilter[]{new FilterMaxValue(0, 282)});
         editNameY = findViewById(R.id.layoutNameY);
-        editNameY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editNameY.setFilters(new InputFilter[]{new FilterMaxValue(0, 120)});
         editCompanyX = findViewById(R.id.layoutCompanyX);
-        editCompanyX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editCompanyX.setFilters(new InputFilter[]{new FilterMaxValue(0, 282)});
         editCompanyY = findViewById(R.id.layoutCompanyY);
-        editCompanyY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editCompanyY.setFilters(new InputFilter[]{new FilterMaxValue(0, 120)});
         editAddressX = findViewById(R.id.layoutAddressX);
-        editAddressX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editAddressX.setFilters(new InputFilter[]{new FilterMaxValue(0, 282)});
         editAddressY = findViewById(R.id.layoutAddressY);
-        editAddressY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editAddressY.setFilters(new InputFilter[]{new FilterMaxValue(0, 120)});
         editEmailX = findViewById(R.id.layoutEmailX);
-        editEmailX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editEmailX.setFilters(new InputFilter[]{new FilterMaxValue(0, 282)});
         editEmailY = findViewById(R.id.layoutEmailY);
-        editEmailY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editEmailY.setFilters(new InputFilter[]{new FilterMaxValue(0, 120)});
         editPhoneX = findViewById(R.id.layoutPhoneX);
-        editPhoneX.setFilters(new InputFilter[]{new MaxValueFilter(0, 282)});
+        editPhoneX.setFilters(new InputFilter[]{new FilterMaxValue(0, 282)});
         editPhoneY = findViewById(R.id.layoutPhoneY);
-        editPhoneY.setFilters(new InputFilter[]{new MaxValueFilter(0, 120)});
+        editPhoneY.setFilters(new InputFilter[]{new FilterMaxValue(0, 120)});
         editId = findViewById(R.id.layoutID);
         btnAddData = findViewById(R.id.saveLayoutBT);
         btnUpdateLayout = findViewById(R.id.updateLayoutBT);
@@ -237,11 +244,11 @@ public class AddLayout extends BaseActivity {
                             editEmailX.getText().toString(), editEmailY.getText().toString(), emailFont,
                             editPhoneX.getText().toString(), editPhoneY.getText().toString(), phoneFont);
             if (isUpdate)
-                Toast.makeText(AddLayout.this, "Layout updated", Toast.LENGTH_LONG).show();
+                Toast.makeText(LayoutControl.this, "Layout updated", Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(AddLayout.this, "Layout not updated", Toast.LENGTH_LONG).show();
+                Toast.makeText(LayoutControl.this, "Layout not updated", Toast.LENGTH_LONG).show();
         } else
-            Toast.makeText(AddLayout.this, "If you wish to update layout, enter its ID.", Toast.LENGTH_LONG).show();
+            Toast.makeText(LayoutControl.this, "If you wish to update layout, enter its ID.", Toast.LENGTH_LONG).show();
     }
 
     public void AddDataListener() {
@@ -258,11 +265,11 @@ public class AddLayout extends BaseActivity {
                                 editEmailX.getText().toString(), editEmailY.getText().toString(), emailFont,
                                 editPhoneX.getText().toString(), editPhoneY.getText().toString(), phoneFont);
                         if (isInserted) {
-                            Toast.makeText(AddLayout.this, "Data inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LayoutControl.this, "Data inserted", Toast.LENGTH_LONG).show();
                             loadSpinnerData();
                             dataAdapter.notifyDataSetChanged();
                         } else
-                            Toast.makeText(AddLayout.this, "Data not inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LayoutControl.this, "Data not inserted", Toast.LENGTH_LONG).show();
                     }
                 }
         );

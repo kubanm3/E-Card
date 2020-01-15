@@ -3,10 +3,10 @@ package com.ECard;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-public class MaxValueFilter implements InputFilter {
+public class FilterMaxValue implements InputFilter {
     private int mIntMin, mIntMax;
 
-    public MaxValueFilter(int minValue, int maxValue) {
+    public FilterMaxValue(int minValue, int maxValue) {
         this.mIntMin = minValue;
         this.mIntMax = maxValue;
     }

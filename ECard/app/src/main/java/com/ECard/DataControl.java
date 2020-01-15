@@ -128,7 +128,7 @@ public class DataControl extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_card_control, menu);
+        getMenuInflater().inflate(R.menu.menu_data_control, menu);
         return true;
     }
 
@@ -143,7 +143,7 @@ public class DataControl extends BaseActivity {
                 Disconnect();
                 return true;
             case R.id.layoutList:
-                Intent intentAddLayout = new Intent(this, AddLayout.class);
+                Intent intentAddLayout = new Intent(this, LayoutControl.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     startActivity(intentAddLayout, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 } else {
@@ -168,13 +168,13 @@ public class DataControl extends BaseActivity {
 
     private void initFields() {
         nameTextbox = findViewById(R.id.nameText);
-        nameTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
+        nameTextbox.setFilters(new InputFilter[]{new FilterCharacter()});
         companyTextbox = findViewById(R.id.companyText);
-        companyTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
+        companyTextbox.setFilters(new InputFilter[]{new FilterCharacter()});
         addressTextbox = findViewById(R.id.addressText);
-        addressTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
+        addressTextbox.setFilters(new InputFilter[]{new FilterCharacter()});
         emailTextbox = findViewById(R.id.emailText);
-        emailTextbox.setFilters(new InputFilter[]{new CharacterFilter()});
+        emailTextbox.setFilters(new InputFilter[]{new FilterCharacter()});
         phoneNumberTextbox = findViewById(R.id.phoneNumberText);
         idTextbox = findViewById(R.id.dataID);
         btnSend = findViewById(R.id.sendBtn);

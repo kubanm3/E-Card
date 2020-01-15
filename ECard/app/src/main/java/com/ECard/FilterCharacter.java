@@ -5,7 +5,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 
-public class CharacterFilter implements InputFilter {
+public class FilterCharacter implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         boolean originalText = true;

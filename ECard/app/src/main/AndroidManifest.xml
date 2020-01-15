@@ -28,7 +28,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="com.ECard.AddLayout"
+            android:name="com.ECard.LayoutControl"
             android:label="Layout control"
             android:screenOrientation="portrait">
         </activity>
