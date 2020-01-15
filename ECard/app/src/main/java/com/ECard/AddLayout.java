@@ -1,9 +1,7 @@
 package com.ECard;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -226,20 +224,6 @@ public class AddLayout extends BaseActivity {
         return displayMetrics.widthPixels;
     }
 
-    public void DeleteData() {
-        String id = editId.getText().toString();
-        if (id != null && !id.trim().isEmpty()) {
-            try {
-                myDb.deleteDataLayout(id);
-                Toast.makeText(AddLayout.this, "Layout deleted", Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                Toast.makeText(AddLayout.this, "Layout not deleted, there is saved data that uses this layout!", Toast.LENGTH_LONG).show();
-            }
-        } else
-            Toast.makeText(AddLayout.this, "If you wish to delete layout, enter its ID.", Toast.LENGTH_LONG).show();
-    }
-
-
     public void UpdateLayout() {
         String id = editId.getText().toString();
         if (id != null && !id.trim().isEmpty()) {
@@ -258,26 +242,6 @@ public class AddLayout extends BaseActivity {
                 Toast.makeText(AddLayout.this, "Layout not updated", Toast.LENGTH_LONG).show();
         } else
             Toast.makeText(AddLayout.this, "If you wish to update layout, enter its ID.", Toast.LENGTH_LONG).show();
-    }
-
-    private AlertDialog AskOption() {
-
-        return new AlertDialog.Builder(this)
-                .setTitle("Delete?")
-                .setMessage("Are you sure you want to delete this layout?")
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        DeleteData();
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create();
     }
 
     public void AddDataListener() {

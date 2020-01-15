@@ -22,13 +22,14 @@ class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutViewHolder>
     }
 
     public class LayoutViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView nameText;
+        public TextView nameText, idText;
         OnLayoutListener onLayoutListener;
 
         public LayoutViewHolder(View itemView, OnLayoutListener onLayoutListener) {
             super(itemView);
 
             nameText = itemView.findViewById(R.id.textview_name_layout_item);
+            idText = itemView.findViewById(R.id.textview_id_item);
             this.onLayoutListener = onLayoutListener;
 
             itemView.setOnClickListener(this);
@@ -61,6 +62,7 @@ class LayoutAdapter extends RecyclerView.Adapter<LayoutAdapter.LayoutViewHolder>
         String id = mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.LayoutEntry.LAYOUTS_ID));
 
         holder.nameText.setText(name);
+        holder.idText.setText(id);
         holder.itemView.setTag(id);
     }
 

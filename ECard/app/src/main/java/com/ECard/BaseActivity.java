@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -207,6 +208,19 @@ public class BaseActivity extends AppCompatActivity {
 
         // Show all data
         showMessage("Data", buffer.toString());
+    }
+
+    public void DeleteData(String id) {
+        myDb = new DatabaseHelper(this);
+        if (id != null && !id.trim().isEmpty()) {
+            try {
+                myDb.deleteDataLayout(id);
+                Toast.makeText(getApplicationContext(), "Layout deleted", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Layout not deleted, there is saved data that uses this layout!", Toast.LENGTH_LONG).show();
+            }
+        } else
+            Toast.makeText(getApplicationContext(), "If you wish to delete layout, enter its ID.", Toast.LENGTH_LONG).show();
     }
 
     public void showMessage(String title, String Message) {

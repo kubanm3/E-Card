@@ -31,4 +31,25 @@
         android:text="@string/empty"
         android:textSize="20sp"
         tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/textview_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/textview_id_item"
+        android:textSize="17sp"
+        android:text="Id:"/>
+
+    <TextView
+        android:id="@+id/textview_id_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="6dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="@string/empty"
+        android:textSize="15sp"
+        tools:ignore="RtlCompat" />
 </RelativeLayout>

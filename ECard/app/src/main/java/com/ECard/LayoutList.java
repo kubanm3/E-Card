@@ -15,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,9 +67,9 @@ public class LayoutList extends BaseActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                myDb.deleteDataLayout((String) viewHolder.itemView.getTag());
-//                mAdapter = getAllItemsLayout();
-//                layoutList.setAdapter(mAdapter);
+                DeleteData((String) viewHolder.itemView.getTag());
+                mAdapter = getAllItemsLayout();
+                layoutList.setAdapter(mAdapter);
             }
 
             @Override
