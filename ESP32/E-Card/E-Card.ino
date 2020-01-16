@@ -14,7 +14,7 @@
 
 GxIO_Class io(SPI, SS, 22, 21);
 GxEPD_Class display(io, 16, 4);
-#define INPUT_SIZE 350
+#define INPUT_SIZE 450
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
