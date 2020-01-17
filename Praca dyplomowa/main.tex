@@ -152,6 +152,7 @@
     	\end{itemize}
     	\end{flushleft}
  
+        \newpage
     	\section{Wykorzystane narzędzia}
     	W trakcie pracy nad projektem użyto narzędzi dostępnych w ramach licencji zezwalających na korzystanie z nich bez opłat, nawet w projektach komercyjnych. Do wykonania projektu użyto następujących narzędzi.
     	
@@ -165,7 +166,7 @@
             \label{fig:androidstudio}
     	\end{figure}
      	
-        Podczas realizacji projektu najczęściej wykorzystywaną funkcją, obecną w Android Studio było podpowiadanie kodu wykonywane przez wbudowane w środowisko szablony kodu \textit{(ang. live templates)}. Korzystanie z szablonów daje możliwość skracania pisania często pojawiających się części kodu do wpisania jednego słowa i wybrania jego szablonu do wykonania. Na przykład wpisując w edytorze \textit{Toast}, który jest nazwą wykorzystanego szablonu, a następnie przejście po interaktywnej liście do odpowiedniej zmiennej i zatwierdzeniu jej, spowoduje pokazanie jej zawartości. 
+        Podczas realizacji projektu najczęściej wykorzystywaną funkcją, obecną w Android Studio było podpowiadanie kodu wykonywane przez wbudowane w środowisko szablony kodu \textit{(ang. live templates)}. Korzystanie z szablonów daje możliwość skrócenia zapisu często pojawiających się części kodu do wpisania jednego słowa i wybrania jego szablonu do wykonania. Na przykład wpisując w edytorze słowo \textit{Toast}, który jest nazwą wykorzystanego szablonu, a następnie przejście po interaktywnej liście do odpowiedniej zmiennej i zatwierdzeniu jej, spowoduje pokazanie jej zawartości. 
     
     \begin{lstlisting}[language=C++, caption=Zawartość szablonu Toast]
 Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
@@ -180,7 +181,7 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
     
     	\begin{figure}[H]
     	        \centering
-    			\includegraphics[width=7cm]{images/rys6_androidlifecycle.png}
+    			\includegraphics[width=8cm]{images/rys6_androidlifecycle.png}
     			\caption{Uproszczony ilustracja cyklu życia aktywności \cite{lifecycle}}
                 \label{fig:lifecycle}
     	\end{figure}
@@ -190,7 +191,7 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
     	\subsection{Arduino}
     	Arduino IDE jest wieloplatformowym zintegrowanym środowiskiem deweloperskim napisanym w języku C oraz C++. Oparty jest na wolnej licencji GNU GPL v2.0. W~projekcie inżynierskim został wykorzystany do napisania i zaprogramowania modułu mikrokontrolera.
     	
-    	Programy pisane są w językach C oraz C++ używających specjalnych struktur kodowania. Napisane zostało w nim oprogramowanie mikrokontrolera. Udostępnionych do wykorzystania jest wiele bibliotek obsługujących szeroką gamę czujników, serw czy wyświetlaczy. Jedną z takich bibliotek, która została wykorzystana w projekcie jest biblioteka \textit{GxEPD} \cite{gxepd}. Biblioteka ta umożliwia obsługę wyświetlacza e-papieru i dokładniej opisana jest w punkcie \ref{GxEPD}
+    	Programy pisane są w językach C oraz C++ używających specjalnych struktur kodowania. W języku tym zostało napisane również oprogramowanie mikrokontrolera. Udostępnionych do wykorzystania jest wiele bibliotek obsługujących szeroką gamę czujników, serw czy wyświetlaczy. Jedną z takich bibliotek, która została wykorzystana w projekcie jest biblioteka \textit{GxEPD} \cite{gxepd}. Biblioteka ta umożliwia obsługę wyświetlacza e-papieru. Dokładniej została opisana jest w punkcie \ref{GxEPD}
     	
     	\begin{figure}[H]
     			\includegraphics[width=1\textwidth]{images/rys3_arduino.png}
@@ -199,21 +200,22 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
     	\end{figure}
     	
     	\subsection{SQLite}
-    	SQLite to relacyjna baza danych dostępna na licencji \textit{public domain}\cite{publicdomain}, zostałą zaprojektowana w 2000 roku przez Richarda Hippa. Jest najczęściej używanym silnikiem baz danych na świecie. Występuje we wszystkich telefonach mobilnych oraz większości komputerów. 
+    	SQLite to relacyjna baza danych dostępna na licencji \textit{public domain}\cite{publicdomain}, zostałą zaprojektowana w 2000 roku przez Richarda Hippa. Jest najczęściej używanym silnikiem baz danych na świecie. Występuje we wszystkich telefonach mobilnych oraz na większości komputerów. 
     	
     	Użycie SQLite w projekcie zapewniło szybką i intuicyjną budowę relacyjnej bazy danych. W Androidzie dostępna jest klasa implementująca metody obsługi bazy SQLite. Baza odpowiada za przechowywanie wpisów danych do wyświetlania oraz układów wyświetlania danych. 
     	
     	\subsection{GxEPD}\label{GxEPD}
-    	GxEPD jest biblioteką wykorzystywaną w obsłudze wyświetlaczy papieru elektronicznego. Jej autor to Jean-Marc Zingg, dostępna jest na licencji GNU \textit{(ang. GENERAL PUBLIC LICENSE V3)}. Opiera się na stworzonej przez firmę Adafruit bibliotece Adafruit GFX dostępnej na licencji BSD \textit{(ang. Berkeley Software Distribution Licenses)} używanej do obsługi graficznych wyświetlaczy.
+    	GxEPD jest biblioteką wykorzystywaną w obsłudze wyświetlacza papieru elektronicznego. Dostępna jest na licencji GNU \textit{(ang. GENERAL PUBLIC LICENSE V3)}. Opiera się na stworzonej przez firmę Adafruit bibliotece Adafruit GFX dostępnej na licencji BSD \textit{(ang. Berkeley Software Distribution Licenses)} używanej do obsługi graficznych wyświetlaczy.
     	
     	GxEPD dziedziczy z biblioteki Adafruit GFX, jednak jest ona przystosowana do działania z wyświetlaczami papieru elektronicznego. Informacje wyświetlane na ekranie są buforowane i przesyłane partiami. Takie rozwiązanie jest wykorzystane aby każdy obsługiwany przez bibliotekę procesor mógł wyświetlać dane. Nawet jeśli procesor posiada wystarczającą ilość pamięci RAM, dane są buforowane. Dane zostaną wyświetlone po odświeżeniu ekranu. Biblioteka posiada metody obsługujące pełne oraz częściowe odświeżanie ekranu. Przy wykorzystaniu odświeżania częściowego mamy znacznie mniejszy czas odświeżania w porównaniu do odświeżenia całego ekranu.
     	
-        Wykorzystane w projekcie czcionki pochodzą z biblioteki Adafruit GFX. Czcionki są w formacie bitmapy, każdy znak zapisany jest w bitach o długości zależnej od jego wielkości. Glify reprezentowane są przez pięć wartości, dzięki którym wiadomo jakie dane opisują pojedynczy glif. Są nimi \textit{index,  Width, Height, xAdv, dX, dY}. Index informuje o miejscu rozpoczęcia danych w bitmapie dla danego glifu. Width oraz Height są to szerokość i wysokość danego glifu. xAdvance informuje ile miejsca należy pozostawić pomiędzy znakami, używane jest do zachowania czytelności tekstu. dX jest odległością od początku układu do początku znaku w osi odciętych. dY jest odległością od linii bazowej do początku glify w osi rzędnych. dX i dY używane są w celu wyznaczenia pozycji dla glifu. Dzięki nim można rozróżnić '-' oraz '\_', które w postaci bitowej mogłyby być takie same. W projekcie użyto dwóch rozmiarów czcionki FreeMono dostępnej w ramach GNU FreeFont. Czcionka w rozmiarze 9pt zajmuje mniej więcej 1516 bajtów, druga o rozmiarze 12pt zajmuje około 2132 bajtów.
+        Wykorzystane w projekcie czcionki pochodzą z biblioteki Adafruit GFX. Czcionki są w formacie bitmapy, każdy znak zapisany jest w bitach o długości zależnej od jego wielkości. Glify reprezentowane są przez pięć wartości, dzięki którym wiadomo jakie dane opisują pojedynczy glif. Są nimi \textit{index,  Width, Height, xAdv, dX, dY}. Index informuje o miejscu rozpoczęcia danych w bitmapie dla danego glifu. Width oraz Height są to szerokość i wysokość danego glifu. xAdvance informuje ile miejsca należy pozostawić pomiędzy znakami, pomaga zachować czytelność tekstu. dX jest odległością od początku układu do początku znaku w osi odciętych. dY jest odległością od linii bazowej do początku glifu w osi rzędnych. dX i dY używane są w celu wyznaczenia pozycji dla glifu. Dzięki nim można rozróżnić '-' oraz '\_', które w postaci bitowej mogłyby być takie same. W projekcie użyto dwóch rozmiarów czcionki FreeMono dostępnej w ramach GNU FreeFont. Czcionka w rozmiarze 9pt zajmuje mniej więcej 1516 bajtów, druga o rozmiarze 12pt zajmuje około 2132 bajtów.
         
-        Pobieranie znaków następuje poprzez wywołanie kodu ASCII odpowiedniego znaku z pliku zawierającego czcionkę. Każda czcionka posiada strukturę definiującą początkowy i końcowy znak ASCII dostępny w czcionce oraz wskaźniki do bitmapy oraz tablicy glifów.
+        Pobieranie znaków następuje poprzez wywołanie kodu ASCII odpowiedniego znaku z pliku zawierającego czcionkę. Każda czcionka posiada strukturę definiującą początkowy i końcowy znak ASCII dostępny w czcionce oraz wskaźniki do bitmapy i tablicy glifów.
         
         GxEPD oferuje prosty sposób wyświetlania znaków na ekranie wyświetlacza. Można korzystać z metod \textit{print()} oraz \textit{println()} do przesyłania danych, w taki sam sposób jak przesyła się dane do portu seryjnego. Następnie biblioteka zajmuje się pobieraniem odpowiednich znaków z czcionki i narysowaniem ich na wyświetlaczu piksel po pikselu. 
         
+        \newpage
     	\section{Opis i specyfikacja urządzenia}
     	Elektroniczna plakietka konfigurowana z urządzenia mobilnego składa się z dwóch części. Urządzenia mobilnego z zainstalowanym oprogramowaniem napisanym do obsługi tego projektu oraz urządzenia będącego fizyczną częścią projektu, składającego się z mikrokontrolera oraz wyświetlacza w technologii elektronicznego papieru.
     
@@ -238,7 +240,7 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
     	    \item \textbf{Mikrokontrolerem}, użytym w projekcie jest 32-bitowy ESP32 firmy Espressif. Do wykonania projektu posłużono się modułem ESP32-DevKitC. Posiada on wbudowany port Micro-USB do zasilania i programowania urządzenia oraz możliwość współpracy ze środowiskiem programistycznym Arduino. Moduł posiada 4MB pamięci flash\cite{flash}. Do dyspozycji użytkownika oddane jest jednak tylko 1.25MB z dostępnej pamięci. Oprogramowanie napisane do wykonania projektu wykorzystuje niecałe 0.9MB pamięci mikrokontrolera, co pozostawia miejsce na dalsze rozwijanie projektu. ESP32 posiada zintegrowany w chipie moduł Bluetooth wykorzystywany do transmisji danych pomiędzy urządzeniem mobilnym a mikrokontrolerem.
     
     
-            \item \textbf{Wyświetlacz papieru elektronicznego} to 2.9-calowy ekran firmy Waveshare. Może pracować w dwóch napięciach roboczych 3.3V oraz 5V. Zasilany jest przez wyjście 3.3V dostępne w ESP32. Jest w stanie wyświetlać dane w dwóch kolorach (białym i czarnym) z czasem potrzebnym do pełnego odświeżenia wyświetlacza równym w przybliżeniu 2 sekundy \cite{waveshare}. Każdy piksel zbudowany jest z wielu cząstek (białych i czarnych) osadzonych w przezroczystym płynie. Wyświetlanie znaków odbywa się poprzez zmianę ładunku elektrycznego dla każdego piksela ekranu. Zależnie od znaku ładunku elektrycznego przyciągane są białe lub czarne cząstki, powodując zmianę koloru piksela. E-papier nie potrzebuje zasilania do zachowania stanu pikseli.
+            \item \textbf{Wyświetlacz papieru elektronicznego} to 2.9-calowy ekran firmy Waveshare. Może pracować w dwóch napięciach roboczych 3.3V oraz 5V. Zasilany jest przez wyjście 3.3V dostępne w ESP32. Jest w stanie wyświetlać dane w dwóch kolorach (białym i czarnym) z czasem potrzebnym do pełnego odświeżenia wyświetlacza równym w przybliżeniu 2 sekundy \cite{waveshare}. Każdy piksel zbudowany jest z wielu cząstek (białych i czarnych) osadzonych w przezroczystym płynie. Wyświetlanie znaków odbywa się poprzez zmianę ładunku elektrycznego dla każdego piksela ekranu. Zależnie od znaku ładunku elektrycznego przyciągane są białe lub czarne cząstki, powodując zmianę koloru piksela. E-papier nie potrzebuje zasilania do zachowania stanu pikseli.\newpage
             
             Schemat ideowego połączenia wyświetlaczem z modułem mikrokontrolera:
             \begin{figure}[H]
@@ -294,7 +296,7 @@ while (ptr != NULL) {
   i++;
 }\end{lstlisting}
     
-        Po przepisaniu wszystkich informacji do tabeli program zaczyna procedure wysyłania danych do wyświetlacza. Wykorzystana w programie tablica jest dwuwymiarowa. Jej wymiary to 21 na 27. Wymiary zostały wybrane ze względu na ilość przesyłanych słów,  oraz maksymalną możliwą długość słowa mieszczącą się w jednej linii wyświetlacza. Program do poprawnego wyświetlenia wszystkich otrzymanych elementów potrzebuje dwadzieścia jeden słów. Pierwsze przesyłane słowo jest wykorzystywane do ustalenia rotacji ekranu. Dla każdego z wyświetlanych elementów, którymi są imię i nazwisko, nazwa firmy, adres, email i numer telefonu, przesyłane są po 4 słowa:
+        Po przepisaniu wszystkich informacji do tabeli program zaczyna procedure wysyłania danych do wyświetlacza. Wykorzystana w programie tablica jest dwuwymiarowa. Jej wymiarem jest [21][27]. Wymiary zostały wybrane ze względu na ilość przesyłanych słów,  oraz maksymalną możliwą długość słowa mieszczącą się w jednej linii wyświetlacza. Program do poprawnego wyświetlenia wszystkich otrzymanych elementów potrzebuje dwadzieścia jeden słów. Pierwsze przesyłane słowo jest wykorzystywane do ustalenia rotacji ekranu. Dla każdego z wyświetlanych elementów, którymi są imię i nazwisko, nazwa firmy, adres, email i numer telefonu, przesyłane są po 4 słowa:
         \begin{itemize}
             \item wielkość czcionki;
             \item współrzędna kursora X;
@@ -318,6 +320,7 @@ while (ptr != NULL) {
     	Program zaprojektowano zgodnie ze wzorcem programowania obiektowego \textit{(Object Oriented Programming)}\cite{oop}, w którym kod podzielony jest na części, które są łatwiejsze w utrzymaniu i konserwacji. Każda część jest samodzielna w swojej funkcjonalności, zarazem możliwe jest wykorzystanie jej przez inne programy działające w aplikacji. Wszystkie części działają wspólnie, tworząc całość aplikacji. Części te nazywane są obiektami. 
     	
     	Aplikacja posiada pięć aktywności odpowiadających za różne funkcjonalności. Do przechowywania danych użyto relacyjnej bazy danych SQLite. W aplikacji można przechowywać zapisane dane do wyświetlenia na wyświetlaczu, jak również przygotowane i zapisane układy wyświetlania.
+    	\newpage
     	\subsection{Podział na aktywności}
     	\label{podzialnaaktywnosci}
     	Aplikacja składa się z pięciu aktywności.
@@ -336,7 +339,7 @@ while (ptr != NULL) {
     	        \begin{minipage}{.5\textwidth}
     	            \centering
     	            \includegraphics[width=5cm]{images/view_dataControl.jpg}
-    	            \captionof{figure}{Ekran sterowania danymi z~rozwiniętym spinnerem}
+    	            \captionof{figure}{Ekran sterowania \newline danymi z~rozwiniętym spinnerem}
                     \label{fig:dataControl}
                 \end{minipage}%
                 \begin{minipage}{.5\textwidth}
@@ -365,30 +368,34 @@ while (ptr != NULL) {
     	   \end{figure}
     	   Zaimplementowane metody usuwania rekordu i edycji danych dostępne są po przesunięciu wpisu. W trakcie przesuwania rekordu prezentowane jest graficzne przedstawienie akcji, która zostanie wykonana. Przesunięcie w lewo skutkuje usunięciem wpisu z bazy danych. Tło pod wierszem zmienia kolor na czerwony i wyświetlana jest ikona kosza. 
     	   Po przesunięciu w prawo ukaże się nam ikona edycji danych i zielone tło. Po pełnym przesunięciu w prawo przechodzimy do aktywności \textit{Data control}, gdzie pola edycyjne uzupełnione są danymi przesuniętego rekordu. Zgodnie z danymi w bazie danych dla wybranego wpisu wybierany jest layout i uzupełniane zostaje pole wyświetlające identyfikator rekordu. Odblokowana zostaje funkcjonalność edycji danych. Menu daje dostęp przełączenia się do widoku listy layoutów. 
-    	   \item \textbf{Layout control} — aktywność \textit{Layout control} wykorzystywana jest do tworzenia i edycji wzorców układów wyświetlania danych. Umieszczone są tu przyciski opcji wyboru orientacji, jednocześnie może być aktywny tylko jeden z nich. Przełączenie jednego do stanu aktywności, powoduje odznaczenie drugiego. Znajdują się tu również pole edycji nazwy layoutu oraz pola służące do wyboru współrzędnych miejsca, w którym ma zostać rozpoczęte rysowanie informacji. Każda z możliwych do wyświetlenia informacji (imię i nazwisko, nazwa firmy, adres, email i numer telefonu) posiada swoje pola edycji współrzędnych. Dla każdej informacji jest również dostępny przełącznik wyboru rozmiaru czcionki. Przełącznik nieaktywny oznacza wybór mniejszej, 9 punktowej, czcionki. Aktywny przełącznik oznacza czcionkę większa, 12 punktową. Z dostępnego menu możliwe jest przejście do listy dostępnych layoutów. Ikona pytajnika jest przyciskiem otwierającym dialog pomocy. Prezentowane są na nim zasady i wskazówki dotyczące dodawania nowych wzorców wyświetlania danych. Przedstawiony jest tam przykładowy ekran wyświetlacza, uzupełniony danymi i wyświetlonymi wartościami użytego layoutu.
-    	   Dostępne są tutaj również dwa przyciski działające analogicznie z przyciskami znajdującymi się w aktywności \textit{Data control}. Przycisk \textit{ADD LAYOUT} zapisuje do bazy nowy layout z wartościami wprowadzonymi do elementów widocznych na ekranie. Przycisk \textit{UPDATE LAYOUT} staje się dostępny po wybraniu elementu z listy layoutów i używany jest do edycji wybranego layoutu.
+    	   \item \textbf{Layout control} — aktywność \textit{Layout control} wykorzystywana jest do tworzenia i edycji wzorców układów wyświetlania danych. Umieszczone są tu przyciski opcji wyboru orientacji, jednocześnie może być aktywny tylko jeden z nich. Przełączenie jednego do stanu aktywności, powoduje odznaczenie drugiego. Znajdują się tu również pole edycji nazwy layoutu oraz pola służące do wyboru współrzędnych miejsca, w którym ma zostać rozpoczęte rysowanie informacji. Każda z możliwych do wyświetlenia informacji (imię i nazwisko, nazwa firmy, adres, email i numer telefonu) posiada swoje pola edycji współrzędnych. Dla każdej informacji jest również dostępny przełącznik wyboru rozmiaru czcionki. Przełącznik nieaktywny oznacza wybór mniejszej, 9 punktowej, czcionki. Aktywny przełącznik oznacza czcionkę większa, 12 punktową. Z dostępnego menu możliwe jest przejście do listy dostępnych layoutów. 
     	   \begin{figure}[H]
     	        \centering
     	        \includegraphics[width=5cm]{images/view_layoutEdit.jpg}
     			\caption{ Ekran dodawania i edycji layoutów}
                 \label{fig:layoutControl}
     	   \end{figure}
-           \item \textbf{Layout list} — aktywność do prezentacji zapisanych w bazie danych wzorców układów prezentowanych danych. Elementem na którym prezentowane są dane jest RecycleView. Dla każdego wyświetlanego rekordu layoutu prezentowana jest nazwa układu i jego identyfikator. Zaimplementowane są metody usuwania, po przesunięciu w lewo oraz edycji layoutu. Po wykonaniu akcji edycji aplikacja zostaje przeniesiona do aktywności \textit{Layout control}, gdzie w pola edycyjne zostają wprowadzone dane wybranego układu. Uzupełnione zostaje pole ID i odblokowane jest edytowanie układu. Do prezentacji szczegółów wzorcu układu służy przycisk mieszczący się w menu aktywności. Po jego wciśnięciu wyświetlony zostaje dialog pokazany na rysunku \ref{fig:listDialog}, na którym wyświetlane są wszystkie wartości elementów znajdujących się w bazie danych. Z rozwijanego menu istnieje również możliwość przejścia do aktywności dodawania layoutów.
+    	   Ikona pytajnika jest przyciskiem otwierającym dialog pomocy. Prezentowane są na nim zasady i wskazówki dotyczące dodawania nowych wzorców wyświetlania danych. Przedstawiony jest tam przykładowy ekran wyświetlacza, uzupełniony danymi i wyświetlonymi wartościami użytego layoutu.
+    	   Dostępne są tutaj również dwa przyciski działające analogicznie z przyciskami znajdującymi się w aktywności \textit{Data control}. Przycisk \textit{ADD LAYOUT} zapisuje do bazy nowy layout z wartościami wprowadzonymi do elementów widocznych na ekranie. Przycisk \textit{UPDATE LAYOUT} staje się dostępny po wybraniu elementu z listy layoutów i używany jest do edycji wybranego layoutu.
+    	   
+           \item \textbf{Layout list} — aktywność do prezentacji zapisanych w bazie danych wzorców układów prezentowanych danych. Elementem na którym prezentowane są dane jest RecycleView. Dla każdego wyświetlanego rekordu layoutu prezentowana jest nazwa układu i jego identyfikator. Zaimplementowane są metody usuwania, po przesunięciu w lewo oraz edycji layoutu. Po wykonaniu akcji edycji aplikacja zostaje przeniesiona do aktywności \textit{Layout control}, gdzie w pola edycyjne zostają wprowadzone dane wybranego układu. Uzupełnione zostaje pole ID i odblokowane jest edytowanie układu. 
            \begin{figure}[H]
     	        \centering
     	        \begin{minipage}{.5\textwidth}
                     \centering
     	            \includegraphics[width=5cm]{images/view_layoutList.jpg}
     	            \captionof{figure}{Lista układów — edycja}
-                    \label{fig:datalist}
+                    \label{fig:layoutlist}
                 \end{minipage}%
     	        \begin{minipage}{.5\textwidth}
     	            \centering
     	            \includegraphics[width=5cm]{images/view_layoutDetails.jpg}
     	            \captionof{figure}{Lista układów — szczegóły}
-                    \label{fig:listDialog}
+                    \label{fig:layoutlistDialog}
                 \end{minipage}%
     	   \end{figure}
+           Do prezentacji szczegółów wzorcu układu służy przycisk mieszczący się w menu aktywności. Po jego wciśnięciu wyświetlony zostaje dialog pokazany na rysunku \ref{fig:layoutlistDialog}, na którym wyświetlane są wszystkie wartości elementów znajdujących się w bazie danych. Z rozwijanego menu istnieje również możliwość przejścia do aktywności dodawania layoutów.
+           
     	\end{enumerate}
     	
     	Każda aktywność posiada również w swoim rozwijanym menu możliwość wyświetlenia informacji o aplikacji i autorze.
@@ -400,7 +407,7 @@ while (ptr != NULL) {
         
         \begin{figure}[H]
     	        \centering
-    			\includegraphics[width=12cm]{images/rys_11baza.png}
+    			\includegraphics[width=10cm]{images/rys_11baza.png}
     			\caption{Diagram związków encji bazy danych}
                 \label{fig:database}
     	\end{figure}
@@ -415,7 +422,7 @@ while (ptr != NULL) {
     	Wysyłanie danych do mikrokontrolera możliwe jest tylko w aktywności \textit{Data control}. Występuje w niej przycisk, po wciśnięciu którego wykonywana jest procedura przesłania danych do mikrokontrolera. Pierwszym krokiem jest pobranie zawartości pól edycyjnych, w których umieszczone są informacje do wyświetlenia i zapisywanie ich do zmiennych. Zmienne te razem z identyfikatorem wybranego layoutu, dalej layoutId, przesyłane są jako argumenty do funkcji, która pobiera z tabeli \textit{layouts} wartości rekordu o przesłanym identyfikatorze.
     	
     	Posiadając wszystkie informacje niezbędne do przesłania, rozpoczęta jest procedura dodawania wszystkich zmiennych w jeden ciąg znaków. Jako pierwsza znajduje się wartość oznaczająca orientację wyświetlacza. Następnie przesyłane są współrzędna X, współrzędna Y, wartość do wyświetlenia, te 4 wartości powtarzane są dla każdego elementu, który może być wyświetlony. Pomiędzy każdą zmienną wstawiany jest średnik, który w mikrokontrolerze wykorzystany jest do zdekodowania ciągu znaków. Poniżej przedstawiony jest przykładowy ciąg znaków po zakodowaniu.
-    	\begin{lstlisting}[language=C++, label={lst:petlaprzepisujaca}, caption=Przykładowy ciąg przesyłanych danych]
+    	\begin{lstlisting}[language=C++, label={lst:przykladowePrzesylaneDane}, caption=Przykładowy ciąg przesyłanych danych]
 O X  Y F DATA X  Y F DATA  X Y  F DATA  X Y  F DATA  X Y   F DATA	
 1;5;20;1;Imie;5;40;1;Firma;5;60;0;Adres;5;90;0;Email;5;110;0;65467819;
 gdzie:  O - orientacja
@@ -431,7 +438,7 @@ gdzie:  O - orientacja
     	Transmisja danych możliwa jest tylko w wypadku gdy gniazdo Bluetooth jest połączone z urządzeniem docelowym.
 	
     	\subsubsection{Konstruowanie layoutu}
-    	Przed rozpoczęciem konstruowania należy posiadać wiedzę na temat wykorzystanej w projekcie czcionki i rozmiarów pojedynczego znaku aby uniknąć tworzenia układów, w których dane na siebie nachodzą. W projekcie wykorzystane są dwie czcionki, FreeMono9pt7b i FreeMono12pt7b. W przypadku mniejszej czcionki przestrzeń potrzebna do wyświetlenia znaku wynosi 11x18 pikseli. Większa z nich ma wymiary 14x24 pikseli dla pojedynczego znaku.
+    	Przed rozpoczęciem konstrukcji layoutu należy posiadać wiedzę na temat wykorzystanej w projekcie czcionki i rozmiarów pojedynczego znaku aby uniknąć tworzenia układów, w których dane na siebie nachodzą. W projekcie wykorzystane są dwie czcionki, FreeMono9pt7b i FreeMono12pt7b. W przypadku mniejszej czcionki przestrzeń potrzebna do wyświetlenia znaku wynosi 11x18 pikseli. Większa z nich ma wymiary 14x24 pikseli dla pojedynczego znaku.
     	\begin{figure}[H]
     	        \centering
     			\includegraphics[width=8cm]{images/rozmiarczcionek.png}
@@ -439,25 +446,33 @@ gdzie:  O - orientacja
                 \label{fig:font}
     	\end{figure}
     	
-    	Znając wymiary pojedynczego znaku można określić maksymalną ilość znaków, które zmieszczą się w jednej linii. Wykorzystany w projekcie wyświetlacz posiada 296 pikseli. Co dla czcionki 9 punktowej oznacza ilość pojedynczych znaków równą 26. W przypadku większej czcionki jesteśmy ograniczeni do 21 znaków.
+    	Znając wymiary pojedynczego znaku można określić maksymalną ilość znaków, które zmieszczą się w jednej linii. Wykorzystany w projekcie wyświetlacz posiada 296 pikseli. Co dla czcionki 9 punktowej oznacza ilość pojedynczych znaków równą 26. W przypadku większej czcionki ograniczenie wynosi 21 znaków.
     	
-    	W płaszczyźnie Y chcąc wyświetlać różne dane linijka pod linijką powinno zostawić się co najmniej 18, 24 pikseli wolnego miejsca w zależności od użytej czcionki.
+    	W płaszczyźnie Y chcąc wyświetlać różne dane linijka pod linijką powinno zostawić się co najmniej 18, 24 pikseli wolnego miejsca w zależności od wybranej czcionki.
     	
-    	W płaszczyźnie X trzeba również zwrócić uwagę na ilość znaków, które chcemy wyświetlić dla danej informacji. Przy zamierzeniu wyświetlania 10 znaków informacji, kolejna informacja powinna być oddalona o co najmniej (liczba znaków + 1)*szerokość znaku. Wartość którą mnożymy przez szerokość znaku jest liczba znaków powiększona o jeden dla zachowania przerwy pomiędzy wyświetlanymi informacjami.
+    	W płaszczyźnie X trzeba również zwrócić uwagę na ilość znaków, które chcemy wyświetlić dla danej informacji. Przy zamierzeniu wyświetlania 10 znaków informacji, kolejna informacja powinna być oddalona o co najmniej \([(ilosc + 1)*szerokosc]\) pikseli. Wartość którą mnożymy przez szerokość znaku jest liczba znaków powiększona o jeden dla zachowania przerwy pomiędzy wyświetlanymi informacjami.\newline
+    	
+    	Na rysunku \ref{fig:sampleLayout} przedstawiony został ekran wyświetlacza z wyświetlonymi przykładowymi danymi. Naniesione na niego zostały wartości dla wybranego layoutu. 'Imię Nazwisko' oraz  'Firmy' wyświetlane są z użyciem 12 punktowej czcionki. Zostały oddalone od siebie o 24 punkty w celu zachowania przejrzystości tekstu. 'Adres', 'Email' i numer telefonu wyświetlane są 9 punktową czcionką. Odległość pomiędzy nimi wynosi 18 punktów. 
+    	\begin{figure}[H]
+    	        \centering
+    			\includegraphics[width=13cm]{images/wygladlayout.png}
+    			\caption{Przykładowe dane na wyświetlaczu z pokazanymi wartościami użytego layoutu.}
+                \label{fig:sampleLayout}
+    	\end{figure}
     	
     	\subsection{Połączenie Bluetooth}
     	Połączenie, obsługa i komunikacja Bluetooth jest zarządzana poprzez pakiet dostępny dla systemu Android, jakim jest \textit{android.bluetooth}\cite{android.bluetooth}. W projekcie wykorzystywana jest funkcjonalność wyszukiwania dostępnych urządzeń, nawiązywania połączenia oraz przesyłania danych. Schemat blokowy przedstawiający nawiązywanie połączenia pomiędzy urządzeniem mobilnym a urządzeniem wyświetlającym, przedstawiony jest na rysunku numer \ref{fig:btconnect}. 
-    	
-    	Pierwszym krokiem nawiązania komunikacji poprzez adapter Bluetooth jest sprawdzenie, czy moduł ten, jest obecny w urządzeniu mobilnym. W przypadku gdy urządzenie mobilne nie posiada adaptera Bluetooth, aplikacja blokuje większość funkcji, pozostawiając jedynie możliwość przeglądania i dodawania nowych układów danych. 
-    	
-    	Przy pozytywnym stwierdzeniu obecności modułu, można przejść do dalszych kroków. Następnym etapem jest sprawdzenie, czy moduł Bluetooth jest włączony. W przypadku gdy Bluetooth jest wyłączony, następuje wyświetlenie prośby o jego włączenie. Później pobierana jest lista sparowanych z urządzeniem mobilnym urządzeń Bluetooth. Wykorzystywana jest do tego metoda \textit{getBondedDevices}\cite{bonded} dostępna w klasie \textit{BluetoothAdapter}. Metoda ta zwraca zbiór obiektów sparowanych z lokalnym dla aplikacji adapterem Bluetooth. Po wybraniu urządzenia pobierany jest jego adres BD\_ADDR i nawiązywana jest próba połączenia. Sprawdzana jest dostępność urządzenia, następnie utworzone zostaje połączenie \textit{RFCOMM} \cite{rfcomm}. Po wykonaniu poprzedzających czynności możliwe jest nawiązanie połączenia pomiędzy urządzeniami. Połączone urządzenia dysponują szeregowym połączeniem, po którym można przesyłać dane.
-    	
     	\begin{figure}[H]
     	        \centering
     			\includegraphics[width=12cm]{images/rys_12bluetoothconnection.png}
     			\caption{Schemat blokowy nawiązywania połączenia Bluetooth}
                 \label{fig:btconnect}
     	\end{figure}
+    	Pierwszym krokiem nawiązania komunikacji poprzez adapter Bluetooth jest sprawdzenie, czy moduł ten, jest obecny w urządzeniu mobilnym. W przypadku gdy urządzenie mobilne nie posiada adaptera Bluetooth, aplikacja blokuje większość funkcji, pozostawiając jedynie możliwość przeglądania i dodawania nowych układów danych. 
+    	
+    	Przy pozytywnym stwierdzeniu obecności modułu, można przejść do dalszych kroków. Następnym etapem jest sprawdzenie, czy moduł Bluetooth jest włączony. W przypadku gdy Bluetooth jest wyłączony, następuje wyświetlenie prośby o jego włączenie. Później pobierana jest lista sparowanych z urządzeniem mobilnym urządzeń Bluetooth. Wykorzystywana jest do tego metoda \textit{getBondedDevices}\cite{bonded} dostępna w klasie \textit{BluetoothAdapter}. Metoda ta zwraca zbiór obiektów sparowanych z lokalnym dla aplikacji adapterem Bluetooth. Po wybraniu urządzenia pobierany jest jego adres BD\_ADDR i nawiązywana jest próba połączenia. Sprawdzana jest dostępność urządzenia, następnie utworzone zostaje połączenie \textit{RFCOMM} \cite{rfcomm}. Po wykonaniu poprzedzających czynności możliwe jest nawiązanie połączenia pomiędzy urządzeniami. Połączone urządzenia dysponują szeregowym połączeniem, po którym można przesyłać dane.
+    	
+    	
     	
     	\subsection{Konfiguracja aplikacji}
     	Przed pierwszym uruchomieniem aplikacji należy sparować urządzenie mobilne i elektroniczną plakietkę ze sobą za pomocą łączności Bluetooth. Po upewnieniu się, że łączność Bluetooth w naszym urządzeniu mobilnym jest włączona, można przejść do ustawień, gdzie należy znaleźć stronę z ustawieniami połączeń Bluetooth. Po kliknięciu przycisku wyszukiwania urządzeń, wyświetlone zostaną dostępne do połączenia urządzenia. Należy znaleźć urządzenie o nazwie \textit{ESP32test} i połączyć się z nim. Połączenie nie wymaga podania hasła lub pinu. Po sparowaniu urządzeń można przejść do uruchomienia aplikacji. 
@@ -477,13 +492,15 @@ gdzie:  O - orientacja
     	\section{Rozwój projektu}
     	Zbudowany prototyp poddany został praktycznym testom wszystkich funkcjonalności. W trakcie testów badano sposób zachowania się aplikacji w różnych wariantach działania i na kilku różnych urządzeniach. Sprawdzono również poprawność pracy mikrokontrolera i poprawność wyświetlania danych na ekranie.
     	
-    	W trakcie testowania programu w emulatorze, dostępnym w środowisku Android Studio, napotkano błąd dotyczący braku modułu Bluetooth w urządzeniu. Wszystkie urządzenia emulowane przez Android Studio nie posiadają wsparcia dla technologii bezprzewodowych łączności takich jak Bluetooth, Wi-Fi czy NFC \textit{(ang. Near Field Communication)}. Przez brak obecności adaptera Bluetooth, aplikacja zachowywała się w sposób niepożądany. Po wykryciu takiego zachowania wprowadzono zmiany w kodzie aplikacji, stabilizujące jej działanie oraz uniemożliwiające próby nawiązywania połączeń przez urządzenia nieposiadające modułu Bluetooth. Ograniczono również funkcjonalność aplikacji dla takich urządzeń do dodawania i przeglądania układów. Zablokowane zostało wysyłanie i zapisywanie danych.
+    	W trakcie testowania programu w emulatorze, dostępnym w środowisku Android Studio, napotkano błąd dotyczący braku modułu Bluetooth w urządzeniu. Wszystkie urządzenia emulowane przez Android Studio nie posiadają wsparcia dla technologii bezprzewodowych łączności takich jak Bluetooth, Wi-Fi czy NFC \textit{(ang. Near Field Communication)}. Przez brak obecności adaptera Bluetooth, aplikacja zachowywała się w sposób niepożądany. Po wykryciu takiego zachowania wprowadzono zmiany w kodzie aplikacji, stabilizujące jej działanie oraz uniemożliwiające próby nawiązywania połączeń przez urządzenia nieposiadające modułu Bluetooth. Ograniczono dla nich również funkcjonalność aplikacji do dodawania i przeglądania układów. Zablokowane zostało wysyłanie i zapisywanie danych.
     	
     	W przesyłaniu danych na wyświetlacz nie stwierdzono żadnych problemów. Istnieje jednak możliwość, przesłania zbyt dużej ilości danych do mikrokontrolera. Taka sytuacja może nastąpić przy wielokrotnym kliknięciu przycisku w aplikacji, który odpowiada za przesyłanie danych. Do mikrokontrolera próbuje być przesłane wiele zestawów znaków do wyświetlenia. Takie działanie powodowało błąd w połączeniu Bluetooth pomiędzy mikrokontrolerem a urządzeniem mobilnym. Błąd znikał po ponownym uruchomieniu aplikacji.
     	
     	Problem rozwiązano poprzez blokadę przycisku służącego do wysyłania danych po jego wciśnięciu, na czas minimalnie większy, od czasu wymaganego przez wyświetlacz do odświeżenia i wyświetlenia nowo otrzymanych znaków. Pełne odświeżenie wyświetlaczy wykonanych w technologi papieru elektronicznego jest bardzo czasochłonne. Z instrukcji obsługi modułu wynika, że czas pełnego odświeżenia wyświetlacza Waveshare 2.9 cala wynosi około dwóch sekund\cite{waveshare}. Zdecydowano się na blokadę przycisku na 2.5 sekundy. Po tym czasie przycisk staje się ponownie aktywny oraz wyświetlany zostaje komunikat informujący o możliwości ponownego użycia. 
     	
-    	W trakcie przeprowadzonych testów nie zaobserwowano żadnych przekłamań znaków, transmisja jest przeprowadzana poprawnie. Algorytm dostosowujący odebrane dane do wyświetlania również działa poprawnie, nie stwierdzono w nim żadnych sprzeczności ani błędów powodujących zmianę lokalizacji współrzędnych lub czcionki.
+    	W trakcie przeprowadzonych testów nie zaobserwowano żadnych przekłamań znaków, transmisja jest przeprowadzana poprawnie. 
+    	
+    	Algorytm dostosowujący odebrane dane do wyświetlania również działa poprawnie, nie stwierdzono w nim żadnych sprzeczności ani błędów powodujących zmianę lokalizacji współrzędnych lub czcionki.
     	
     	Możliwością rozwoju projektu może być stworzenie algorytmu, którego zadaniem będzie dynamiczna kontrola ilości wpisywanych w pola edycyjne znaków. W chwili obecnej użytkownik odpowiada za kontrolę liczby znaków i za zapobieganie nakładaniu się wyświetlanych informacji. Algorytm ten powinien ograniczać liczbę znaków zależnie od wybranego layoutu i danych innych informacji wpisanych w polach edycyjnych.
 
