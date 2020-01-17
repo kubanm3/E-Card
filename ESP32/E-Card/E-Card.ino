@@ -42,6 +42,7 @@ void loop()
   {    
     byte size = SerialBT.readBytes(input, INPUT_SIZE);
     input[size] = 0;
+    Serial.write(input);
 
     char *ptr = strtok(input, ";");
     while (ptr != NULL) {

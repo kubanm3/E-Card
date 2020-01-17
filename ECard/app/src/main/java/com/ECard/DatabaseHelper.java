@@ -292,19 +292,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(LayoutEntry.LAYOUTS_NAME, "Default");
         contentValues.put(LayoutEntry.LAYOUTS_ORIENTATION, "1");
         contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_X, "5");
-        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_Y, "20");
+        contentValues.put(LayoutEntry.LAYOUTS_NAME_POS_Y, "24");
         contentValues.put(LayoutEntry.LAYOUTS_NAME_FONT, "1");
         contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_X, "5");
-        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_Y, "40");
+        contentValues.put(LayoutEntry.LAYOUTS_COMPANY_POS_Y, "48");
         contentValues.put(LayoutEntry.LAYOUTS_COMPANY_FONT, "1");
         contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_X, "5");
-        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_Y, "60");
+        contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_POS_Y, "72");
         contentValues.put(LayoutEntry.LAYOUTS_ADDRESS_FONT, "0");
         contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_X, "5");
         contentValues.put(LayoutEntry.LAYOUTS_EMAIL_POS_Y, "90");
         contentValues.put(LayoutEntry.LAYOUTS_EMAIL_FONT, "0");
         contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_X, "5");
-        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_Y, "110");
+        contentValues.put(LayoutEntry.LAYOUTS_PHONE_POS_Y, "108");
         contentValues.put(LayoutEntry.LAYOUTS_PHONE_FONT, "0");
         db.insert(LayoutEntry.TABLE_NAME_LAYOUTS, null, contentValues);
 
