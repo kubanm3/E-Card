@@ -127,14 +127,18 @@ public class LayoutControl extends BaseActivity {
 
     private void setEditSwipedValues(Intent data) {
         String id = data.getStringExtra(EXTRA_LAYOUT_ID);
-        editId.setText(id);
+        if (id != null) {
+            editId.setText(id);
+        }
         String name = data.getStringExtra(EXTRA_NAME_LAYOUT);
         editName.setText(name);
-        orientation = data.getStringExtra(EXTRA_ORIENTATION);
-        if (orientation != null) {
-            if (orientation.equals("1")) {
+        String orientationEdit = data.getStringExtra(EXTRA_ORIENTATION);
+        if (orientationEdit != null) {
+            if (orientationEdit.equals("1")) {
+                orientation = "1";
                 radioOrientation.check(R.id.horizontal);
             } else {
+                orientation = "0";
                 radioOrientation.check(R.id.vertical);
             }
         }
@@ -256,7 +260,6 @@ public class LayoutControl extends BaseActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         boolean isInserted = myDb.insertDataLayout(editName.getText().toString(),
                                 orientation,
                                 editNameX.getText().toString(), editNameY.getText().toString(), nameFont,
