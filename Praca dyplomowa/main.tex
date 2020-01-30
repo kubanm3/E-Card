@@ -153,6 +153,7 @@
     	\subsection{Cel projektu}
     	Celem projektu inżynierskiego jest zaprojektowanie i~zbudowanie elektronicznej plakietki identyfikującej z~wykorzystaniem wyświetlacza typu e-papier, mogącej zastąpić klasyczne, papierowe identyfikatory lub wizytówki. Prezentowane dane są przygotowywane i~przesyłane przez urządzenie mobilne za pomocą napisanej aplikacji.
 
+        \newpage
     	\subsection{Podstawowe założenia projektowe}
     	Przed przystąpieniem do wykonania projektu przyjęte zostały następujące założenia projektowe:
     	
@@ -226,7 +227,7 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
                 \label{fig:lifecycle}
     	\end{figure}
     	
-    	Aplikacja składa się z~aktywności, które posiadają swój cykl życia, przedstawiony na rysunku \ref{fig:lifecycle} \cite{lifecycle}. Metoda onCreate, wywoływana jako pierwsza, jest podstawową metodą cyklu, która odpowiada za uruchomienie wszystkich funkcjonalności danej aktywności.
+    	Aplikacja składa się z~aktywności, które posiadają swój cykl życia, przedstawionych na rysunku \ref{fig:lifecycle} \cite{lifecycle}. Metoda onCreate, wywoływana jako pierwsza, jest podstawową metodą cyklu, która odpowiada za uruchomienie wszystkich funkcjonalności danej aktywności.
     	
     	Układy graficzne aplikacji budowane są w~wielu różnych plikach XML oraz klasach aktywności, gdzie istnieje możliwość tworzenia elementów programowo.
     	
@@ -238,7 +239,7 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
     	\subsection{SQLite}
     	SQLite to relacyjna baza danych dostępna na licencji \textit{public domain}\cite{publicdomain}, która została zaprojektowana w~2000 roku przez Richarda Hippa. Jest najczęściej używanym silnikiem baz danych na świecie. Występuje we wszystkich telefonach mobilnych oraz na większości komputerów. 
     	
-    	Użycie SQLite w~projekcie zapewniło szybką i~intuicyjną budowę relacyjnej bazy danych. W~Androidzie dostępna jest klasa implementująca metody obsługi bazy SQLite. Baza odpowiada za przechowywanie wpisów z~danymi do wyświetlania oraz układów wyświetlania danych. 
+    	Użycie SQLite w~projekcie zapewniło szybką i~intuicyjną budowę relacyjnej bazy danych. W~Androidzie dostępna jest klasa implementująca metody obsługi bazy SQLite. Baza odpowiada za przechowywanie wpisów z~danymi do wyświetlania oraz szablonów wyświetlania danych. 
     	
     	\subsection{GxEPD}\label{GxEPD}
     	GxEPD jest biblioteką wykorzystywaną w~obsłudze wyświetlacza papieru elektronicznego. Dostępna jest na licencji GNU \textit{(ang. General Public License V3)}. Opiera się na stworzonej przez firmę Adafruit bibliotece Adafruit GFX dostępnej na licencji BSD \textit{(ang. Berkeley Software Distribution Licenses)} używanej do obsługi wyświetlaczy graficznych \cite{adafruit}. 
@@ -247,7 +248,7 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
         
         Każda czcionka posiada strukturę definiującą początkowy i~końcowy znak ASCII dostępny w~czcionce oraz wskaźniki do bitmapy i~parametrów tablicy glifów. Pobieranie znaków następuje poprzez wywołanie funkcji z~parametrem, który jest kodem ASCII odpowiedniego znaku.
         
-        GxEPD oferuje także prosty sposób wyświetlania tekstu na ekranie wyświetlacza, korzystając z~metod \textit{print()} oraz \textit{println()} w~podobny sposób jak ma to miejsce dla standardowej biblioteki wejścia-wyjścia. Biblioteka posiada metody obsługujące pełne oraz częściowe odświeżanie ekranu. Przy wykorzystaniu odświeżania częściowego mamy znacznie mniejszy czas odświeżania w~porównaniu do odświeżenia całego ekranu.
+        GxEPD oferuje także prosty sposób wyświetlania tekstu na ekranie wyświetlacza, korzystając z~metod \textit{print()} oraz \textit{println()} w~podobny sposób jak ma to miejsce dla standardowej biblioteki wejścia-wyjścia. Biblioteka posiada metody obsługujące pełne oraz częściowe odświeżanie ekranu. Wykorzystanie odświeżania częściowego jest znacznie krótsze od odświeżenie całego ekranu.
         
         \newpage
     	\section{Opis i~specyfikacja urządzenia}
@@ -269,10 +270,9 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
         \end{flushleft}
         \begin{enumerate}
             \item \textbf{Urządzenie mobilne} wykorzystane w~obsłudze wyświetlacza papieru elektronicznego musi posiadać wersję systemu Android OS w~wersji co najmniej 4.0.3. Niektóre z~wykorzystanych funkcji systemu Android, jak na przykład animowane przechodzenie pomiędzy aktywnościami, mogą wymagać do działania nowszej wersji systemu, jednak nie jest to konieczne. Po wykryciu systemu, który nie obsługuje danej funkcjonalności zostanie wywołana zgodna z~nim metoda.
-            
             Kolejnym wymogiem korzystania z~pełnej funkcjonalności projektu, jest obecność modułu Bluetooth w~urządzeniu mobilnym. Bez jego obecności niemożliwe staje się przesłanie danych do mikrokontrolera, a~zarazem wyświetlenie ich na papierze elektronicznym.
         
-    	    \item \textbf{Mikrokontrolerem}, użytym w~projekcie jest 32-bitowy ESP32 firmy Espressif. Do wykonania projektu posłużono się modułem ESP32-DevKitC. Posiada on wbudowany port Micro-USB do zasilania i~programowania urządzenia oraz możliwość współpracy ze środowiskiem programistycznym Arduino. Moduł posiada 4MB pamięci flash\cite{flash}. Do dyspozycji użytkownika oddane jest jednak tylko 1.25MB. Oprogramowanie napisane do wykonania projektu wykorzystuje niecałe 0.9MB pamięci mikrokontrolera, co pozostawia miejsce na dalsze rozwijanie projektu. ESP32 posiada zintegrowany w~chipie moduł Bluetooth wykorzystywany do transmisji danych pomiędzy urządzeniem mobilnym a mikrokontrolerem.
+    	    \item \textbf{Mikrokontrolerem}, użytym w~projekcie jest 32-bitowy ESP32 firmy Espressif. Do wykonania projektu posłużono się modułem ESP32-DevKitC. Posiada on wbudowany port Micro-USB do zasilania i~programowania urządzenia oraz możliwość współpracy ze środowiskiem programistycznym Arduino. Moduł posiada 4MB pamięci flash\cite{flash}. Do dyspozycji użytkownika oddane jest jednak tylko 1.25MB. Oprogramowanie napisane do wykonania projektu wykorzystuje niecałe 0.9MB pamięci mikrokontrolera, co pozostawia miejsce na dalsze rozwijanie projektu. ESP32 posiada zintegrowany w~chipie moduł Bluetooth wykorzystywany do transmisji danych pomiędzy urządzeniem mobilnym a~mikrokontrolerem.
     
     
             \item \textbf{Wyświetlacz papieru elektronicznego} to 2.9-calowy ekran firmy Waveshare. W~projekcie wykorzystano do zasilania napięcie 3.3V dostępne w~module mikrokontrolera. Dane wyświetlane są w~dwóch kolorach (białym i~czarnym) z~czasem potrzebnym do pełnego odświeżenia wyświetlacza równym w~przybliżeniu 2 sekundy. Pobierane jest przy tym około 26.4mW mocy \cite{waveshare}. Każdy piksel zbudowany jest z~wielu cząstek (białych i~czarnych) osadzonych w~przezroczystym płynie. Wyświetlanie znaków odbywa się poprzez zmianę ładunku elektrycznego dla każdego piksela ekranu. Zależnie od znaku ładunku elektrycznego przyciągane są białe lub czarne cząstki, powodujące zmianę koloru piksela. E-papier do zachowania stanu pikseli nie potrzebuje zasilania. Schemat połączenia mikrokontrolera z wyświetlaczem przedstawia rysunek \ref{fig:polecznie_mikro_z_epapierem}.
@@ -288,7 +288,7 @@ Toast.makeText(this, "", Toast.LENGTH_SHORT).show();\end{lstlisting}
             Znaczenie poszczególnych wyprowadzeń jest następujące: 
             \begin{itemize}
                 \item \textbf{VCC, GND} — zasilanie wyświetlacza;
-                \item \textbf{DIN, CLK, CS} — wyprowadzenia wykorzystywane przez interfejs szeregowy SPI. CLK jest linią zegara. Przez DIN dane przesyłane są z~mikrokontrolera (mastera) do wyświetlacza (slave). CS używany jest do wyboru aktywnego urządzenia (stan niski). W~naszym projekcie podłączone mamy tylko jedno urządzenie więc jest ono zawsze aktywne;
+                \item \textbf{DIN, CLK, CS} — wyprowadzenia wykorzystywane przez interfejs szeregowy SPI. CLK jest linią zegara. Przez DIN dane przesyłane są z~mikrokontrolera (mastera) do wyświetlacza (slave). CS używany jest do wyboru aktywnego urządzenia (stan niski). W~wykonanym projekcie podłączone jest tylko jedno urządzenie więc jest ono zawsze aktywne;
                 \item \textbf{DC} — wybór przesyłania danych lub komend do wyświetlacza. Stan wysoki dla danych, stan niski dla komend;
                 \item \textbf{RST} — zewnętrzny reset, aktywowany stanem niskim;
                 \item \textbf{BUSY}  — linia wyjściowa wyświetlacza wykorzystywana do przesyłania informacji do mikrokontrolera o~stanie zajętości wyświetlacza. Przy stanie aktywnym (aktywność przy niskim stanie) wyświetlacz nie będzie reagował na komendy przesłane przez mikrokontroler; 
@@ -318,11 +318,11 @@ SerialBT.begin("ESP32test"); //nazwa urzadzenia bluetooth
 display.init();
 \end{lstlisting}
 
-    	Druga część programu jest wykonywana w~nieskończonej pętli. Schemat działania pętli przedstawiony został na rysunku \ref{fig:petlamikrokontrolera}. Tutaj tworzone są wykorzystywane w~programie zmienne wraz z~przypisanymi im wartościami startowym.
+    	Druga część programu jest wykonywana w~nieskończonej pętli. Schemat działania pętli przedstawiony został na rysunku \ref{fig:petlamikrokontrolera}.
     	
     	Głównym zadaniem pętli jest nasłuchiwanie portu szeregowego modułu Bluetooth. Otrzymane na porcie RX dane, zapisywane są do zmiennej. Dane wejściowe składają się z~parametrów służących do obsługi wyświetlania i~elementów do wyświetlenia na ekranie. Każdy element oddzielony jest od kolejnego specjalnym znakiem. Dane te przetwarzane są do postaci, którą można wysłać i~wyświetlić na wyświetlaczu papieru elektronicznego. 
     	
-    	Do rozdzielania otrzymanych danych z~portu szeregowego Bluetooth na słowa wykorzystywana jest funkcja \textit{strtok} dostępna w~języku C \cite{strtok}. \label{petladekod}Ogranicznikiem po wykryciu którego, następuje podział danych przesłanych z~urządzenia mobilnego jest \textit{';'}. Dane kopiowane są do tablicy z~wykorzystaniem funkcji \textit{strcpy} \cite{strcpy}, która jest dostępna w~języku C, w~klasie string.h. Działanie kodu przedstawiono w algorytmie \ref{lst:loop}.
+    	Do rozdzielania otrzymanych danych z~portu szeregowego Bluetooth na słowa wykorzystywana jest funkcja \textit{strtok} dostępna w~języku C \cite{strtok}. \label{petladekod}Ogranicznikiem po wykryciu którego, następuje podział danych przesłanych z~urządzenia mobilnego jest~\textit{';'}. Dane kopiowane są do tablicy z~wykorzystaniem funkcji \textit{strcpy} \cite{strcpy}, która jest dostępna w~języku C, w~klasie string.h. Działanie kodu przedstawiono w algorytmie \ref{lst:loop}.
     \begin{lstlisting}[language=C++, label={lst:petlaprzepisujaca}, caption=Działanie pętli przepisującej otrzymane dane do tablicy, label={lst:loop}]
 char *ptr = strtok(input, ";");
 while (ptr != NULL) {
@@ -404,9 +404,9 @@ while (ptr != NULL) {
                 \end{minipage}%
     	   \end{figure}
     	   Zaimplementowane metody usuwania (rysunek \ref{fig:datadelete}) rekordu i~edycji danych (rysunek \ref{fig:datalist}) dostępne są po przesunięciu wpisu. W~trakcie przesuwania rekordu prezentowane jest graficzne przedstawienie akcji, która zostanie wykonana. Przesunięcie w~lewo skutkuje usunięciem wpisu z~bazy danych. Tło pod wierszem zmienia kolor na czerwony i~wyświetlana jest ikona kosza. 
-    	   Po przesunięciu w~prawo ukaże się nam ikona edycji danych i~zielone tło. Po pełnym przesunięciu w~prawo przechodzimy do aktywności \textit{Data control}, gdzie pola edycyjne uzupełnione są danymi przesuniętego rekordu. Zgodnie z~danymi w~bazie danych dla konkretnego wpisu wybierany jest szablon i~uzupełniane zostaje pole wyświetlające identyfikator rekordu. Odblokowana zostaje funkcjonalność edycji danych.
+    	   Po~przesunięciu w~prawo ukaże się nam ikona edycji danych i~zielone tło. Wykonując pełne przesunięcie w~prawo użytkownik przeniesiony zostaje do aktywności \textit{Data control}, gdzie pola edycyjne uzupełnione są danymi przesuniętego rekordu. Zgodnie z~danymi w~bazie danych dla konkretnego wpisu wybierany jest szablon i~uzupełniane zostaje pole wyświetlające identyfikator rekordu. Odblokowana zostaje funkcjonalność edycji danych.
     	   
-    	   \item \textbf{Layout control} — aktywność ta wykorzystywana jest do tworzenia i~edycji wzorców układów wyświetlania danych. Pokazana jest na rysunku \ref{fig:layoutControl}. Umieszczone są tu przyciski opcji wyboru orientacji — jednocześnie może być aktywny tylko jeden z~nich. Znajduje się tu również pole edycji nazwy szablonu oraz pola służące do wyboru współrzędnych miejsca, w~których mają zostać wyświetlone informacje. Każda z~możliwych do wyświetlenia danych (imię i~nazwisko, nazwa firmy, adres, email i~numer telefonu) posiada swoje pola edycji współrzędnych. Dla każdej informacji jest również dostępny przełącznik wyboru rozmiaru czcionki. Przełącznik nieaktywny oznacza wybór mniejszej, 9 punktowej, czcionki. Aktywny przełącznik oznacza większa czcionkę, 12 punktową. Z~dostępnego menu możliwe jest przejście do listy dostępnych szablonów. 
+    	   \item \textbf{Layout control} — aktywność ta wykorzystywana jest do tworzenia i~edycji wzorców układów wyświetlania danych. Pokazana jest na rysunku \ref{fig:layoutControl}. Umieszczone są tu przyciski opcji wyboru orientacji — jednocześnie może być aktywny tylko jeden z~nich. Znajduje się tu również pole edycji nazwy szablonu oraz pola służące do wyboru współrzędnych miejsca, w~których mają zostać wyświetlone informacje. Każda z~możliwych do wyświetlenia danych (imię i~nazwisko, nazwa firmy, adres, email i~numer telefonu) posiada swoje pola edycji współrzędnych. Dla każdej informacji jest również dostępny przełącznik wyboru rozmiaru czcionki. Przełącznik nieaktywny oznacza wybór mniejszej, 9~punktowej, czcionki. Aktywny przełącznik oznacza większa czcionkę, 12~punktową. Z~dostępnego menu możliwe jest przejście do listy dostępnych szablonów. 
     	   \begin{figure}[H]
     	        \centering
     	        \includegraphics[width=4.5cm]{images/view_layoutEdit.jpg}
@@ -445,7 +445,7 @@ while (ptr != NULL) {
         
         \begin{figure}[H]
     	        \centering
-    			\includegraphics[width=13cm]{images/rys_11baza.png}
+    			\includegraphics[width=12cm]{images/rys_11baza.png}
     			\caption{Diagram związków encji bazy danych}
                 \label{fig:database}
     	\end{figure}
@@ -476,7 +476,7 @@ gdzie:  O~- orientacja
     	Transmisja danych możliwa jest tylko w~wypadku, gdy gniazdo Bluetooth jest połączone z~urządzeniem docelowym.
 	
     	\subsubsection{Konstruowanie szablonu}
-    	Przed rozpoczęciem konstrukcji szablonu należy posiadać wiedzę na temat wykorzystanej w~projekcie czcionki i~rozmiarów pojedynczego znaku, aby uniknąć tworzenia układów, w~których wyświetlane dane nakładają się na siebie. W~projekcie wykorzystane są dwie czcionki FreeMono9pt7b i~FreeMono12pt7b. W~przypadku mniejszej czcionki przestrzeń potrzebna do wyświetlenia znaku wynosi 11x18 pikseli. Większa z~nich ma wymiary 14x24 pikseli dla pojedynczego znaku.
+    	Przed rozpoczęciem konstrukcji szablonu należy posiadać wiedzę na temat wykorzystanej w~projekcie czcionki i~rozmiarów pojedynczego znaku, aby uniknąć tworzenia układów, w~których wyświetlane dane nakładają się na siebie. W~projekcie wykorzystane są dwie czcionki FreeMono9pt7b i~FreeMono12pt7b. W~przypadku mniejszej czcionki przestrzeń potrzebna do wyświetlenia znaku wynosi 11x18 pikseli. Większa z~nich ma wymiary 14x24 pikseli dla pojedynczego znaku. Przykładowe znaki i ich wielkości przedstawione zostały na rysunku \ref{fig:font}.
     	\begin{figure}[H]
     	        \centering
     			\includegraphics[width=8cm]{images/rozmiarczcionek.png}
@@ -488,7 +488,7 @@ gdzie:  O~- orientacja
     	
     	Wartości X i~Y oznaczają lewy dolny róg pierwszego z~wyświetlanych znaków. W~płaszczyźnie Y, chcąc wyświetlać różne dane poniżej siebie powinny być one oddalone od siebie o co najmniej ilość pikseli równą wysokości jednego znaku.
     	
-    	W płaszczyźnie X trzeba również zwrócić uwagę na ilość znaków, które chcemy wyświetlić dla danej informacji. Kolejna informacja znajdująca się w tej samej linii powinna być oddalona o~przynajmniej szerokość jednego znaku.
+    	W płaszczyźnie X trzeba również zwrócić uwagę na ilość znaków, które mąją zostać wyświetlone dla danej informacji. Kolejna informacja znajdująca się w tej samej linii powinna być oddalona o~przynajmniej szerokość jednego znaku.
     	
     	Na rysunku \ref{fig:sampleLayout} przedstawiony został ekran wyświetlacza z~wyświetlonymi przykładowymi danymi. Naniesione na niego zostały wartości dla wybranego szablonu. 'Imię Nazwisko' oraz  'Firma' wyświetlane są z~użyciem 12 punktowej czcionki. Zostały oddalone od siebie o~24 punkty w~celu zachowania przejrzystości tekstu. 'Adres', 'Email' i~'numer telefonu' wyświetlane są 9 punktową czcionką. Odległość pomiędzy nimi wynosi 18 punktów. 
     	\begin{figure}[H]
@@ -509,7 +509,7 @@ gdzie:  O~- orientacja
     	\end{figure}
     	Przed nawiązaniem komunikacji sprawdzane jest czy moduł Bluetooth jest obecny w~urządzeniu mobilnym. W~przypadku gdy urządzenie mobilne nie posiada adaptera Bluetooth, aplikacja blokuje większość funkcji, pozostawiając jedynie możliwość przeglądania i~dodawania nowych szablonów danych. 
     	
-    	Po pozytywnym stwierdzeniu obecności modułu sprawdzamy czy jest on włączony. W~przypadku gdy Bluetooth jest wyłączony, następuje wyświetlenie prośby o~jego włączenie. Przy włączonym module pobierana jest lista sparowanych z~urządzeniem mobilnym urządzeń Bluetooth. Wykorzystano do tego metodę \textit{getBondedDevices}\cite{bonded} dostępną w~klasie \textit{BluetoothAdapter}. Metoda ta zwraca zbiór obiektów sparowanych z~lokalnym dla aplikacji adapterem Bluetooth. Po wybraniu urządzenia pobierany jest jego adres BD\_ADDR i~nawiązywana jest próba połączenia. Sprawdzana jest dostępność urządzenia, następnie utworzone zostaje połączenie \textit{RFCOMM} \cite{rfcomm}. Po wykonaniu poprzedzających czynności możliwe jest nawiązanie połączenia szeregowego pomiędzy urządzeniami.
+    	Po pozytywnym stwierdzeniu obecności modułu, sprawdzane jest czy jest on włączony. W~przypadku gdy Bluetooth jest wyłączony, następuje wyświetlenie prośby o~jego włączenie. Przy włączonym module pobierana jest lista sparowanych z~urządzeniem mobilnym urządzeń Bluetooth. Wykorzystano do tego metodę \textit{getBondedDevices}\cite{bonded} dostępną w~klasie \textit{BluetoothAdapter}. Metoda ta zwraca zbiór obiektów sparowanych z~lokalnym dla aplikacji adapterem Bluetooth. Po wybraniu urządzenia pobierany jest jego adres BD\_ADDR i~nawiązywana jest próba połączenia. Sprawdzana jest dostępność urządzenia, następnie utworzone zostaje połączenie \textit{RFCOMM} \cite{rfcomm}. Po wykonaniu poprzedzających czynności możliwe jest nawiązanie połączenia szeregowego pomiędzy urządzeniami.
     	
     	\subsection{Konfiguracja aplikacji}
     	Przed pierwszym uruchomieniem aplikacji należy sparować urządzenie mobilne i~elektroniczną plakietkę ze sobą za pomocą łączności Bluetooth. Po upewnieniu się, że łączność Bluetooth w~naszym urządzeniu mobilnym jest włączona, można przejść do ustawień, gdzie należy znaleźć stronę z~ustawieniami połączeń Bluetooth. Po kliknięciu przycisku wyszukiwania urządzeń, wyświetlone zostaną dostępne do połączenia urządzenia. Należy znaleźć urządzenie o~nazwie \textit{ESP32test} i~połączyć się z~nim. Połączenie nie wymaga podania hasła lub pinu. Po sparowaniu urządzeń można przejść do uruchomienia aplikacji. 
@@ -551,6 +551,7 @@ gdzie:  O~- orientacja
     	
     	Telefony posiadają bazę kontaktów, która mogłaby zostać wykorzystana do zasilenia listy danych do wyświetlenia.
 
+        \newpage
     	\section{Podsumowanie}
     	W trakcie realizacji projektu, którego celem było zbudowanie elektronicznej plakietki identyfikującej, mogącej zastąpić papierowe identyfikatory lub wizytówki, spełnione zostały przyjęte przed rozpoczęciem prac założenia.
     	
@@ -561,7 +562,7 @@ gdzie:  O~- orientacja
     	Urządzenie fizyczne jak i~aplikacja na urządzenie mobilne została przetestowana i~umożliwia niżej przedstawione funkcjonalności:
     	\begin{itemize}
     	    \item możliwość bezprzewodowego przesyłania danych z~urządzenia mobilnego na ekran papieru elektronicznego, podłączonego do mikrokontrolera;
-    	    \item edycja przechowywania danych do przesłania;
+    	    \item edycja i przechowywanie danych do przesłania;
     	    \item dodawanie, edycja i~konfiguracja szablonów według projektu i~pomysłu użytkownika.
     	\end{itemize}
     	
